@@ -70,6 +70,7 @@ group :development, :test do
 
   gem "shoulda-matchers", "~> 5.0"
   gem "faker"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -88,7 +89,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "postmark-rails"
 gem "ruby_llm"
 gem "sentry-ruby"
 gem "sentry-rails"
