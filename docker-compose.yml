@@ -1,0 +1,21 @@
+services:
+  # Production-like container for local testing
+  # For actual production deployment, use Kamal (see config/deploy.yml)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RUBY_VERSION: 3.4.8
+        NODE_VERSION: 22.18.0
+    ports:
+      - "3000:80"
+    environment:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=this_is_a_dummy_secret_key_base_for_docker_testing_only_do_not_use_in_real_production
+    volumes:
+      - rails_storage:/rails/storage
+    restart: unless-stopped
+
+volumes:
+  rails_storage:
