@@ -3,6 +3,10 @@
 class User < ApplicationRecord
   has_secure_password
 
+  def super_admin?
+    super_admin
+  end
+
   generates_token_for :email_verification, expires_in: 2.days do
     email
   end

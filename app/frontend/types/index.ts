@@ -24,6 +24,7 @@ export interface FlashData {
 
 export interface SharedData {
   auth: Auth
+  [key: string]: unknown
 }
 
 export interface User {
@@ -32,6 +33,7 @@ export interface User {
   email: string
   avatar?: string
   verified: boolean
+  super_admin: boolean
   created_at: string
   updated_at: string
   [key: string]: unknown // This allows for additional properties...

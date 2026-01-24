@@ -1,5 +1,5 @@
-import { Link } from "@inertiajs/react"
-import { BookOpen, Folder, LayoutGrid } from "lucide-react"
+import { Link, usePage } from "@inertiajs/react"
+import { BookOpen, FileText, Folder, LayoutGrid } from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -13,8 +13,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboardPath } from "@/routes"
-import type { NavItem } from "@/types"
+import { dashboardPath, dashboardProjectMdPath } from "@/routes"
+import type { NavItem, SharedData } from "@/types"
 
 import AppLogo from "./app-logo"
 
@@ -26,7 +26,12 @@ const mainNavItems: NavItem[] = [
   },
 ]
 
-const footerNavItems: NavItem[] = [
+const superAdminFooterNavItems: NavItem[] = [
+  {
+    title: "PROJECT.md Generator",
+    href: dashboardProjectMdPath(),
+    icon: FileText,
+  },
   {
     title: "Repository",
     href: "https://github.com/inertia-rails/react-starter-kit",
@@ -40,6 +45,9 @@ const footerNavItems: NavItem[] = [
 ]
 
 export function AppSidebar() {
+  const { auth } = usePage<SharedData>().props
+  const isSuperAdmin = auth.user?.super_admin
+
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
@@ -59,7 +67,7 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <NavFooter items={footerNavItems} className="mt-auto" />
+        {isSuperAdmin && <NavFooter items={superAdminFooterNavItems} className="mt-auto" />}
         <NavUser />
       </SidebarFooter>
     </Sidebar>

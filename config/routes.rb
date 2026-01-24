@@ -16,6 +16,11 @@ Rails.application.routes.draw do
 
   get :dashboard, to: "dashboard#index"
 
+  namespace :dashboard do
+    get "project_md", to: "project_md#index", as: :project_md
+    post "project_md", to: "project_md#create"
+  end
+
   namespace :settings do
     resource :profile, only: [:show, :update]
     resource :password, only: [:show, :update]
