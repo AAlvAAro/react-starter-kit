@@ -45,14 +45,14 @@ interface CatalogProps {
 
 export default function Catalog({ products, categories }: CatalogProps) {
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedCategory, setSelectedCategory] = useState(t("catalog.all"))
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.sku.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesCategory =
-      selectedCategory === "All" || product.category === selectedCategory
+      selectedCategory === t("catalog.all") || product.category === selectedCategory
     return matchesSearch && matchesCategory
   })
 
@@ -97,7 +97,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-[180px]">
                 <Filter className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Category" />
+                <SelectValue placeholder={t("catalog.category")} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
@@ -145,7 +145,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Stock: {product.stock} units
+                    {t("catalog.stock")}: {product.stock} {t("catalog.units")}
                   </p>
                 </div>
 
@@ -164,7 +164,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
                     <DropdownMenuItem asChild>
                       <Link href={`/catalog/${product.id}/edit`}>
                         <Pencil className="w-4 h-4 mr-2" />
-                        Edit
+                        {t("catalog.edit")}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
@@ -172,7 +172,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
                       onClick={() => router.delete(`/catalog/${product.id}`)}
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      {t("catalog.delete")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -187,17 +187,17 @@ export default function Catalog({ products, categories }: CatalogProps) {
             <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-4">
               <BookOpen className="w-6 h-6 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold mb-1">No products found</h3>
+            <h3 className="font-semibold mb-1">{t("catalog.no_products")}</h3>
             <p className="text-muted-foreground text-sm max-w-sm">
-              {searchQuery || selectedCategory !== "All"
-                ? "Try adjusting your search or filter criteria."
-                : "Get started by adding your first product to the catalog."}
+              {searchQuery || selectedCategory !== t("catalog.all")
+                ? t("catalog.no_products_search")
+                : t("catalog.no_products_hint")}
             </p>
-            {!searchQuery && selectedCategory === "All" && (
+            {!searchQuery && selectedCategory === t("catalog.all") && (
               <Button className="mt-4" asChild>
                 <Link href="/catalog/new">
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Product
+                  {t("catalog.add_product")}
                 </Link>
               </Button>
             )}

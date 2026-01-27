@@ -12,7 +12,7 @@ RSpec.describe Customer, type: :model do
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_uniqueness_of(:email).scoped_to(:user_id) }
+    it { is_expected.to validate_uniqueness_of(:email).scoped_to(:user_id).ignoring_case_sensitivity }
 
     it "validates email format" do
       customer = build(:customer, email: "invalid-email")

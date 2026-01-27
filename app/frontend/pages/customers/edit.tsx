@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { t } from "@/lib/i18n"
 
 interface Customer {
   id: number
@@ -33,7 +34,7 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
 
   return (
     <DashboardLayout>
-      <Head title={`Edit ${customer.name}`} />
+      <Head title={`${t("customers.edit")} ${customer.name}`} />
 
       <div className="max-w-2xl">
         {/* Header */}
@@ -46,9 +47,9 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold">Edit Customer</h1>
+            <h1 className="text-2xl font-semibold">{t("customers.edit_customer_title")}</h1>
             <p className="text-muted-foreground text-sm">
-              Update customer details for {customer.name}
+              {t("customers.edit_customer_subtitle")}
             </p>
           </div>
         </div>
@@ -57,12 +58,12 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="stat-card space-y-6">
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t("customers.name")}</Label>
               <Input
                 id="name"
                 value={data.name}
                 onChange={(e) => setData("name", e.target.value)}
-                placeholder="Enter customer name"
+                placeholder={t("customers.name_placeholder")}
                 required
               />
               {errors.name && (
@@ -71,13 +72,13 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("customers.email")}</Label>
               <Input
                 id="email"
                 type="email"
                 value={data.email}
                 onChange={(e) => setData("email", e.target.value)}
-                placeholder="customer@example.com"
+                placeholder={t("customers.email_placeholder")}
                 required
               />
               {errors.email && (
@@ -86,13 +87,13 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="phone">Phone (optional)</Label>
+              <Label htmlFor="phone">{t("customers.phone_optional")}</Label>
               <Input
                 id="phone"
                 type="tel"
                 value={data.phone}
                 onChange={(e) => setData("phone", e.target.value)}
-                placeholder="+1 (555) 123-4567"
+                placeholder={t("customers.phone_placeholder")}
               />
               {errors.phone && (
                 <p className="text-sm text-destructive">{errors.phone}</p>
@@ -100,12 +101,12 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="notes">Notes (optional)</Label>
+              <Label htmlFor="notes">{t("customers.notes_optional")}</Label>
               <Textarea
                 id="notes"
                 value={data.notes}
                 onChange={(e) => setData("notes", e.target.value)}
-                placeholder="Add any notes about this customer"
+                placeholder={t("customers.notes_placeholder")}
                 rows={4}
               />
             </div>
@@ -114,14 +115,14 @@ export default function EditCustomer({ customer }: EditCustomerProps) {
           <div className="flex items-center gap-4">
             <Button type="submit" disabled={processing}>
               <Save className="w-4 h-4 mr-2" />
-              Save Changes
+              {t("customers.save_changes")}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => router.visit("/customers")}
             >
-              Cancel
+              {t("customers.cancel")}
             </Button>
           </div>
         </form>

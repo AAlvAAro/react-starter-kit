@@ -7,6 +7,7 @@ import {
 } from "lucide-react"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { Skeleton } from "@/components/ui/skeleton"
+import { t } from "@/lib/i18n"
 
 interface InsightsProps {
   stats?: {
@@ -27,27 +28,27 @@ interface InsightsProps {
   }>
 }
 
-const defaultStats = [
+const getDefaultStats = () => [
   {
-    title: "Total Revenue",
+    title: t("insights.total_revenue"),
     value: "$12,450",
     change: "+15%",
     icon: DollarSign,
   },
   {
-    title: "Total Orders",
+    title: t("insights.total_orders"),
     value: "256",
     change: "+8%",
     icon: ShoppingCart,
   },
   {
-    title: "Total Customers",
+    title: t("insights.total_customers"),
     value: "1,024",
     change: "+12%",
     icon: Users,
   },
   {
-    title: "Conversion Rate",
+    title: t("insights.conversion_rate"),
     value: "3.2%",
     change: "+0.5%",
     icon: TrendingUp,
@@ -56,7 +57,7 @@ const defaultStats = [
 
 export default function Insights({ stats, topProducts }: InsightsProps) {
   // In real implementation, use props from Rails controller
-  const displayStats = defaultStats
+  const displayStats = getDefaultStats()
 
   return (
     <DashboardLayout>
@@ -67,9 +68,9 @@ export default function Insights({ stats, topProducts }: InsightsProps) {
             <BarChart3 className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold">Insights</h1>
+            <h1 className="text-2xl font-semibold">{t("insights.title")}</h1>
             <p className="text-muted-foreground text-sm">
-              Analytics and performance metrics
+              {t("insights.subtitle")}
             </p>
           </div>
         </div>
@@ -99,12 +100,12 @@ export default function Insights({ stats, topProducts }: InsightsProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Revenue chart placeholder */}
           <div className="stat-card">
-            <h3 className="font-semibold mb-4">Revenue Over Time</h3>
+            <h3 className="font-semibold mb-4">{t("insights.revenue_over_time")}</h3>
             <div className="h-64 flex items-center justify-center bg-muted/50 rounded-lg">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Chart placeholder
+                  {t("insights.chart_placeholder")}
                 </p>
               </div>
             </div>
@@ -112,12 +113,12 @@ export default function Insights({ stats, topProducts }: InsightsProps) {
 
           {/* Orders chart placeholder */}
           <div className="stat-card">
-            <h3 className="font-semibold mb-4">Orders by Status</h3>
+            <h3 className="font-semibold mb-4">{t("insights.orders_by_status")}</h3>
             <div className="h-64 flex items-center justify-center bg-muted/50 rounded-lg">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Chart placeholder
+                  {t("insights.chart_placeholder")}
                 </p>
               </div>
             </div>
@@ -126,7 +127,7 @@ export default function Insights({ stats, topProducts }: InsightsProps) {
 
         {/* Top products */}
         <div className="stat-card">
-          <h3 className="font-semibold mb-4">Top Selling Products</h3>
+          <h3 className="font-semibold mb-4">{t("insights.top_selling_products")}</h3>
           <div className="space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <div

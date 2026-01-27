@@ -21,7 +21,7 @@ RSpec.describe "Settings::Emails", type: :request do
       it "updates the email and redirects to the root url" do
         patch settings_email_url, params: {email: "new_email@hey.com", password_challenge: "Secret1*3*5*"}
         expect(response).to redirect_to(settings_email_url)
-        expect(flash[:notice]).to eq("Your email has been changed")
+        expect(flash[:notice]).to eq("Tu correo ha sido cambiado")
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe "Settings::Emails", type: :request do
       it "does not update the email and returns unprocessable entity" do
         patch settings_email_url, params: {email: "new_email@hey.com", password_challenge: "SecretWrong1*3"}
         expect(response).to redirect_to(settings_email_url)
-        expect(session[:inertia_errors]).to eq(password_challenge: ["is invalid"])
+        expect(session[:inertia_errors]).to eq(password_challenge: ["no es válido"])
       end
     end
   end

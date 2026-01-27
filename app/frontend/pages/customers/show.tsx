@@ -3,6 +3,7 @@ import { ArrowLeft, Pencil, Trash2, User, Mail, Phone } from "lucide-react"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { t } from "@/lib/i18n"
 
 interface Customer {
   id: number
@@ -30,7 +31,7 @@ function getInitials(name: string): string {
 
 export default function ShowCustomer({ customer }: ShowCustomerProps) {
   const handleDelete = () => {
-    if (confirm(`Are you sure you want to delete ${customer.name}?`)) {
+    if (confirm(t("customers.delete_confirm", { name: customer.name }))) {
       router.delete(`/customers/${customer.id}`)
     }
   }
@@ -64,12 +65,12 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
             <Button variant="outline" asChild>
               <Link href={`/customers/${customer.id}/edit`}>
                 <Pencil className="w-4 h-4 mr-2" />
-                Edit
+                {t("customers.edit")}
               </Link>
             </Button>
             <Button variant="destructive" onClick={handleDelete}>
               <Trash2 className="w-4 h-4 mr-2" />
-              Delete
+              {t("customers.delete")}
             </Button>
           </div>
         </div>
@@ -78,14 +79,14 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Contact Info */}
           <div className="stat-card">
-            <h3 className="font-semibold mb-4">Contact Information</h3>
+            <h3 className="font-semibold mb-4">{t("customers.contact_information")}</h3>
             <dl className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center">
                   <User className="w-4 h-4 text-muted-foreground" />
                 </div>
                 <div>
-                  <dt className="text-sm text-muted-foreground">Name</dt>
+                  <dt className="text-sm text-muted-foreground">{t("customers.name")}</dt>
                   <dd className="font-medium">{customer.name}</dd>
                 </div>
               </div>
@@ -94,7 +95,7 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
                   <Mail className="w-4 h-4 text-muted-foreground" />
                 </div>
                 <div>
-                  <dt className="text-sm text-muted-foreground">Email</dt>
+                  <dt className="text-sm text-muted-foreground">{t("customers.email")}</dt>
                   <dd className="font-medium">{customer.email}</dd>
                 </div>
               </div>
@@ -104,7 +105,7 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
                     <Phone className="w-4 h-4 text-muted-foreground" />
                   </div>
                   <div>
-                    <dt className="text-sm text-muted-foreground">Phone</dt>
+                    <dt className="text-sm text-muted-foreground">{t("customers.phone")}</dt>
                     <dd className="font-medium">{customer.phone}</dd>
                   </div>
                 </div>
@@ -114,17 +115,17 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
 
           {/* Stats */}
           <div className="stat-card">
-            <h3 className="font-semibold mb-4">Customer Stats</h3>
+            <h3 className="font-semibold mb-4">{t("customers.customer_stats")}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-muted/50 rounded-lg p-4">
                 <p className="text-2xl font-bold">{customer.orders_count}</p>
-                <p className="text-sm text-muted-foreground">Total Orders</p>
+                <p className="text-sm text-muted-foreground">{t("customers.total_orders")}</p>
               </div>
               <div className="bg-muted/50 rounded-lg p-4">
                 <p className="text-2xl font-bold">
                   ${customer.total_spent.toFixed(2)}
                 </p>
-                <p className="text-sm text-muted-foreground">Total Spent</p>
+                <p className="text-sm text-muted-foreground">{t("customers.total_spent")}</p>
               </div>
             </div>
           </div>
@@ -132,7 +133,7 @@ export default function ShowCustomer({ customer }: ShowCustomerProps) {
           {/* Notes */}
           {customer.notes && (
             <div className="stat-card lg:col-span-2">
-              <h3 className="font-semibold mb-2">Notes</h3>
+              <h3 className="font-semibold mb-2">{t("customers.notes")}</h3>
               <p className="text-muted-foreground whitespace-pre-wrap">
                 {customer.notes}
               </p>

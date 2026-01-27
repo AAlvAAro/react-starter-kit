@@ -29,7 +29,7 @@ RSpec.describe "Sessions", type: :request do
       it "redirects to the sign in url with an alert" do
         post sign_in_url, params: {email: user.email, password: "SecretWrong1*3"}
         expect(response).to redirect_to(sign_in_url)
-        expect(flash[:alert]).to eq("That email or password is incorrect")
+        expect(flash[:alert]).to eq("Ese correo o contraseña es incorrecto")
 
         get dashboard_url
         expect(response).to redirect_to(sign_in_url)

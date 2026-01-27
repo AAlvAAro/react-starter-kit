@@ -21,7 +21,7 @@ RSpec.describe "Settings::Passwords", type: :request do
       it "updates the password and redirects to the dashboard url" do
         patch settings_password_url, params: {password_challenge: "Secret1*3*5*", password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*"}
         expect(response).to redirect_to(settings_password_path)
-        expect(flash[:notice]).to eq("Your password has been changed")
+        expect(flash[:notice]).to eq("Tu contraseña ha sido cambiada")
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe "Settings::Passwords", type: :request do
         patch settings_password_url, params: {password_challenge: "SecretWrong1*3", password: "Secret6*4*2*", password_confirmation: "Secret6*4*2*"}
         expect(response).to redirect_to(settings_password_path)
         expect(session[:inertia_errors]).to eq(
-          password_challenge: ["is invalid"],
+          password_challenge: ["no es válido"],
         )
       end
     end

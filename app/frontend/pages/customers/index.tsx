@@ -100,19 +100,19 @@ export default function Customers({ customers }: CustomersProps) {
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
-                    Customer
+                    {t("customers.customer")}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
-                    Email
+                    {t("customers.email")}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
-                    Orders
+                    {t("customers.orders")}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
-                    Total Spent
+                    {t("customers.total_spent")}
                   </th>
                   <th className="text-right py-3 px-4 text-sm font-medium text-muted-foreground">
-                    Actions
+                    {t("customers.actions")}
                   </th>
                 </tr>
               </thead>
@@ -155,7 +155,7 @@ export default function Customers({ customers }: CustomersProps) {
                           <DropdownMenuItem asChild>
                             <Link href={`/customers/${customer.id}/edit`}>
                               <Pencil className="w-4 h-4 mr-2" />
-                              Edit
+                              {t("customers.edit")}
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem
@@ -166,7 +166,7 @@ export default function Customers({ customers }: CustomersProps) {
                             }}
                           >
                             <Trash2 className="w-4 h-4 mr-2" />
-                            Delete
+                            {t("customers.delete")}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -184,17 +184,17 @@ export default function Customers({ customers }: CustomersProps) {
             <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold mb-1">No customers found</h3>
+            <h3 className="font-semibold mb-1">{t("customers.no_customers")}</h3>
             <p className="text-muted-foreground text-sm max-w-sm">
               {searchQuery
-                ? "Try adjusting your search criteria."
-                : "Get started by adding your first customer."}
+                ? t("customers.no_customers_search")
+                : t("customers.no_customers_hint")}
             </p>
             {!searchQuery && (
               <Button className="mt-4" asChild>
                 <Link href="/customers/new">
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Customer
+                  {t("customers.add_customer")}
                 </Link>
               </Button>
             )}
