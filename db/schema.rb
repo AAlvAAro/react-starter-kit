@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_24_103940) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_27_091035) do
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "image"
+    t.string "name"
+    t.decimal "price", precision: 10, scale: 2
+    t.string "sku"
+    t.integer "stock"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -31,5 +55,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_103940) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "categories", "users"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "users"
   add_foreign_key "sessions", "users"
 end
