@@ -4,7 +4,6 @@ import {
   Package,
   LayoutDashboard,
   BookOpen,
-  ShoppingBag,
   ClipboardList,
   Users,
   BarChart3,
@@ -37,7 +36,6 @@ interface DashboardLayoutProps {
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
   { icon: BookOpen, label: "Catalog", href: "/catalog" },
-  { icon: ShoppingBag, label: "Products", href: "/products" },
   { icon: ClipboardList, label: "Orders", href: "/orders" },
   { icon: Users, label: "Customers", href: "/customers" },
   { icon: BarChart3, label: "Insights", href: "/insights" },

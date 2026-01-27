@@ -193,9 +193,11 @@ export default function Catalog({ products, categories }: CatalogProps) {
                 : "Get started by adding your first product to the catalog."}
             </p>
             {!searchQuery && selectedCategory === "All" && (
-              <Button className="mt-4">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Product
+              <Button className="mt-4" asChild>
+                <Link href="/catalog/new">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Product
+                </Link>
               </Button>
             )}
           </div>
