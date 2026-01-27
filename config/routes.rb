@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get :dashboard, to: "dashboard#index"
   resources :catalog
   resources :customers
+  resources :orders
 
   namespace :dashboard do
     get "project_md", to: "project_md#index", as: :project_md
