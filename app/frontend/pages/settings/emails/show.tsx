@@ -6,24 +6,16 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { identityEmailVerificationPath, settingsEmailPath } from "@/routes"
-import type { BreadcrumbItem } from "@/types"
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Email settings",
-    href: settingsEmailPath(),
-  },
-]
 
 export default function Email() {
   const { auth } = usePage().props
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title={breadcrumbs[breadcrumbs.length - 1].title} />
+    <DashboardLayout>
+      <Head title="Email settings" />
 
       <SettingsLayout>
         <div className="space-y-6">
@@ -110,6 +102,6 @@ export default function Email() {
           </Form>
         </div>
       </SettingsLayout>
-    </AppLayout>
+    </DashboardLayout>
   )
 }

@@ -3,17 +3,10 @@ import { Head, Link, usePage } from "@inertiajs/react"
 import HeadingSmall from "@/components/heading-small"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
-import { sessionPath, settingsSessionsPath } from "@/routes"
-import type { BreadcrumbItem, Session } from "@/types"
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Sessions",
-    href: settingsSessionsPath(),
-  },
-]
+import { sessionPath } from "@/routes"
+import type { Session } from "@/types"
 
 interface SessionsProps {
   sessions: Session[]
@@ -23,8 +16,8 @@ export default function Sessions({ sessions }: SessionsProps) {
   const { auth } = usePage().props
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title={breadcrumbs[breadcrumbs.length - 1].title} />
+    <DashboardLayout>
+      <Head title="Sessions" />
 
       <SettingsLayout>
         <div className="space-y-6">
@@ -74,6 +67,6 @@ export default function Sessions({ sessions }: SessionsProps) {
           </div>
         </div>
       </SettingsLayout>
-    </AppLayout>
+    </DashboardLayout>
   )
 }

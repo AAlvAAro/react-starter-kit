@@ -41,6 +41,7 @@ const navItems = [
   { icon: ClipboardList, label: "Orders", href: "/orders" },
   { icon: Users, label: "Customers", href: "/customers" },
   { icon: BarChart3, label: "Insights", href: "/insights" },
+  { icon: Settings, label: "Settings", href: "/settings/profile", matchPrefix: "/settings" },
 ]
 
 const pagesItems = [
@@ -103,7 +104,9 @@ function PagesSubmenu({
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const { url, auth } = usePage<SharedData>().props
+  const page = usePage<SharedData>()
+  const { auth } = page.props
+  const url = page.url
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const user = auth?.user ?? {
@@ -157,7 +160,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="section-label">Platform</div>
           <div className="px-3 space-y-1">
             {navItems.map((item) => {
-              const isActive = url === item.href
+              const isActive = item.matchPrefix
+                ? url.startsWith(item.matchPrefix)
+                : url === item.href
               return (
                 <Link
                   key={item.href}

@@ -2,22 +2,12 @@ import { Head } from "@inertiajs/react"
 
 import AppearanceTabs from "@/components/appearance-tabs"
 import HeadingSmall from "@/components/heading-small"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
-import { settingsAppearancePath } from "@/routes"
-import type { BreadcrumbItem } from "@/types"
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Appearance settings",
-    href: settingsAppearancePath(),
-  },
-]
-
 export default function Appearance() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title={breadcrumbs[breadcrumbs.length - 1].title} />
+    <DashboardLayout>
+      <Head title="Appearance settings" />
 
       <SettingsLayout>
         <div className="space-y-6">
@@ -28,6 +18,6 @@ export default function Appearance() {
           <AppearanceTabs />
         </div>
       </SettingsLayout>
-    </AppLayout>
+    </DashboardLayout>
   )
 }

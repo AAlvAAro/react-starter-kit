@@ -6,22 +6,13 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsPasswordPath } from "@/routes"
-import type { BreadcrumbItem } from "@/types"
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Password settings",
-    href: settingsPasswordPath(),
-  },
-]
-
 export default function Password() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title={breadcrumbs[breadcrumbs.length - 1].title} />
+    <DashboardLayout>
+      <Head title="Password settings" />
 
       <SettingsLayout>
         <div className="space-y-6">
@@ -107,6 +98,6 @@ export default function Password() {
           </Form>
         </div>
       </SettingsLayout>
-    </AppLayout>
+    </DashboardLayout>
   )
 }
