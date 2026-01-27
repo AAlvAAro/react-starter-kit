@@ -4,6 +4,7 @@ import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
 import { initializeTheme } from "@/hooks/use-appearance"
+import { setLocale } from "@/lib/i18n"
 import PersistentLayout from "@/layouts/persistent-layout"
 
 const appName = import.meta.env.VITE_APP_NAME ?? "React Starter Kit"
@@ -36,6 +37,12 @@ void createInertiaApp({
   },
 
   setup({ el, App, props }) {
+    // Initialize locale from Rails
+    const initialProps = props.initialPage.props as { locale?: string }
+    if (initialProps.locale) {
+      setLocale(initialProps.locale)
+    }
+
     // Uncomment the following to enable SSR hydration:
     // if (el.hasChildNodes()) {
     //   hydrateRoot(el, <App {...props} />)

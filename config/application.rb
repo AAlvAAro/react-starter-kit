@@ -38,6 +38,11 @@ module ReactStarterKit
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Internationalization
+    config.i18n.default_locale = :"es-MX"
+    config.i18n.available_locales = [:"es-MX", :"en-US"]
+    config.i18n.fallbacks = [:"en-US", :en]
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

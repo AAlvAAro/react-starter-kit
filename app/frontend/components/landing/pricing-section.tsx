@@ -2,67 +2,70 @@ import { Link } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { t } from "@/lib/i18n"
 
-const plans = [
+const getPlans = () => [
   {
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    description: "Perfect for getting started",
+    name: t("landing.pricing.free.name"),
+    price: t("landing.pricing.free.price"),
+    period: t("landing.pricing.free.period"),
+    description: t("landing.pricing.free.desc"),
     features: [
-      "Up to 15 products",
-      "Shareable catalog link",
-      "Basic WhatsApp link",
-      "Business profile",
-      "Basic analytics",
+      t("landing.pricing.free.f1"),
+      t("landing.pricing.free.f2"),
+      t("landing.pricing.free.f3"),
+      t("landing.pricing.free.f4"),
+      t("landing.pricing.free.f5"),
     ],
-    cta: "Get started free",
+    cta: t("landing.pricing.free.cta"),
     highlighted: false,
   },
   {
-    name: "Pro",
-    price: "$9",
-    period: "per month",
-    description: "For growing businesses",
+    name: t("landing.pricing.pro.name"),
+    price: t("landing.pricing.pro.price"),
+    period: t("landing.pricing.pro.period"),
+    description: t("landing.pricing.pro.desc"),
     features: [
-      "Up to 50 products",
-      "WhatsApp order notifications",
-      "Meta catalog sync",
-      "Custom domain",
-      "Priority support",
-      "Advanced analytics",
+      t("landing.pricing.pro.f1"),
+      t("landing.pricing.pro.f2"),
+      t("landing.pricing.pro.f3"),
+      t("landing.pricing.pro.f4"),
+      t("landing.pricing.pro.f5"),
+      t("landing.pricing.pro.f6"),
     ],
-    cta: "Start Pro trial",
+    cta: t("landing.pricing.pro.cta"),
     highlighted: true,
   },
   {
-    name: "Business",
-    price: "$29",
-    period: "per month",
-    description: "For established stores",
+    name: t("landing.pricing.business.name"),
+    price: t("landing.pricing.business.price"),
+    period: t("landing.pricing.business.period"),
+    description: t("landing.pricing.business.desc"),
     features: [
-      "Unlimited products",
-      "Everything in Pro",
-      "TikTok catalog sync",
-      "AI insights & suggestions",
-      "Multiple catalogs",
-      "Dedicated account manager",
+      t("landing.pricing.business.f1"),
+      t("landing.pricing.business.f2"),
+      t("landing.pricing.business.f3"),
+      t("landing.pricing.business.f4"),
+      t("landing.pricing.business.f5"),
+      t("landing.pricing.business.f6"),
     ],
-    cta: "Contact sales",
+    cta: t("landing.pricing.business.cta"),
     highlighted: false,
   },
 ]
 
 export function PricingSection() {
+  const plans = getPlans()
+
   return (
     <section id="pricing" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Simple, transparent pricing
+            {t("landing.pricing.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Start free, upgrade when you're ready. No hidden fees, no surprises.
+            {t("landing.pricing.subtitle")}
           </p>
         </div>
 
@@ -79,7 +82,7 @@ export function PricingSection() {
             >
               {plan.highlighted && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-success text-success-foreground text-sm font-medium">
-                  Most popular
+                  {t("landing.pricing.most_popular")}
                 </div>
               )}
 

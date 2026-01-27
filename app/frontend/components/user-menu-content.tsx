@@ -11,6 +11,7 @@ import { UserInfo } from "@/components/user-info"
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation"
 import { sessionPath, settingsProfilePath } from "@/routes"
 import type { User } from "@/types"
+import { t } from "@/lib/i18n"
 
 interface UserMenuContentProps {
   auth: {
@@ -48,7 +49,7 @@ export function UserMenuContent({ auth }: UserMenuContentProps) {
             onClick={cleanup}
           >
             <Settings className="mr-2" />
-            Settings
+            {t("nav.settings")}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuGroup>
@@ -62,7 +63,7 @@ export function UserMenuContent({ auth }: UserMenuContentProps) {
           onClick={handleLogout}
         >
           <LogOut className="mr-2" />
-          Log out
+          {t("nav.sign_out")}
         </Link>
       </DropdownMenuItem>
     </>

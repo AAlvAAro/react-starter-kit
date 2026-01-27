@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Head, Link, router } from "@inertiajs/react"
+import { t } from "@/lib/i18n"
 import {
   BookOpen,
   Search,
@@ -57,7 +58,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
 
   return (
     <DashboardLayout>
-      <Head title="Catalog" />
+      <Head title={t("catalog.title")} />
 
       <div className="space-y-6">
         {/* Page header */}
@@ -67,16 +68,16 @@ export default function Catalog({ products, categories }: CatalogProps) {
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold">Catalog</h1>
+              <h1 className="text-2xl font-semibold">{t("catalog.title")}</h1>
               <p className="text-muted-foreground text-sm">
-                Manage your product catalog and collections
+                {t("catalog.subtitle")}
               </p>
             </div>
           </div>
           <Button asChild>
             <Link href="/catalog/new">
               <Plus className="w-4 h-4 mr-2" />
-              New Product
+              {t("catalog.new_product")}
             </Link>
           </Button>
         </div>
@@ -86,7 +87,7 @@ export default function Catalog({ products, categories }: CatalogProps) {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search products..."
+              placeholder={t("catalog.search_products")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"

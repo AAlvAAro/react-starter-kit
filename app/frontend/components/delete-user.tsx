@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { usersPath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export default function DeleteUser() {
   const passwordInput = useRef<HTMLInputElement>(null)
@@ -23,8 +24,8 @@ export default function DeleteUser() {
   return (
     <div className="space-y-6">
       <HeadingSmall
-        title="Delete account"
-        description="Delete your account and all of its resources"
+        title={t("settings.delete.title")}
+        description={t("settings.delete.subtitle")}
       />
       <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
         <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
@@ -36,7 +37,7 @@ export default function DeleteUser() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive">Delete account</Button>
+            <Button variant="destructive">{t("settings.delete.button")}</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>
@@ -87,7 +88,7 @@ export default function DeleteUser() {
                     </DialogClose>
 
                     <Button variant="destructive" disabled={processing} asChild>
-                      <button type="submit">Delete account</button>
+                      <button type="submit">{t("settings.delete.button")}</button>
                     </Button>
                   </DialogFooter>
                 </>

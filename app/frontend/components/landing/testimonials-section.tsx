@@ -1,25 +1,23 @@
 import { Star } from "lucide-react"
+import { t } from "@/lib/i18n"
 
-const testimonials = [
+const getTestimonials = () => [
   {
-    quote:
-      "CatalogoPro changed how I run my business. I used to spend hours managing orders on WhatsApp — now everything is automated.",
+    quote: t("landing.testimonials.quote1"),
     author: "María García",
     business: "Artesanías María",
     location: "Mexico City, MX",
     avatar: "MG",
   },
   {
-    quote:
-      "My customers love how easy it is to browse and order. Sales increased 40% in the first month after switching to CatalogoPro.",
+    quote: t("landing.testimonials.quote2"),
     author: "Carlos Rodríguez",
     business: "Tech Accessories CR",
     location: "Bogotá, CO",
     avatar: "CR",
   },
   {
-    quote:
-      "Finally, a tool that understands how we actually sell in Latin America. WhatsApp integration is exactly what we needed.",
+    quote: t("landing.testimonials.quote3"),
     author: "Ana Martínez",
     business: "Boutique Ana",
     location: "Buenos Aires, AR",
@@ -28,16 +26,17 @@ const testimonials = [
 ]
 
 export function TestimonialsSection() {
+  const testimonials = getTestimonials()
+
   return (
     <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Loved by small businesses
+            {t("landing.testimonials.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Join hundreds of entrepreneurs who've simplified their online sales
-            with CatalogoPro.
+            {t("landing.testimonials.subtitle")}
           </p>
         </div>
 

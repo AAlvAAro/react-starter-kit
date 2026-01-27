@@ -1,0 +1,172 @@
+en-US:
+  # Common
+  app_name: "CatalogoPro"
+
+  # Navigation
+  nav:
+    dashboard: "Dashboard"
+    catalog: "Catalog"
+    orders: "Orders"
+    customers: "Customers"
+    insights: "Insights"
+    settings: "Settings"
+    sign_out: "Sign out"
+
+  # Actions
+  actions:
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    create: "Create"
+    update: "Update"
+    search: "Search"
+    filter: "Filter"
+    add: "Add"
+    back: "Back"
+    confirm: "Confirm"
+
+  # Common labels
+  labels:
+    name: "Name"
+    email: "Email"
+    phone: "Phone"
+    description: "Description"
+    price: "Price"
+    stock: "Stock"
+    category: "Category"
+    notes: "Notes"
+    actions: "Actions"
+    created_at: "Created at"
+    updated_at: "Last updated"
+
+  # Messages
+  messages:
+    created: "%{resource} created successfully"
+    updated: "%{resource} updated successfully"
+    deleted: "%{resource} deleted successfully"
+    not_found: "%{resource} not found"
+    confirm_delete: "Are you sure you want to delete %{name}?"
+
+  # Dashboard
+  dashboard:
+    title: "Dashboard"
+    welcome: "Welcome back"
+    total_products: "Total Products"
+    orders_this_week: "Orders This Week"
+    catalog_views: "Catalog Views"
+
+  # Catalog
+  catalog:
+    title: "Catalog"
+    subtitle: "Manage your product catalog and collections"
+    new_product: "New Product"
+    add_product: "Add Product"
+    search_products: "Search products..."
+    no_products: "No products found"
+    no_products_hint: "Get started by adding your first product to the catalog."
+    product_name: "Product Name"
+    sku: "SKU"
+    stock_units: "%{count} units"
+
+  # Customers
+  customers:
+    title: "Customers"
+    subtitle: "Manage your customer relationships"
+    new_customer: "New Customer"
+    add_customer: "Add Customer"
+    search_customers: "Search customers..."
+    no_customers: "No customers found"
+    no_customers_hint: "Get started by adding your first customer."
+    orders: "Orders"
+    total_spent: "Total Spent"
+    customer_info: "Customer Information"
+    customer_stats: "Customer Stats"
+
+  # Insights
+  insights:
+    title: "Insights"
+    subtitle: "Analyze your business performance"
+    total_revenue: "Total Revenue"
+    total_orders: "Total Orders"
+    total_customers: "Total Customers"
+    conversion_rate: "Conversion Rate"
+    top_products: "Top Selling Products"
+
+  # Settings
+  settings:
+    title: "Settings"
+    profile: "Profile"
+    email: "Email"
+    password: "Password"
+    sessions: "Sessions"
+    appearance: "Appearance"
+
+  # Auth
+  auth:
+    sign_in: "Sign in"
+    sign_up: "Sign up"
+    sign_out: "Sign out"
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Confirm password"
+    forgot_password: "Forgot your password?"
+    remember_me: "Remember me"
+    no_account: "Don't have an account?"
+    have_account: "Already have an account?"
+
+  # Errors
+  errors:
+    not_found: "Page not found"
+    unauthorized: "Unauthorized"
+    forbidden: "Access denied"
+    server_error: "Server error"
+
+  # Mailer
+  mailer:
+    greeting: "Hey there,"
+    email_verification:
+      subject: "Verify your email address"
+      body: "This is to confirm that <strong class=\"text-strong\">%{email}</strong> is the email you want to use on your account. If you ever lose your password, that's where we'll email a reset link."
+      instructions: "You must click the button below to confirm that you received this email:"
+      button: "Verify Email Address"
+      ignore: "If you didn't create an account, you can safely ignore this email."
+    password_reset:
+      subject: "Reset your password"
+      body: "Can't remember your password for <strong class=\"text-strong\">%{email}</strong>? That's OK, it happens. Just click the button below to set a new one."
+      button: "Reset Password"
+      ignore: "If you did not request a password reset, you can safely ignore this email. This link expires in 20 minutes."
+
+  # ActiveRecord
+  activerecord:
+    models:
+      user: "User"
+      customer: "Customer"
+      category: "Category"
+      item: "Product"
+    attributes:
+      user:
+        name: "Name"
+        email: "Email"
+        password: "Password"
+      customer:
+        name: "Name"
+        email: "Email"
+        phone: "Phone"
+        notes: "Notes"
+      category:
+        name: "Name"
+        description: "Description"
+      item:
+        name: "Name"
+        sku: "SKU"
+        description: "Description"
+        price: "Price"
+        stock: "Stock"
+    errors:
+      messages:
+        blank: "can't be blank"
+        invalid: "is invalid"
+        taken: "has already been taken"
+        too_short: "is too short (minimum is %{count} characters)"
+        too_long: "is too long (maximum is %{count} characters)"

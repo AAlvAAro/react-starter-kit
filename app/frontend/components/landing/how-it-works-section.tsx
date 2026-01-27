@@ -1,30 +1,30 @@
 import { Package, Share2, Bell } from "lucide-react"
+import { t } from "@/lib/i18n"
 
-const steps = [
+const getSteps = () => [
   {
     number: "01",
     icon: Package,
-    title: "Create your catalog",
-    description:
-      "Add your products, prices, and photos. Organize by category. It takes just minutes to get started.",
+    title: t("landing.how.step1.title"),
+    description: t("landing.how.step1.desc"),
   },
   {
     number: "02",
     icon: Share2,
-    title: "Share your link",
-    description:
-      "Send your catalog link via WhatsApp, add it to your Instagram bio, or print a QR code for your store.",
+    title: t("landing.how.step2.title"),
+    description: t("landing.how.step2.desc"),
   },
   {
     number: "03",
     icon: Bell,
-    title: "Receive orders",
-    description:
-      "Customers browse, add to cart, and order via WhatsApp. You get notified instantly on your phone.",
+    title: t("landing.how.step3.title"),
+    description: t("landing.how.step3.desc"),
   },
 ]
 
 export function HowItWorksSection() {
+  const steps = getSteps()
+
   return (
     <section
       id="how-it-works"
@@ -33,11 +33,10 @@ export function HowItWorksSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Up and running in 3 steps
+            {t("landing.how.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            No technical skills required. If you can use WhatsApp, you can use
-            CatalogoPro.
+            {t("landing.how.subtitle")}
           </p>
         </div>
 

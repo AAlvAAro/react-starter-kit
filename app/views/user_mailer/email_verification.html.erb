@@ -1,9 +1,9 @@
-<p>Hey there,</p>
+<p><%= t('mailer.greeting') %></p>
 
-<p>This is to confirm that <strong class="text-strong"><%= @user.email %></strong> is the email you want to use on your account. If you ever lose your password, that's where we'll email a reset link.</p>
+<p><%= t('mailer.email_verification.body', email: @user.email).html_safe %></p>
 
-<p>You must click the button below to confirm that you received this email:</p>
+<p><%= t('mailer.email_verification.instructions') %></p>
 
-<p><%= link_to "Verify Email Address", identity_email_verification_url(sid: @signed_id), class: "email-button" %></p>
+<p><%= link_to t('mailer.email_verification.button'), identity_email_verification_url(sid: @signed_id), class: "email-button" %></p>
 
-<p class="text-muted">If you didn't create an account, you can safely ignore this email.</p>
+<p class="text-muted"><%= t('mailer.email_verification.ignore') %></p>

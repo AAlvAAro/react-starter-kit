@@ -1,0 +1,171 @@
+es-MX:
+  # Common
+  app_name: "CatalogoPro"
+
+  # Navigation
+  nav:
+    dashboard: "Panel"
+    catalog: "Catálogo"
+    orders: "Pedidos"
+    customers: "Clientes"
+    insights: "Estadísticas"
+    settings: "Configuración"
+    sign_out: "Cerrar sesión"
+
+  # Actions
+  actions:
+    save: "Guardar"
+    cancel: "Cancelar"
+    delete: "Eliminar"
+    edit: "Editar"
+    create: "Crear"
+    update: "Actualizar"
+    search: "Buscar"
+    filter: "Filtrar"
+    add: "Agregar"
+    back: "Volver"
+    confirm: "Confirmar"
+
+  # Common labels
+  labels:
+    name: "Nombre"
+    email: "Correo electrónico"
+    phone: "Teléfono"
+    description: "Descripción"
+    price: "Precio"
+    stock: "Inventario"
+    category: "Categoría"
+    notes: "Notas"
+    actions: "Acciones"
+    created_at: "Fecha de creación"
+    updated_at: "Última actualización"
+
+  # Messages
+  messages:
+    created: "%{resource} creado exitosamente"
+    updated: "%{resource} actualizado exitosamente"
+    deleted: "%{resource} eliminado exitosamente"
+    not_found: "%{resource} no encontrado"
+    confirm_delete: "¿Estás seguro de que deseas eliminar %{name}?"
+
+  # Dashboard
+  dashboard:
+    title: "Panel de control"
+    welcome: "Bienvenido de nuevo"
+    total_products: "Total de productos"
+    orders_this_week: "Pedidos esta semana"
+    catalog_views: "Vistas del catálogo"
+
+  # Catalog
+  catalog:
+    title: "Catálogo"
+    subtitle: "Administra tu catálogo de productos y colecciones"
+    new_product: "Nuevo producto"
+    add_product: "Agregar producto"
+    search_products: "Buscar productos..."
+    no_products: "No se encontraron productos"
+    no_products_hint: "Comienza agregando tu primer producto al catálogo."
+    product_name: "Nombre del producto"
+    sku: "SKU"
+    stock_units: "%{count} unidades"
+
+  # Customers
+  customers:
+    title: "Clientes"
+    subtitle: "Administra las relaciones con tus clientes"
+    new_customer: "Nuevo cliente"
+    add_customer: "Agregar cliente"
+    search_customers: "Buscar clientes..."
+    no_customers: "No se encontraron clientes"
+    no_customers_hint: "Comienza agregando tu primer cliente."
+    orders: "Pedidos"
+    total_spent: "Total gastado"
+    customer_info: "Información del cliente"
+    customer_stats: "Estadísticas del cliente"
+
+  # Insights
+  insights:
+    title: "Estadísticas"
+    subtitle: "Analiza el rendimiento de tu negocio"
+    total_revenue: "Ingresos totales"
+    total_orders: "Total de pedidos"
+    total_customers: "Total de clientes"
+    conversion_rate: "Tasa de conversión"
+    top_products: "Productos más vendidos"
+
+  # Settings
+  settings:
+    title: "Configuración"
+    profile: "Perfil"
+    email: "Correo electrónico"
+    password: "Contraseña"
+    sessions: "Sesiones"
+    appearance: "Apariencia"
+
+  # Auth
+  auth:
+    sign_in: "Iniciar sesión"
+    sign_up: "Registrarse"
+    sign_out: "Cerrar sesión"
+    email: "Correo electrónico"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    forgot_password: "¿Olvidaste tu contraseña?"
+    remember_me: "Recordarme"
+    no_account: "¿No tienes cuenta?"
+    have_account: "¿Ya tienes cuenta?"
+
+  # Errors
+  errors:
+    not_found: "Página no encontrada"
+    unauthorized: "No autorizado"
+    forbidden: "Acceso denegado"
+    server_error: "Error del servidor"
+
+  # Mailer
+  mailer:
+    greeting: "Hola,"
+    email_verification:
+      subject: "Verifica tu correo electrónico"
+      body: "Esto es para confirmar que <strong class=\"text-strong\">%{email}</strong> es el correo que deseas usar en tu cuenta. Si alguna vez pierdes tu contraseña, ahí es donde enviaremos el enlace de recuperación."
+      instructions: "Debes hacer clic en el botón de abajo para confirmar que recibiste este correo:"
+      button: "Verificar correo electrónico"
+      ignore: "Si no creaste una cuenta, puedes ignorar este correo de forma segura."
+    password_reset:
+      subject: "Restablecer contraseña"
+      body: "¿No recuerdas tu contraseña para <strong class=\"text-strong\">%{email}</strong>? No te preocupes, pasa. Solo haz clic en el botón de abajo para establecer una nueva."
+      button: "Restablecer contraseña"
+      ignore: "Si no solicitaste un restablecimiento de contraseña, puedes ignorar este correo de forma segura. Este enlace expira en 20 minutos."
+
+  activerecord:
+    models:
+      user: "Usuario"
+      customer: "Cliente"
+      category: "Categoría"
+      item: "Producto"
+    attributes:
+      user:
+        name: "Nombre"
+        email: "Correo electrónico"
+        password: "Contraseña"
+      customer:
+        name: "Nombre"
+        email: "Correo electrónico"
+        phone: "Teléfono"
+        notes: "Notas"
+      category:
+        name: "Nombre"
+        description: "Descripción"
+      item:
+        name: "Nombre"
+        sku: "SKU"
+        description: "Descripción"
+        price: "Precio"
+        stock: "Inventario"
+    errors:
+      messages:
+        blank: "no puede estar en blanco"
+        invalid: "no es válido"
+        taken: "ya está en uso"
+        too_short: "es demasiado corto (mínimo %{count} caracteres)"
+        too_long: "es demasiado largo (máximo %{count} caracteres)"

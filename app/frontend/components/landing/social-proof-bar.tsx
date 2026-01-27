@@ -1,11 +1,13 @@
+import { t } from "@/lib/i18n"
+
 export function SocialProofBar() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 border-y border-border bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <p className="text-center text-sm text-muted-foreground mb-8">
-          Trusted by{" "}
-          <span className="font-semibold text-foreground">500+</span> small
-          businesses across Latin America
+          {t("landing.social_proof.trusted_by")}{" "}
+          <span className="font-semibold text-foreground">500+</span>{" "}
+          {t("landing.social_proof.businesses")}
         </p>
 
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">

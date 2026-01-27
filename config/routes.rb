@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post "sign_up", to: "users#create"
 
   resources :sessions, only: [:destroy]
+  delete "sessions", to: "sessions#destroy_current", as: :destroy_current_session
   resource :users, only: [:destroy]
 
   namespace :identity do

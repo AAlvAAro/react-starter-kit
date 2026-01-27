@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { dashboardPath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export function Navbar() {
   const { auth } = usePage().props
@@ -52,19 +53,19 @@ export function Navbar() {
               onClick={() => scrollToSection("features")}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Features
+              {t("landing.nav.features")}
             </button>
             <button
               onClick={() => scrollToSection("pricing")}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Pricing
+              {t("landing.nav.pricing")}
             </button>
             <button
               onClick={() => scrollToSection("how-it-works")}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              How it works
+              {t("landing.nav.how_it_works")}
             </button>
           </div>
 
@@ -72,15 +73,15 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
               <Button asChild>
-                <Link href={dashboardPath()}>Go to Dashboard</Link>
+                <Link href={dashboardPath()}>{t("nav.dashboard")}</Link>
               </Button>
             ) : (
               <>
                 <Button variant="ghost" asChild>
-                  <Link href="/sign_in">Log in</Link>
+                  <Link href="/sign_in">{t("landing.nav.log_in")}</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/sign_up">Get started free</Link>
+                  <Link href="/sign_up">{t("landing.nav.get_started")}</Link>
                 </Button>
               </>
             )}
@@ -107,32 +108,32 @@ export function Navbar() {
                 onClick={() => scrollToSection("features")}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left px-2"
               >
-                Features
+                {t("landing.nav.features")}
               </button>
               <button
                 onClick={() => scrollToSection("pricing")}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left px-2"
               >
-                Pricing
+                {t("landing.nav.pricing")}
               </button>
               <button
                 onClick={() => scrollToSection("how-it-works")}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left px-2"
               >
-                How it works
+                {t("landing.nav.how_it_works")}
               </button>
               <div className="flex flex-col gap-2 pt-4 border-t border-border">
                 {isAuthenticated ? (
                   <Button asChild>
-                    <Link href={dashboardPath()}>Go to Dashboard</Link>
+                    <Link href={dashboardPath()}>{t("nav.dashboard")}</Link>
                   </Button>
                 ) : (
                   <>
                     <Button variant="ghost" asChild className="justify-start">
-                      <Link href="/sign_in">Log in</Link>
+                      <Link href="/sign_in">{t("landing.nav.log_in")}</Link>
                     </Button>
                     <Button asChild>
-                      <Link href="/sign_up">Get started free</Link>
+                      <Link href="/sign_up">{t("landing.nav.get_started")}</Link>
                     </Button>
                   </>
                 )}

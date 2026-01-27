@@ -5,6 +5,7 @@ import Heading from "@/components/heading"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
+import { t } from "@/lib/i18n"
 import {
   settingsAppearancePath,
   settingsEmailPath,
@@ -14,29 +15,29 @@ import {
 } from "@/routes"
 import type { NavItem } from "@/types"
 
-const sidebarNavItems: NavItem[] = [
+const getSidebarNavItems = (): NavItem[] => [
   {
-    title: "Profile",
+    title: t("settings.profile"),
     href: settingsProfilePath(),
     icon: null,
   },
   {
-    title: "Email",
+    title: t("settings.email"),
     href: settingsEmailPath(),
     icon: null,
   },
   {
-    title: "Password",
+    title: t("settings.password"),
     href: settingsPasswordPath(),
     icon: null,
   },
   {
-    title: "Sessions",
+    title: t("settings.sessions"),
     href: settingsSessionsPath(),
     icon: null,
   },
   {
-    title: "Appearance",
+    title: t("settings.appearance"),
     href: settingsAppearancePath(),
     icon: null,
   },
@@ -44,12 +45,13 @@ const sidebarNavItems: NavItem[] = [
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
   const { url } = usePage()
+  const sidebarNavItems = getSidebarNavItems()
 
   return (
     <div className="px-4 py-6">
       <Heading
-        title="Settings"
-        description="Manage your profile and account settings"
+        title={t("settings.title")}
+        description={t("settings.subtitle")}
       />
 
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">

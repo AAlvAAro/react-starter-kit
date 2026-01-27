@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react"
 import { Link, usePage } from "@inertiajs/react"
+import { t } from "@/lib/i18n"
 import {
   Package,
   LayoutDashboard,
@@ -33,13 +34,13 @@ interface DashboardLayoutProps {
   children: ReactNode
 }
 
-const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: BookOpen, label: "Catalog", href: "/catalog" },
-  { icon: ClipboardList, label: "Orders", href: "/orders" },
-  { icon: Users, label: "Customers", href: "/customers" },
-  { icon: BarChart3, label: "Insights", href: "/insights" },
-  { icon: Settings, label: "Settings", href: "/settings/profile", matchPrefix: "/settings" },
+const getNavItems = () => [
+  { icon: LayoutDashboard, label: t("nav.dashboard"), href: "/dashboard" },
+  { icon: BookOpen, label: t("nav.catalog"), href: "/catalog" },
+  { icon: ClipboardList, label: t("nav.orders"), href: "/orders" },
+  { icon: Users, label: t("nav.customers"), href: "/customers" },
+  { icon: BarChart3, label: t("nav.insights"), href: "/insights" },
+  { icon: Settings, label: t("nav.settings"), href: "/settings/profile", matchPrefix: "/settings" },
 ]
 
 const pagesItems = [
@@ -157,7 +158,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="section-label">Platform</div>
           <div className="px-3 space-y-1">
-            {navItems.map((item) => {
+            {getNavItems().map((item) => {
               const isActive = item.matchPrefix
                 ? url.startsWith(item.matchPrefix)
                 : url === item.href
@@ -232,7 +233,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <DropdownMenuItem asChild>
                 <Link href="/settings/profile" className="cursor-pointer">
                   <Settings className="w-4 h-4 mr-2" />
-                  Settings
+                  {t("nav.settings")}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -243,7 +244,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   className="w-full cursor-pointer text-destructive"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
-                  Log out
+                  {t("nav.sign_out")}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

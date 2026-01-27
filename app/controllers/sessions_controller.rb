@@ -25,6 +25,12 @@ class SessionsController < InertiaController
     redirect_to settings_sessions_path, notice: "That session has been logged out", inertia: {clear_history: true}
   end
 
+  def destroy_current
+    Current.session.destroy!
+    cookies.delete(:session_token)
+    redirect_to sign_in_path, notice: "Signed out successfully", inertia: {clear_history: true}
+  end
+
   private
 
   def set_session

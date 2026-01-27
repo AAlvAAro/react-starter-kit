@@ -7,58 +7,54 @@ import {
   LayoutDashboard,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { t } from "@/lib/i18n"
 
-const features = [
+const getFeatures = () => [
   {
     icon: Link,
-    title: "Shareable Catalog Link",
-    description:
-      "Create a beautiful product catalog and share it anywhere — WhatsApp, Instagram bio, or printed QR codes.",
+    title: t("landing.features.catalog_link.title"),
+    description: t("landing.features.catalog_link.desc"),
   },
   {
     icon: MessageCircle,
-    title: "WhatsApp Ordering",
-    description:
-      "Customers add to cart and checkout via WhatsApp. You receive orders instantly, no payment integration needed.",
+    title: t("landing.features.whatsapp.title"),
+    description: t("landing.features.whatsapp.desc"),
   },
   {
     icon: ShoppingBag,
-    title: "Meta & TikTok Sync",
-    description:
-      "Publish your catalog directly to Instagram Shop, Facebook Shop, and TikTok with one click.",
+    title: t("landing.features.meta_sync.title"),
+    description: t("landing.features.meta_sync.desc"),
   },
   {
     icon: User,
-    title: "Business Profile",
-    description:
-      "Showcase your brand with logo, description, contact info, and social links — like a digital business card.",
+    title: t("landing.features.profile.title"),
+    description: t("landing.features.profile.desc"),
   },
   {
     icon: Sparkles,
-    title: "AI Insights",
-    description:
-      "Get smart suggestions to improve your catalog, optimize pricing, and boost sales.",
-    badge: "Coming soon",
+    title: t("landing.features.insights.title"),
+    description: t("landing.features.insights.desc"),
+    badge: t("landing.features.insights.badge"),
   },
   {
     icon: LayoutDashboard,
-    title: "Simple Dashboard",
-    description:
-      "Track orders, views, and top products from one clean dashboard. No spreadsheets required.",
+    title: t("landing.features.dashboard.title"),
+    description: t("landing.features.dashboard.desc"),
   },
 ]
 
 export function FeaturesSection() {
+  const features = getFeatures()
+
   return (
     <section id="features" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Everything you need to sell online
+            {t("landing.features.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From catalog creation to order management, we've got you covered
-            with tools designed for simplicity.
+            {t("landing.features.subtitle")}
           </p>
         </div>
 

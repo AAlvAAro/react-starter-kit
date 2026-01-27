@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { t } from "@/lib/i18n"
 
 export function CTASection() {
   return (
@@ -15,15 +16,14 @@ export function CTASection() {
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
-              Ready to start selling?
+              {t("landing.cta.title")}
             </h2>
             <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-xl mx-auto">
-              Create your free catalog in less than 5 minutes. No credit card
-              required.
+              {t("landing.cta.subtitle")}
             </p>
             <Button size="lg" variant="secondary" className="text-base px-8" asChild>
               <Link href="/sign_up">
-                Get started free
+                {t("landing.cta.button")}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>

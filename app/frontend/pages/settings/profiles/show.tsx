@@ -10,19 +10,20 @@ import { Label } from "@/components/ui/label"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsProfilePath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export default function Profile() {
   const { auth } = usePage().props
 
   return (
     <DashboardLayout>
-      <Head title="Profile settings" />
+      <Head title={t("settings.profile")} />
 
       <SettingsLayout>
         <div className="space-y-6">
           <HeadingSmall
-            title="Profile information"
-            description="Update your name"
+            title={t("settings.profile.title")}
+            description={t("settings.profile.subtitle")}
           />
 
           <Form
@@ -36,7 +37,7 @@ export default function Profile() {
             {({ errors, processing, recentlySuccessful }) => (
               <>
                 <div className="grid gap-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">{t("settings.profile.name")}</Label>
 
                   <Input
                     id="name"
@@ -52,7 +53,7 @@ export default function Profile() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button disabled={processing}>Save</Button>
+                  <Button disabled={processing}>{t("settings.profile.save")}</Button>
 
                   <Transition
                     show={recentlySuccessful}

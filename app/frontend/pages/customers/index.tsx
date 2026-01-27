@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Head, Link, router } from "@inertiajs/react"
+import { t } from "@/lib/i18n"
 import {
   Users,
   Search,
@@ -55,7 +56,7 @@ export default function Customers({ customers }: CustomersProps) {
 
   return (
     <DashboardLayout>
-      <Head title="Customers" />
+      <Head title={t("customers.title")} />
 
       <div className="space-y-6">
         {/* Page header */}
@@ -65,16 +66,16 @@ export default function Customers({ customers }: CustomersProps) {
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold">Customers</h1>
+              <h1 className="text-2xl font-semibold">{t("customers.title")}</h1>
               <p className="text-muted-foreground text-sm">
-                Manage your customer relationships
+                {t("customers.subtitle")}
               </p>
             </div>
           </div>
           <Button asChild>
             <Link href="/customers/new">
               <Plus className="w-4 h-4 mr-2" />
-              New Customer
+              {t("customers.new_customer")}
             </Link>
           </Button>
         </div>
@@ -84,7 +85,7 @@ export default function Customers({ customers }: CustomersProps) {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search customers..."
+              placeholder={t("customers.search_customers")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"

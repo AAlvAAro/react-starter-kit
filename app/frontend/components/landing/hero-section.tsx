@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play } from "lucide-react"
+import { t } from "@/lib/i18n"
 
 export function HeroSection() {
   return (
@@ -11,34 +12,32 @@ export function HeroSection() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-6">
               <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
-              Now available in Mexico, Colombia & Argentina
+              {t("landing.hero.badge")}
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              Your catalog,{" "}
-              <span className="text-primary">on autopilot</span>
+              {t("landing.hero.title")}
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
-              Create a shareable product catalog in minutes. Receive orders via
-              WhatsApp. Sync to Instagram and TikTok. No coding, no complexity.
+              {t("landing.hero.subtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button size="lg" asChild className="text-base px-8">
                 <Link href="/sign_up">
-                  Create your free catalog
+                  {t("landing.hero.cta_primary")}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="text-base">
                 <Play className="w-4 h-4 mr-2" />
-                See how it works
+                {t("landing.hero.cta_secondary")}
               </Button>
             </div>
 
             <p className="text-sm text-muted-foreground mt-6">
-              Free forever for up to 15 products. No credit card required.
+              {t("landing.hero.free_note")}
             </p>
           </div>
 
