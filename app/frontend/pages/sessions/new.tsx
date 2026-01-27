@@ -8,14 +8,15 @@ import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
 import AuthLayout from "@/layouts/auth-layout"
 import { newIdentityPasswordResetPath, signInPath, signUpPath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export default function Login() {
   return (
     <AuthLayout
-      title="Log in to your account"
-      description="Enter your email and password below to log in"
+      title={t("auth.login.title")}
+      description={t("auth.login.description")}
     >
-      <Head title="Log in" />
+      <Head title={t("auth.sign_in")} />
       <Form
         method="post"
         action={signInPath()}
@@ -26,7 +27,7 @@ export default function Login() {
           <>
             <div className="grid gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email">{t("auth.login.email")}</Label>
                 <Input
                   id="email"
                   name="email"
@@ -35,20 +36,20 @@ export default function Login() {
                   autoFocus
                   tabIndex={1}
                   autoComplete="email"
-                  placeholder="email@example.com"
+                  placeholder={t("auth.login.email_placeholder")}
                 />
                 <InputError messages={errors.email} />
               </div>
 
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t("auth.login.password")}</Label>
                   <TextLink
                     href={newIdentityPasswordResetPath()}
                     className="ml-auto text-sm"
                     tabIndex={5}
                   >
-                    Forgot password?
+                    {t("auth.forgot_password")}
                   </TextLink>
                 </div>
                 <Input
@@ -58,7 +59,7 @@ export default function Login() {
                   required
                   tabIndex={2}
                   autoComplete="current-password"
-                  placeholder="Password"
+                  placeholder={t("auth.login.password_placeholder")}
                 />
                 <InputError messages={errors.password} />
               </div>
@@ -70,14 +71,14 @@ export default function Login() {
                 disabled={processing}
               >
                 {processing && <Spinner />}
-                Log in
+                {t("auth.login.button")}
               </Button>
             </div>
 
             <div className="text-muted-foreground text-center text-sm">
-              Don&apos;t have an account?{" "}
+{t("auth.no_account")}{" "}
               <TextLink href={signUpPath()} tabIndex={5}>
-                Sign up
+                {t("auth.sign_up")}
               </TextLink>
             </div>
           </>

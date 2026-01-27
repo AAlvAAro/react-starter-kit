@@ -7,9 +7,44 @@ import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { sessionPath } from "@/routes"
 import type { Session } from "@/types"
+import { t } from "@/lib/i18n"
 
 interface SessionsProps {
   sessions: Session[]
+}
+
+function parseUserAgent(userAgent: string): string {
+  // Extract device and browser info from user agent
+  let device = "Unknown Device"
+  let browser = ""
+
+  // Detect device
+  if (userAgent.includes("Macintosh")) {
+    device = "MacBook"
+  } else if (userAgent.includes("iPhone")) {
+    device = "iPhone"
+  } else if (userAgent.includes("iPad")) {
+    device = "iPad"
+  } else if (userAgent.includes("Windows")) {
+    device = "Windows PC"
+  } else if (userAgent.includes("Android")) {
+    device = "Android"
+  } else if (userAgent.includes("Linux")) {
+    device = "Linux"
+  }
+
+  // Detect browser
+  if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+    browser = "Chrome"
+  } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+    browser = "Safari"
+  } else if (userAgent.includes("Firefox")) {
+    browser = "Firefox"
+  } else if (userAgent.includes("Edg")) {
+    browser = "Edge"
+  }
+
+  return browser ? `${device} • ${browser}` : device
 }
 
 export default function Sessions({ sessions }: SessionsProps) {
@@ -17,13 +52,13 @@ export default function Sessions({ sessions }: SessionsProps) {
 
   return (
     <DashboardLayout>
-      <Head title="Sessions" />
+      <Head title={t("settings.sessions")} />
 
       <SettingsLayout>
         <div className="space-y-6">
           <HeadingSmall
-            title="Sessions"
-            description="Manage your active sessions across devices"
+            title={t("settings.sessions.title")}
+            description={t("settings.sessions.subtitle")}
           />
 
           <div className="space-y-4">
@@ -34,19 +69,17 @@ export default function Sessions({ sessions }: SessionsProps) {
               >
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                    <p className="font-medium">
-                      {session.user_agent}
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium">
+                        {parseUserAgent(session.user_agent)}
+                      </p>
                       {session.id === auth.session.id && (
-                        <Badge variant="secondary" className="ml-2">
-                          Current
+                        <Badge variant="secondary">
+                          {t("settings.sessions.current")}
                         </Badge>
                       )}
-                    </p>
+                    </div>
                     <p className="text-muted-foreground text-sm">
-                      IP: {session.ip_address}
-                    </p>
-                    <p className="text-muted-foreground text-sm">
-                      Active since:{" "}
                       {new Date(session.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -57,7 +90,7 @@ export default function Sessions({ sessions }: SessionsProps) {
                         href={sessionPath({ id: session.id })}
                         as="button"
                       >
-                        Log out
+                        {t("settings.sessions.log_out")}
                       </Link>
                     </Button>
                   )}

@@ -9,19 +9,20 @@ import { Label } from "@/components/ui/label"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { identityEmailVerificationPath, settingsEmailPath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export default function Email() {
   const { auth } = usePage().props
 
   return (
     <DashboardLayout>
-      <Head title="Email settings" />
+      <Head title={t("settings.email")} />
 
       <SettingsLayout>
         <div className="space-y-6">
           <HeadingSmall
-            title="Update email"
-            description="Update your email address and verify it"
+            title={t("settings.email.title")}
+            description={t("settings.email.subtitle")}
           />
 
           <Form
@@ -37,7 +38,7 @@ export default function Email() {
             {({ errors, processing, recentlySuccessful }) => (
               <>
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email address</Label>
+                  <Label htmlFor="email">{t("settings.email.label")}</Label>
 
                   <Input
                     id="email"
@@ -47,7 +48,7 @@ export default function Email() {
                     defaultValue={auth.user.email}
                     required
                     autoComplete="username"
-                    placeholder="Email address"
+                    placeholder={t("settings.email.placeholder")}
                   />
 
                   <InputError className="mt-2" messages={errors.email} />
@@ -56,21 +57,21 @@ export default function Email() {
                 {!auth.user.verified && (
                   <div>
                     <p className="text-muted-foreground -mt-4 text-sm">
-                      Your email address is unverified.{" "}
+                      {t("settings.email.unverified")}{" "}
                       <Link
                         href={identityEmailVerificationPath()}
                         method="post"
                         as="button"
                         className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                       >
-                        Click here to resend the verification email.
+                        {t("settings.email.resend")}
                       </Link>
                     </p>
                   </div>
                 )}
 
                 <div className="grid gap-2">
-                  <Label htmlFor="password_challenge">Current password</Label>
+                  <Label htmlFor="password_challenge">{t("settings.email.current_password")}</Label>
 
                   <Input
                     id="password_challenge"
@@ -78,14 +79,14 @@ export default function Email() {
                     type="password"
                     className="mt-1 block w-full"
                     autoComplete="current-password"
-                    placeholder="Current password"
+                    placeholder={t("settings.email.current_password_placeholder")}
                   />
 
                   <InputError messages={errors.password_challenge} />
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button disabled={processing}>Save</Button>
+                  <Button disabled={processing}>{t("settings.email.save")}</Button>
 
                   <Transition
                     show={recentlySuccessful}
@@ -94,7 +95,7 @@ export default function Email() {
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                   >
-                    <p className="text-sm text-neutral-600">Saved</p>
+                    <p className="text-sm text-neutral-600">{t("settings.email.saved")}</p>
                   </Transition>
                 </div>
               </>

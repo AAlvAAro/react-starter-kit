@@ -236,7 +236,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   {t("nav.settings")}
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              {/* <DropdownMenuItem asChild>
                 <Link
                   href="/sessions"
                   method="delete"
@@ -246,7 +246,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <LogOut className="w-4 h-4 mr-2" />
                   {t("nav.sign_out")}
                 </Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

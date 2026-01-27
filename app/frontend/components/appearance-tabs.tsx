@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "react"
 
 import { type Appearance, useAppearance } from "@/hooks/use-appearance"
 import { cn } from "@/lib/utils"
+import { t } from "@/lib/i18n"
 
 export default function AppearanceToggleTab({
   className = "",
@@ -11,9 +12,9 @@ export default function AppearanceToggleTab({
   const { appearance, updateAppearance } = useAppearance()
 
   const tabs: { value: Appearance; icon: LucideIcon; label: string }[] = [
-    { value: "light", icon: Sun, label: "Light" },
-    { value: "dark", icon: Moon, label: "Dark" },
-    { value: "system", icon: Monitor, label: "System" },
+    { value: "light", icon: Sun, label: t("settings.appearance.light") },
+    { value: "dark", icon: Moon, label: t("settings.appearance.dark") },
+    { value: "system", icon: Monitor, label: t("settings.appearance.system") },
   ]
 
   return (

@@ -8,14 +8,15 @@ import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
 import AuthLayout from "@/layouts/auth-layout"
 import { signInPath, signUpPath } from "@/routes"
+import { t } from "@/lib/i18n"
 
 export default function Register() {
   return (
     <AuthLayout
-      title="Create an account"
-      description="Enter your details below to create your account"
+      title={t("auth.signup.title")}
+      description={t("auth.signup.description")}
     >
-      <Head title="Register" />
+      <Head title={t("auth.sign_up")} />
       <Form
         method="post"
         action={signUpPath()}
@@ -27,7 +28,7 @@ export default function Register() {
           <>
             <div className="grid gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">{t("auth.signup.name")}</Label>
                 <Input
                   id="name"
                   type="text"
@@ -37,13 +38,13 @@ export default function Register() {
                   tabIndex={1}
                   autoComplete="name"
                   disabled={processing}
-                  placeholder="Full name"
+                  placeholder={t("auth.signup.name_placeholder")}
                 />
                 <InputError messages={errors.name} className="mt-2" />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email">{t("auth.signup.email")}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -51,13 +52,13 @@ export default function Register() {
                   required
                   tabIndex={2}
                   autoComplete="email"
-                  placeholder="email@example.com"
+                  placeholder={t("auth.signup.email_placeholder")}
                 />
                 <InputError messages={errors.email} />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("auth.signup.password")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -65,13 +66,13 @@ export default function Register() {
                   required
                   tabIndex={3}
                   autoComplete="new-password"
-                  placeholder="Password"
+                  placeholder={t("auth.signup.password_placeholder")}
                 />
                 <InputError messages={errors.password} />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="password_confirmation">Confirm password</Label>
+                <Label htmlFor="password_confirmation">{t("auth.signup.password_confirmation")}</Label>
                 <Input
                   id="password_confirmation"
                   type="password"
@@ -79,21 +80,21 @@ export default function Register() {
                   required
                   tabIndex={4}
                   autoComplete="new-password"
-                  placeholder="Confirm password"
+                  placeholder={t("auth.signup.password_confirmation_placeholder")}
                 />
                 <InputError messages={errors.password_confirmation} />
               </div>
 
               <Button type="submit" className="mt-2 w-full" tabIndex={5}>
                 {processing && <Spinner />}
-                Create account
+                {t("auth.signup.button")}
               </Button>
             </div>
 
             <div className="text-muted-foreground text-center text-sm">
-              Already have an account?{" "}
+{t("auth.have_account")}{" "}
               <TextLink href={signInPath()} tabIndex={6}>
-                Log in
+                {t("auth.sign_in")}
               </TextLink>
             </div>
           </>

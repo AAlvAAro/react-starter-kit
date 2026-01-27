@@ -115,6 +115,37 @@ es-MX:
     no_account: "¿No tienes cuenta?"
     have_account: "¿Ya tienes cuenta?"
 
+  # Flash messages
+  flash:
+    signed_in: "Sesión iniciada exitosamente"
+    signed_out: "Sesión cerrada exitosamente"
+    signed_up: "¡Bienvenido! Te has registrado exitosamente"
+    session_logged_out: "Esa sesión ha sido cerrada"
+    email_verified: "Gracias por verificar tu correo electrónico"
+    email_verification_sent: "Enviamos un correo de verificación a tu dirección"
+    email_changed: "Tu correo ha sido cambiado"
+    password_changed: "Tu contraseña ha sido cambiada"
+    password_reset_sent: "Revisa tu correo para las instrucciones de recuperación"
+    password_reset_success: "Tu contraseña fue restablecida exitosamente. Por favor inicia sesión"
+    password_reset_invalid: "Ese enlace de recuperación de contraseña es inválido"
+    email_verification_invalid: "Ese enlace de verificación de correo es inválido"
+    email_not_verified: "No puedes restablecer tu contraseña hasta que verifiques tu correo"
+    profile_updated: "Tu perfil ha sido actualizado"
+    account_deleted: "Tu cuenta ha sido eliminada"
+    product_created: "Producto creado exitosamente"
+    product_updated: "Producto actualizado exitosamente"
+    product_deleted: "Producto eliminado exitosamente"
+    product_not_found: "Producto no encontrado"
+    customer_created: "Cliente creado exitosamente"
+    customer_updated: "Cliente actualizado exitosamente"
+    customer_deleted: "Cliente eliminado exitosamente"
+    customer_not_found: "Cliente no encontrado"
+    invalid_credentials: "Ese correo o contraseña es incorrecto"
+    password_challenge_invalid: "El desafío de contraseña es inválido"
+    no_permission: "No tienes permiso para acceder a esta página"
+    project_md_generated: "PROJECT.md generado exitosamente!"
+    project_md_error: "Error al generar PROJECT.md: %{error}"
+
   # Errors
   errors:
     not_found: "Página no encontrada"

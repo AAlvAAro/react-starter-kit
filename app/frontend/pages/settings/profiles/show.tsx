@@ -46,7 +46,7 @@ export default function Profile() {
                     defaultValue={auth.user.name}
                     required
                     autoComplete="name"
-                    placeholder="Full name"
+                    placeholder={t("settings.profile.name_placeholder")}
                   />
 
                   <InputError className="mt-2" messages={errors.name} />
@@ -62,7 +62,7 @@ export default function Profile() {
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                   >
-                    <p className="text-sm text-neutral-600">Saved</p>
+                    <p className="text-sm text-neutral-600">{t("settings.profile.saved")}</p>
                   </Transition>
                 </div>
               </>
