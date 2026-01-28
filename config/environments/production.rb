@@ -60,7 +60,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = {host: "example.com"}
+  config.action_mailer.default_url_options = {host: "catalogo.mvp.monster"}
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = {
     api_token: ENV["POSTMARK_API_TOKEN"]
