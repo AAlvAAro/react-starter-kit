@@ -85,7 +85,14 @@ export default function NewOrder({ order, customers, catalog_items }: NewOrderPr
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (items.length === 0) {
+      alert("Please add at least one item to the order")
+      return
+    }
+
     const total = calculateTotal()
+    console.log("Submitting order with items:", items)
     post("/orders", {
       customer_id: data.customer_id,
       status: data.status,

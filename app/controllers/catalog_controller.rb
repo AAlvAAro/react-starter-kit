@@ -30,13 +30,25 @@ class CatalogController < InertiaController
   end
 
   def create
-    category = current_user.categories.find_or_create_by!(name: item_params[:category])
-    @item = current_user.items.build(item_params.except(:category).merge(category: category))
+    category_name = item_params[:category]&.strip
 
-    if @item.save
-      redirect_to catalog_index_path, notice: "Product created successfully"
+    if category_name.blank?
+      redirect_to new_catalog_path, alert: "Category cannot be blank"
+      return
+    end
+
+    category = current_user.categories.find_or_create_by(name: category_name)
+
+    if category.persisted?
+      @item = current_user.items.build(item_params.except(:category).merge(category: category))
+
+      if @item.save
+        redirect_to catalog_index_path, notice: "Product created successfully"
+      else
+        redirect_to new_catalog_path, alert: @item.errors.full_messages.join(", ")
+      end
     else
-      redirect_to new_catalog_path, alert: @item.errors.full_messages.join(", ")
+      redirect_to new_catalog_path, alert: category.errors.full_messages.join(", ")
     end
   end
 
@@ -48,12 +60,23 @@ class CatalogController < InertiaController
   end
 
   def update
-    category = current_user.categories.find_or_create_by!(name: item_params[:category])
+    category_name = item_params[:category]&.strip
 
-    if @item.update(item_params.except(:category).merge(category: category))
-      redirect_to catalog_index_path, notice: "Product updated successfully"
+    if category_name.blank?
+      redirect_to edit_catalog_path(@item), alert: "Category cannot be blank"
+      return
+    end
+
+    category = current_user.categories.find_or_create_by(name: category_name)
+
+    if category.persisted?
+      if @item.update(item_params.except(:category).merge(category: category))
+        redirect_to catalog_index_path, notice: "Product updated successfully"
+      else
+        redirect_to edit_catalog_path(@item), alert: @item.errors.full_messages.join(", ")
+      end
     else
-      redirect_to edit_catalog_path(@item), alert: @item.errors.full_messages.join(", ")
+      redirect_to edit_catalog_path(@item), alert: category.errors.full_messages.join(", ")
     end
   end
 

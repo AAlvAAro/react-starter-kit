@@ -77,7 +77,9 @@ class OrdersController < InertiaController
   end
 
   def create
+    debugg
     @order = Current.user.orders.build(order_params)
+    debugger
 
     if @order.save
       redirect_to order_path(@order), notice: t("flash.order_created")

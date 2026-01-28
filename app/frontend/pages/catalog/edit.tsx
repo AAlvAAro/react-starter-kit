@@ -5,13 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 interface Product {
   id: number
@@ -100,21 +93,19 @@ export default function EditProduct({ product, categories }: EditProductProps) {
 
               <div className="grid gap-2">
                 <Label htmlFor="category">Category</Label>
-                <Select
+                <Input
+                  id="category"
+                  list="categories-list"
                   value={data.category}
-                  onValueChange={(value) => setData("category", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  onChange={(e) => setData("category", e.target.value)}
+                  placeholder="Select or type a new category"
+                  required
+                />
+                <datalist id="categories-list">
+                  {categories.map((category) => (
+                    <option key={category} value={category} />
+                  ))}
+                </datalist>
                 {errors.category && (
                   <p className="text-sm text-destructive">{errors.category}</p>
                 )}

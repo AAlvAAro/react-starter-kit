@@ -55,8 +55,13 @@ const translations: Record<string, Translations> = {
     "dashboard.catalog_views": "Vistas del catálogo",
     "dashboard.recent_orders": "Pedidos recientes",
     "dashboard.top_products": "Productos principales",
-    "dashboard.no_activity": "Sin actividad reciente",
-    "dashboard.no_activity_hint": "Cuando comiences a recibir pedidos y vistas del catálogo, aparecerán aquí.",
+    "dashboard.no_activity": "No hay actividad reciente",
+    "dashboard.no_activity_hint": "Comienza agregando productos a tu catálogo o creando pedidos.",
+    "dashboard.catalog_qr_code": "Código QR del Catálogo",
+    "dashboard.catalog_qr_code_hint": "Comparte tu catálogo fácilmente",
+    "dashboard.qr_code_description": "Escanea este código QR para acceder directamente a tu catálogo de productos. Compártelo con tus clientes o imprímelo para tu tienda.",
+    "dashboard.download_qr_code": "Descargar QR",
+    "dashboard.fullscreen_qr_code": "Abrir para escanear",
 
     // Catalog
     "catalog.title": "Catálogo",
@@ -403,7 +408,12 @@ const translations: Record<string, Translations> = {
     "dashboard.recent_orders": "Recent Orders",
     "dashboard.top_products": "Top Products",
     "dashboard.no_activity": "No recent activity",
-    "dashboard.no_activity_hint": "When you start receiving orders and catalog views, they'll appear here.",
+    "dashboard.no_activity_hint": "Get started by adding products to your catalog or creating orders.",
+    "dashboard.catalog_qr_code": "Catalog QR Code",
+    "dashboard.catalog_qr_code_hint": "Share your catalog easily",
+    "dashboard.qr_code_description": "Scan this QR code to access your product catalog directly. Share it with your customers or print it for your store.",
+    "dashboard.download_qr_code": "Download QR",
+    "dashboard.fullscreen_qr_code": "Open to scan",
 
     // Catalog
     "catalog.title": "Catalog",
