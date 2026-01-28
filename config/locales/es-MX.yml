@@ -159,6 +159,7 @@ es-MX:
   # Mailer
   mailer:
     greeting: "Hola,"
+    footer: "¿Tienes preguntas? Simplemente responde a este correo y nuestro equipo de soporte te ayudará."
     email_verification:
       subject: "Verifica tu correo electrónico"
       body: "Esto es para confirmar que <strong class=\"text-strong\">%{email}</strong> es el correo que deseas usar en tu cuenta. Si alguna vez pierdes tu contraseña, ahí es donde enviaremos el enlace de recuperación."

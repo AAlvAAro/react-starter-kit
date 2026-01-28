@@ -63,6 +63,11 @@ const translations: Record<string, Translations> = {
     "dashboard.download_qr_code": "Descargar QR",
     "dashboard.fullscreen_qr_code": "Abrir para escanear",
 
+    // Email
+    "mailer.footer": "¿Tienes preguntas? Simplemente responde a este correo y nuestro equipo de soporte te ayudará.",
+    "mailer.password_reset.subject": "Restablece tu contraseña",
+    "mailer.email_verification.subject": "Verifica tu correo electrónico",
+
     // Catalog
     "catalog.title": "Catálogo",
     "catalog.subtitle": "Administra tu catálogo de productos y colecciones",
@@ -414,6 +419,11 @@ const translations: Record<string, Translations> = {
     "dashboard.qr_code_description": "Scan this QR code to access your product catalog directly. Share it with your customers or print it for your store.",
     "dashboard.download_qr_code": "Download QR",
     "dashboard.fullscreen_qr_code": "Open to scan",
+
+    // Email
+    "mailer.footer": "Have questions? Just reply to this email and our support team will help you out.",
+    "mailer.password_reset.subject": "Reset your password",
+    "mailer.email_verification.subject": "Verify your email",
 
     // Catalog
     "catalog.title": "Catalog",

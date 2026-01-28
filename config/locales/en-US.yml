@@ -125,6 +125,7 @@ en-US:
   # Mailer
   mailer:
     greeting: "Hey there,"
+    footer: "Have questions? Just reply to this email and our support team will help you out."
     email_verification:
       subject: "Verify your email address"
       body: "This is to confirm that <strong class=\"text-strong\">%{email}</strong> is the email you want to use on your account. If you ever lose your password, that's where we'll email a reset link."
