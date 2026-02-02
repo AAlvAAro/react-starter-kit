@@ -27,8 +27,8 @@ export default function DeleteUser() {
         title={t("settings.delete.title")}
         description={t("settings.delete.subtitle")}
       />
-      <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
-        <div className="relative space-y-0.5 text-red-800 dark:text-red-100">
+      <div className="space-y-4 rounded-lg border border-destructive/20 bg-destructive/5 p-4">
+        <div className="relative space-y-0.5 text-destructive">
           <p className="font-medium">{t("settings.delete.warning")}</p>
           <p className="text-sm">
             {t("settings.delete.warning_text")}
@@ -41,12 +41,10 @@ export default function DeleteUser() {
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>
-              Are you sure you want to delete your account?
+              {t("settings.delete.dialog_title")}
             </DialogTitle>
             <DialogDescription>
-              Once your account is deleted, all of its resources and data will
-              also be permanently deleted. Please enter your password to confirm
-              you would like to permanently delete your account.
+              {t("settings.delete.dialog_description")}
             </DialogDescription>
             <Form
               method="delete"
@@ -62,7 +60,7 @@ export default function DeleteUser() {
                 <>
                   <div className="grid gap-2">
                     <Label htmlFor="password_challenge" className="sr-only">
-                      Password
+                      {t("settings.delete.password_label")}
                     </Label>
 
                     <Input
@@ -70,7 +68,7 @@ export default function DeleteUser() {
                       type="password"
                       name="password_challenge"
                       ref={passwordInput}
-                      placeholder="Password"
+                      placeholder={t("settings.delete.password_placeholder")}
                       autoComplete="current-password"
                     />
 
@@ -83,7 +81,7 @@ export default function DeleteUser() {
                         variant="secondary"
                         onClick={() => resetAndClearErrors()}
                       >
-                        Cancel
+                        {t("settings.delete.cancel")}
                       </Button>
                     </DialogClose>
 

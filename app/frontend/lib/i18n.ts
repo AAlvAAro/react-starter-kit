@@ -106,6 +106,11 @@ const translations: Record<string, Translations> = {
     "settings.delete.button": "Eliminar cuenta",
     "settings.delete.warning": "Advertencia",
     "settings.delete.warning_text": "Por favor procede con precaución, esto no se puede deshacer.",
+    "settings.delete.dialog_title": "¿Estás seguro de que quieres eliminar tu cuenta?",
+    "settings.delete.dialog_description": "Una vez que tu cuenta sea eliminada, todos sus recursos y datos también serán eliminados permanentemente. Por favor ingresa tu contraseña para confirmar que deseas eliminar tu cuenta permanentemente.",
+    "settings.delete.password_label": "Contraseña",
+    "settings.delete.password_placeholder": "Contraseña",
+    "settings.delete.cancel": "Cancelar",
 
     // Auth
     "auth.sign_in": "Iniciar sesión",
@@ -217,6 +222,13 @@ const translations: Record<string, Translations> = {
     "settings.delete.title": "Delete account",
     "settings.delete.subtitle": "Delete your account and all of its resources",
     "settings.delete.button": "Delete account",
+    "settings.delete.warning": "Warning",
+    "settings.delete.warning_text": "Please proceed with caution, this cannot be undone.",
+    "settings.delete.dialog_title": "Are you sure you want to delete your account?",
+    "settings.delete.dialog_description": "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+    "settings.delete.password_label": "Password",
+    "settings.delete.password_placeholder": "Password",
+    "settings.delete.cancel": "Cancel",
 
     // Auth
     "auth.sign_in": "Sign in",
