@@ -3,9 +3,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  def super_admin?
-    super_admin
-  end
+  enum :role, {user: 0, admin: 1, super_admin: 2}, default: :user
 
   generates_token_for :email_verification, expires_in: 2.days do
     email
