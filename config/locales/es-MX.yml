@@ -134,6 +134,7 @@ es-MX:
     email_verification_invalid: "Ese enlace de verificación de correo es inválido"
     email_not_verified: "No puedes restablecer tu contraseña hasta que verifiques tu correo"
     profile_updated: "Tu perfil ha sido actualizado"
+    profile_updated_reload: "Tu perfil ha sido actualizado"
     account_deleted: "Tu cuenta ha sido eliminada"
     product_created: "Producto creado exitosamente"
     product_updated: "Producto actualizado exitosamente"

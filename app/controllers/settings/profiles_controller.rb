@@ -7,8 +7,16 @@ class Settings::ProfilesController < InertiaController
   end
 
   def update
+    locale_changed = user_params[:locale].present? && @user.locale != user_params[:locale]
+
     if @user.update(user_params)
-      redirect_to settings_profile_path, notice: "Your profile has been updated"
+      if locale_changed
+        # Force full page reload by using regular redirect (not Inertia)
+        redirect_to settings_profile_path, notice: I18n.t("flash.profile_updated"), allow_other_host: false
+      else
+        # Use Inertia redirect for smooth SPA experience
+        redirect_to settings_profile_path, notice: I18n.t("flash.profile_updated")
+      end
     else
       redirect_to settings_profile_path, inertia: {errors: @user.errors}
     end
@@ -21,6 +29,6 @@ class Settings::ProfilesController < InertiaController
   end
 
   def user_params
-    params.permit(:name)
+    params.permit(:name, :locale)
   end
 end

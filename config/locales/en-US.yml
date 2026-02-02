@@ -115,6 +115,10 @@ en-US:
     no_account: "Don't have an account?"
     have_account: "Already have an account?"
 
+  # Flash messages
+  flash:
+    profile_updated: "Your profile has been updated"
+
   # Errors
   errors:
     not_found: "Page not found"
