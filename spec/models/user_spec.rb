@@ -38,15 +38,40 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#super_admin?" do
-    it "returns true when user is super admin" do
-      user = build(:user, super_admin: true)
-      expect(user.super_admin?).to be true
+  describe "roles" do
+    it "defaults to user role" do
+      user = create(:user)
+      expect(user.user?).to be true
+      expect(user.role).to eq("user")
     end
 
-    it "returns false when user is not super admin" do
-      user = build(:user, super_admin: false)
+    it "can be set to admin role" do
+      user = create(:user, role: :admin)
+      expect(user.admin?).to be true
+      expect(user.role).to eq("admin")
+    end
+
+    it "can be set to super_admin role" do
+      user = create(:user, role: :super_admin)
+      expect(user.super_admin?).to be true
+      expect(user.role).to eq("super_admin")
+    end
+
+    it "provides role query methods" do
+      user = create(:user, role: :user)
+      expect(user.user?).to be true
+      expect(user.admin?).to be false
       expect(user.super_admin?).to be false
+
+      admin = create(:user, role: :admin)
+      expect(admin.user?).to be false
+      expect(admin.admin?).to be true
+      expect(admin.super_admin?).to be false
+
+      super_admin = create(:user, role: :super_admin)
+      expect(super_admin.user?).to be false
+      expect(super_admin.admin?).to be false
+      expect(super_admin.super_admin?).to be true
     end
   end
 

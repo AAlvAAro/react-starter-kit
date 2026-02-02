@@ -9,7 +9,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:user) { build(:user) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Reset your password")
+      expect(mail.subject).to eq("Restablecer contraseña")
       expect(mail.to).to eq([user.email])
     end
   end
@@ -20,7 +20,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:user) { build(:user) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Verify your email")
+      expect(mail.subject).to eq("Verifica tu correo electrónico")
       expect(mail.to).to eq([user.email])
     end
   end
