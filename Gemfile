@@ -92,5 +92,6 @@ end
 # Custom gems
 gem "postmark-rails"
 gem "ruby_llm"
+gem "ruby_llm-mcp"
 gem "sentry-ruby"
 gem "sentry-rails"

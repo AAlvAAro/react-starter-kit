@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   get :dashboard, to: "dashboard#index"
+  get :mcp, to: "mcp#index"
 
   namespace :dashboard do
     get "project_md", to: "project_md#index", as: :project_md
