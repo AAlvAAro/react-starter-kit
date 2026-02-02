@@ -4,19 +4,13 @@ import { t } from "@/lib/i18n"
 import {
   Package,
   LayoutDashboard,
-  BookOpen,
-  ClipboardList,
-  Users,
-  BarChart3,
   Github,
   FileText,
   ChevronDown,
-  ChevronRight,
   Settings,
   LogOut,
   Menu,
   X,
-  Layers,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -36,71 +30,8 @@ interface DashboardLayoutProps {
 
 const getNavItems = () => [
   { icon: LayoutDashboard, label: t("nav.dashboard"), href: "/dashboard" },
-  { icon: BookOpen, label: t("nav.catalog"), href: "/catalog" },
-  { icon: ClipboardList, label: t("nav.orders"), href: "/orders" },
-  { icon: Users, label: t("nav.customers"), href: "/customers" },
-  { icon: BarChart3, label: t("nav.insights"), href: "/insights" },
   { icon: Settings, label: t("nav.settings"), href: "/settings/profile", matchPrefix: "/settings" },
 ]
-
-const pagesItems = [
-  { icon: Layers, label: "Landing Page", href: "/" },
-]
-
-function PagesSubmenu({
-  pathname,
-  onNavigate
-}: {
-  pathname: string
-  onNavigate: () => void
-}) {
-  const [open, setOpen] = useState(false)
-  const isAnyActive = pagesItems.some((item) => pathname === item.href)
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen(!open)}
-        className={cn(
-          "sidebar-link w-full justify-between",
-          isAnyActive ? "sidebar-link-active" : "sidebar-link-inactive"
-        )}
-      >
-        <span className="flex items-center gap-3">
-          <Layers className="w-5 h-5" />
-          Pages
-        </span>
-        <ChevronRight
-          className={cn(
-            "w-4 h-4 transition-transform duration-200",
-            open && "rotate-90"
-          )}
-        />
-      </button>
-      {open && (
-        <div className="ml-4 mt-1 space-y-1 border-l border-sidebar-border pl-3">
-          {pagesItems.map((item) => {
-            const isActive = pathname === item.href
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "sidebar-link text-sm",
-                  isActive ? "sidebar-link-active" : "sidebar-link-inactive"
-                )}
-                onClick={onNavigate}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
-}
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const page = usePage<SharedData>()
@@ -142,7 +73,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold">CatalogoPro</span>
+            <span className="font-semibold">React Starter Kit</span>
           </Link>
           <Button
             variant="ghost"
@@ -183,18 +114,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Bottom links */}
         <div className="border-t border-sidebar-border py-4">
           <div className="px-3 space-y-1">
-            <PagesSubmenu
-              pathname={url}
-              onNavigate={() => setSidebarOpen(false)}
-            />
             <a
-              href="https://github.com/yourusername/catalogopro"
+              href="https://github.com/AAlvAAro"
               className="sidebar-link sidebar-link-inactive"
               target="_blank"
               rel="noopener noreferrer"
             >
               <Github className="w-5 h-5" />
-              Repository
+              {t("sidebar.repository")}
             </a>
             <a
               href="#"
@@ -203,7 +130,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               rel="noopener noreferrer"
             >
               <FileText className="w-5 h-5" />
-              Documentation
+              {t("sidebar.documentation")}
             </a>
           </div>
         </div>
@@ -267,7 +194,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold">CatalogoPro</span>
+            <span className="font-semibold">React Starter Kit</span>
           </div>
         </header>
 

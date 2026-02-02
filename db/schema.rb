@@ -10,64 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_27_202003) do
-  create_table "categories", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "description"
-    t.string "name"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_categories_on_user_id"
-  end
-
-  create_table "customers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email"
-    t.string "name"
-    t.text "notes"
-    t.string "phone"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_customers_on_user_id"
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.integer "category_id", null: false
-    t.datetime "created_at", null: false
-    t.text "description"
-    t.string "image"
-    t.string "name"
-    t.decimal "price", precision: 10, scale: 2
-    t.string "sku"
-    t.integer "stock"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["category_id"], name: "index_items_on_category_id"
-    t.index ["user_id"], name: "index_items_on_user_id"
-  end
-
-  create_table "order_items", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "order_id", null: false
-    t.decimal "price"
-    t.string "product_name"
-    t.integer "quantity"
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "customer_id", null: false
-    t.text "notes"
-    t.string "status"
-    t.decimal "total"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
+ActiveRecord::Schema[8.1].define(version: 2026_01_24_103940) do
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -88,12 +31,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_27_202003) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "categories", "users"
-  add_foreign_key "customers", "users"
-  add_foreign_key "items", "categories"
-  add_foreign_key "items", "users"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "customers"
-  add_foreign_key "orders", "users"
   add_foreign_key "sessions", "users"
 end

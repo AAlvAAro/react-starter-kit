@@ -16,9 +16,6 @@ Rails.application.routes.draw do
   end
 
   get :dashboard, to: "dashboard#index"
-  resources :catalog
-  resources :customers
-  resources :orders
 
   namespace :dashboard do
     get "project_md", to: "project_md#index", as: :project_md
@@ -34,8 +31,6 @@ Rails.application.routes.draw do
   end
 
   root "home#index"
-
-  get "insights", to: "insights#index"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
