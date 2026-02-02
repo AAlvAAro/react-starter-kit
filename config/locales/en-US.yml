@@ -118,6 +118,11 @@ en-US:
   # Flash messages
   flash:
     profile_updated: "Your profile has been updated"
+    subscription_activated: "Your subscription has been activated!"
+    payment_failed: "Payment could not be processed. Please try again."
+    plan_created: "Plan created successfully"
+    plan_updated: "Plan updated successfully"
+    plan_deleted: "Plan deleted successfully"
 
   # Errors
   errors:

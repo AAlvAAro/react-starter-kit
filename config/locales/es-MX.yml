@@ -149,6 +149,11 @@ es-MX:
     no_permission: "No tienes permiso para acceder a esta página"
     project_md_generated: "PROJECT.md generado exitosamente!"
     project_md_error: "Error al generar PROJECT.md: %{error}"
+    subscription_activated: "¡Tu suscripción ha sido activada!"
+    payment_failed: "El pago no pudo ser procesado. Por favor intenta de nuevo."
+    plan_created: "Plan creado exitosamente"
+    plan_updated: "Plan actualizado exitosamente"
+    plan_deleted: "Plan eliminado exitosamente"
 
   # Errors
   errors:

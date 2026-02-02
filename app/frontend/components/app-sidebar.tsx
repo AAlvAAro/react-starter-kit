@@ -1,5 +1,6 @@
 import { Link, usePage } from "@inertiajs/react"
-import { BookOpen, FileText, Folder, LayoutGrid } from "lucide-react"
+import { BookOpen, CreditCard, FileText, Folder, LayoutGrid } from "lucide-react"
+import { t } from "@/lib/i18n"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -13,7 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboardPath, dashboardProjectMdPath } from "@/routes"
+import { dashboardAdminPlansPath, dashboardPath, dashboardProjectMdPath } from "@/routes"
 import type { NavItem, SharedData } from "@/types"
 
 import AppLogo from "./app-logo"
@@ -23,6 +24,14 @@ const mainNavItems: NavItem[] = [
     title: "Dashboard",
     href: dashboardPath(),
     icon: LayoutGrid,
+  },
+]
+
+const adminNavItems: NavItem[] = [
+  {
+    title: "Plans",
+    href: dashboardAdminPlansPath(),
+    icon: CreditCard,
   },
 ]
 
@@ -46,7 +55,7 @@ const superAdminFooterNavItems: NavItem[] = [
 
 export function AppSidebar() {
   const { auth } = usePage<SharedData>().props
-  const isSuperAdmin = auth.user?.super_admin
+  const isSuperAdmin = auth.user?.role === "super_admin"
 
   return (
     <Sidebar collapsible="icon" variant="inset">
@@ -64,6 +73,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <NavMain items={mainNavItems} />
+        {isSuperAdmin && <NavMain items={adminNavItems} label={t("sidebar.admin")} />}
       </SidebarContent>
 
       <SidebarFooter>

@@ -33,7 +33,8 @@ export interface User {
   email: string
   avatar?: string
   verified: boolean
-  super_admin: boolean
+  role: "user" | "admin" | "super_admin"
+  locale?: string
   created_at: string
   updated_at: string
   [key: string]: unknown // This allows for additional properties...

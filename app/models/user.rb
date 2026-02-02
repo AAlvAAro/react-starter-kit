@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
 
   has_many :sessions, dependent: :destroy
+  belongs_to :current_plan, class_name: "Plan", optional: true
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}

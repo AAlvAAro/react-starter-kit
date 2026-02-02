@@ -1,9 +1,11 @@
-import { Head, Link } from "@inertiajs/react"
+import { Head, Link, usePage } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
 import { Package, Zap, Shield, Code, Github, Mail, ArrowRight } from "lucide-react"
 import { t } from "@/lib/i18n"
 
 export default function Home() {
+  const { auth } = usePage().props as any
+  const isLoggedIn = auth?.user != null
   const features = [
     {
       icon: Zap,
@@ -77,13 +79,15 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <Link href="/sign_up" className="flex items-center gap-2">
+                <Link href="/pricing" className="flex items-center gap-2">
                   {t("landing.hero.get_started")}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/sign_in">{t("landing.hero.sign_in")}</Link>
+                <Link href={isLoggedIn ? "/dashboard" : "/sign_in"}>
+                  {isLoggedIn ? t("landing.hero.go_to_dashboard") : t("landing.hero.sign_in")}
+                </Link>
               </Button>
             </div>
           </div>
