@@ -14,7 +14,7 @@ export default function Dashboard() {
           <div>
             <h1 className="text-2xl font-semibold">{t("dashboard.title")}</h1>
             <p className="text-muted-foreground text-sm">
-              Welcome to your dashboard.
+              {t("dashboard.subtitle")}
             </p>
           </div>
         </div>
@@ -25,9 +25,9 @@ export default function Dashboard() {
             <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
               <LayoutDashboard className="w-6 h-6 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold mb-1">Welcome</h3>
+            <h3 className="font-semibold mb-1">{t("dashboard.welcome")}</h3>
             <p className="text-muted-foreground text-sm max-w-sm mx-auto">
-              Your dashboard is ready. Start building your application.
+              {t("dashboard.welcome_message")}
             </p>
           </div>
         </div>

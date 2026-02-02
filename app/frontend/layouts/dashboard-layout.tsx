@@ -87,7 +87,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4">
-          <div className="section-label">Platform</div>
+          <div className="section-label">{t("sidebar.platform")}</div>
           <div className="px-3 space-y-1">
             {getNavItems().map((item) => {
               const isActive = item.matchPrefix

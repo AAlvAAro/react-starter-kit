@@ -1,4 +1,5 @@
 import { Link, usePage } from "@inertiajs/react"
+import { t } from "@/lib/i18n"
 
 import {
   SidebarGroup,
@@ -14,7 +15,7 @@ interface NavMainProps {
   label?: string
 }
 
-export function NavMain({ items = [], label = "Platform" }: NavMainProps) {
+export function NavMain({ items = [], label = t("sidebar.platform") }: NavMainProps) {
   const page = usePage()
   return (
     <SidebarGroup className="px-2 py-0">

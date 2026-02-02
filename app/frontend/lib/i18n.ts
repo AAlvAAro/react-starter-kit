@@ -45,8 +45,12 @@ const translations: Record<string, Translations> = {
 
     // Dashboard
     "dashboard.title": "Panel de control",
+    "dashboard.subtitle": "Bienvenido a tu panel de control.",
+    "dashboard.welcome": "Bienvenido",
+    "dashboard.welcome_message": "Tu panel de control está listo. Comienza a construir tu aplicación.",
 
     // Sidebar
+    "sidebar.platform": "Plataforma",
     "sidebar.repository": "Repositorio",
     "sidebar.documentation": "Documentación",
 
@@ -176,8 +180,12 @@ const translations: Record<string, Translations> = {
 
     // Dashboard
     "dashboard.title": "Dashboard",
+    "dashboard.subtitle": "Welcome to your dashboard.",
+    "dashboard.welcome": "Welcome",
+    "dashboard.welcome_message": "Your dashboard is ready. Start building your application.",
 
     // Sidebar
+    "sidebar.platform": "Platform",
     "sidebar.repository": "Repository",
     "sidebar.documentation": "Documentation",
 
