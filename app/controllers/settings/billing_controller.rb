@@ -1,27 +1,30 @@
 # frozen_string_literal: true
 
 class Settings::BillingController < InertiaController
+  before_action :authenticate
+  before_action :set_user
+
   def show
     render inertia: "settings/billing/show", props: {
       current_plan: current_plan_json,
-      subscription_status: Current.user.subscription_status,
+      subscription_status: @user.subscription_status,
       payments: fetch_payment_history,
-      stripe_customer_id: Current.user.stripe_customer_id
+      stripe_customer_id: @user.stripe_customer_id
     }
   end
 
   def cancel
-    unless Current.user.stripe_subscription_id.present?
+    unless @user.stripe_subscription_id.present?
       return redirect_to settings_billing_path, alert: I18n.t("settings.billing.no_subscription")
     end
 
     begin
       Stripe::Subscription.update(
-        Current.user.stripe_subscription_id,
+        @user.stripe_subscription_id,
         cancel_at_period_end: true
       )
 
-      Current.user.update!(subscription_status: "canceling")
+      @user.update!(subscription_status: "canceling")
       redirect_to settings_billing_path, notice: I18n.t("settings.billing.subscription_canceled")
     rescue Stripe::StripeError => e
       redirect_to settings_billing_path, alert: I18n.t("settings.billing.cancel_failed", error: e.message)
@@ -30,10 +33,14 @@ class Settings::BillingController < InertiaController
 
   private
 
-  def current_plan_json
-    return nil unless Current.user.current_plan
+  def set_user
+    @user = Current.user
+  end
 
-    plan = Current.user.current_plan
+  def current_plan_json
+    return nil unless @user.current_plan
+
+    plan = @user.current_plan
     {
       id: plan.id,
       name: plan.name,
@@ -44,11 +51,11 @@ class Settings::BillingController < InertiaController
   end
 
   def fetch_payment_history
-    return [] unless Current.user.stripe_customer_id.present?
+    return [] unless @user.stripe_customer_id.present?
 
     begin
       charges = Stripe::Charge.list(
-        customer: Current.user.stripe_customer_id,
+        customer: @user.stripe_customer_id,
         limit: 10
       )
 

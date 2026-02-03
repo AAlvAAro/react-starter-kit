@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   get :dashboard, to: "dashboard#index"
   get :mcp, to: "mcp#index"
 
-  get "project_md", to: "project_md#index", as: :project_md
-  post "project_md", to: "project_md#create"
   resources :plans, except: [:show]
 
   namespace :settings do

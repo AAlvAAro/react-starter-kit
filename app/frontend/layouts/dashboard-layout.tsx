@@ -122,14 +122,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className="sidebar-link sidebar-link-inactive"
             >
               <CreditCard className="w-5 h-5" />
-              Plans
-            </Link>
-            <Link
-              href="/project_md"
-              className="sidebar-link sidebar-link-inactive"
-            >
-              <FileText className="w-5 h-5" />
-              PROJECT.md Generator
+              {t("sidebar.plans")}
             </Link>
             <a
               href="https://github.com/AAlvAAro"
