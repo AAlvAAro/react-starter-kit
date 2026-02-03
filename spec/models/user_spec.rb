@@ -33,8 +33,13 @@ RSpec.describe User, type: :model do
 
   describe "normalizations" do
     it "normalizes email to lowercase and strips whitespace" do
-      user = create(:user, email: "  TEST@EXAMPLE.COM  ")
-      expect(user.email).to eq("test@example.com")
+      user = User.new(
+        name: "Test User",
+        email: "  TEST@NORMALIZATION.COM  ",
+        password: "Secret1*3*5*"
+      )
+      user.save!
+      expect(user.email).to eq("test@normalization.com")
     end
   end
 
