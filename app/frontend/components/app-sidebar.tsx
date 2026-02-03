@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react"
-import { BookOpen, CreditCard, FileText, Folder, LayoutGrid } from "lucide-react"
+import { BookOpen, CreditCard, FileText, Folder, LayoutGrid, Settings } from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -13,8 +13,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboardPath, dashboardProjectMdPath } from "@/routes"
+import { dashboardPath, projectMdPath, settingsProfilePath } from "@/routes"
 import type { NavItem } from "@/types"
+import { t } from "@/lib/i18n"
 
 import AppLogo from "./app-logo"
 
@@ -28,22 +29,27 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
   {
-    title: "Plans",
-    href: "/dashboard/plans",
+    title: t("nav.settings"),
+    href: settingsProfilePath(),
+    icon: Settings,
+  },
+  {
+    title: t("sidebar.plans"),
+    href: "/plans",
     icon: CreditCard,
   },
   {
     title: "PROJECT.md Generator",
-    href: dashboardProjectMdPath(),
+    href: projectMdPath(),
     icon: FileText,
   },
   {
-    title: "Repository",
+    title: t("sidebar.repository"),
     href: "https://github.com/inertia-rails/react-starter-kit",
     icon: Folder,
   },
   {
-    title: "Documentation",
+    title: t("sidebar.documentation"),
     href: "https://inertia-rails.dev",
     icon: BookOpen,
   },

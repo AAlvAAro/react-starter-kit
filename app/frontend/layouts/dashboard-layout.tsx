@@ -87,43 +87,45 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4">
-          <div className="section-label">{t("sidebar.platform")}</div>
-          <div className="px-3 space-y-1">
-            {getNavItems().map((item) => {
-              const isActive = item.matchPrefix
-                ? url.startsWith(item.matchPrefix)
-                : url === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "sidebar-link",
-                    isActive ? "sidebar-link-active" : "sidebar-link-inactive"
-                  )}
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <item.icon className="w-5 h-5" />
-                  {item.label}
-                </Link>
-              )
-            })}
-          </div>
-        </nav>
+        <div className="flex-1 overflow-y-auto">
+          <nav className="py-4">
+            <div className="section-label">{t("sidebar.platform")}</div>
+            <div className="px-3 space-y-1">
+              {getNavItems().map((item) => {
+                const isActive = item.matchPrefix
+                  ? url.startsWith(item.matchPrefix)
+                  : url === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "sidebar-link",
+                      isActive ? "sidebar-link-active" : "sidebar-link-inactive"
+                    )}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    {item.label}
+                  </Link>
+                )
+              })}
+            </div>
+          </nav>
+        </div>
 
         {/* Bottom links */}
         <div className="border-t border-sidebar-border py-4">
           <div className="px-3 space-y-1">
             <Link
-              href="/dashboard/plans"
+              href="/plans"
               className="sidebar-link sidebar-link-inactive"
             >
               <CreditCard className="w-5 h-5" />
               Plans
             </Link>
             <Link
-              href="/dashboard/project_md"
+              href="/project_md"
               className="sidebar-link sidebar-link-inactive"
             >
               <FileText className="w-5 h-5" />

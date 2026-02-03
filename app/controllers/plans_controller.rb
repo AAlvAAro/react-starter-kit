@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::PlansController < InertiaController
+class PlansController < InertiaController
   before_action :require_super_admin
   before_action :set_plan, only: [:edit, :update, :destroy]
 

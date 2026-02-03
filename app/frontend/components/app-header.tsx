@@ -49,7 +49,7 @@ const mainNavItems: NavItem[] = [
 const rightNavItems: NavItem[] = [
   {
     title: "Plans",
-    href: "/dashboard/plans",
+    href: "/plans",
     icon: CreditCard,
   },
   {

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { t } from "@/lib/i18n"
 
 interface Plan {
@@ -43,11 +43,11 @@ export default function EditPlan({ plan }: EditPlanProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    patch(`/dashboard/plans/${plan.id}`)
+    patch(`/plans/${plan.id}`)
   }
 
   return (
-    <AppLayout>
+    <DashboardLayout>
       <Head title={t("admin.plans.edit")} />
 
       <div className="max-w-2xl mx-auto space-y-6">
@@ -187,13 +187,13 @@ export default function EditPlan({ plan }: EditPlanProps) {
                   {t("admin.plans.save")}
                 </Button>
                 <Button type="button" variant="outline" asChild>
-                  <Link href="/dashboard/plans">{t("actions.cancel")}</Link>
+                  <Link href="/plans">{t("actions.cancel")}</Link>
                 </Button>
               </div>
             </form>
           </CardContent>
         </Card>
       </div>
-    </AppLayout>
+    </DashboardLayout>
   )
 }

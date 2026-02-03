@@ -12,20 +12,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import AppLayout from "@/layouts/app-layout"
-import { dashboardProjectMdPath } from "@/routes"
-import type { BreadcrumbItem } from "@/types"
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    title: "PROJECT.md Generator",
-    href: dashboardProjectMdPath(),
-  },
-]
+import { DashboardLayout } from "@/layouts/dashboard-layout"
+import { projectMdPath } from "@/routes"
 
 interface FormData {
   project_name: string
@@ -94,11 +82,11 @@ export default function ProjectMdGenerator() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    post(dashboardProjectMdPath())
+    post(projectMdPath())
   }
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <DashboardLayout>
       <Head title="PROJECT.md Generator" />
 
       <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto p-4 md:p-6">
@@ -471,7 +459,7 @@ Show 4 stats cards at top: Total Orders, Revenue, Products, Customers.
           </div>
         </form>
       </div>
-    </AppLayout>
+    </DashboardLayout>
   )
 }
 

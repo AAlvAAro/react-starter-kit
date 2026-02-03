@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Dashboard::ProjectMdController < InertiaController
+class ProjectMdController < InertiaController
   before_action :require_super_admin
 
   def index
@@ -12,9 +12,9 @@ class Dashboard::ProjectMdController < InertiaController
 
     File.write(file_path, content)
 
-    redirect_to dashboard_project_md_path, notice: "PROJECT.md generated successfully!"
+    redirect_to project_md_path, notice: "PROJECT.md generated successfully!"
   rescue StandardError => e
-    redirect_to dashboard_project_md_path, alert: "Error generating PROJECT.md: #{e.message}"
+    redirect_to project_md_path, alert: "Error generating PROJECT.md: #{e.message}"
   end
 
   private

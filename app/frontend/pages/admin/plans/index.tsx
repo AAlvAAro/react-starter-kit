@@ -22,7 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import AppLayout from "@/layouts/app-layout"
+import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { t } from "@/lib/i18n"
 
 interface Plan {
@@ -46,7 +46,7 @@ interface PlansIndexProps {
 
 export default function PlansIndex({ plans }: PlansIndexProps) {
   const handleDelete = (planId: number) => {
-    router.delete(`/dashboard/plans/${planId}`)
+    router.delete(`/plans/${planId}`)
   }
 
   const getIntervalLabel = (interval: string) => {
@@ -63,7 +63,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
   }
 
   return (
-    <AppLayout>
+    <DashboardLayout>
       <Head title={t("admin.plans.title")} />
 
       <div className="space-y-6">
@@ -73,7 +73,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
             <p className="text-muted-foreground">{t("admin.plans.subtitle")}</p>
           </div>
           <Button asChild>
-            <Link href="/dashboard/plans/new">
+            <Link href="/plans/new">
               <Plus className="w-4 h-4 mr-2" />
               {t("admin.plans.new")}
             </Link>
@@ -127,7 +127,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button variant="ghost" size="icon" asChild>
-                            <Link href={`/dashboard/plans/${plan.id}/edit`}>
+                            <Link href={`/plans/${plan.id}/edit`}>
                               <Pencil className="w-4 h-4" />
                             </Link>
                           </Button>
@@ -162,6 +162,6 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
           </CardContent>
         </Card>
       </div>
-    </AppLayout>
+    </DashboardLayout>
   )
 }
