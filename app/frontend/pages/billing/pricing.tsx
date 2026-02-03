@@ -24,14 +24,31 @@ interface PricingProps {
 }
 
 export default function Pricing({ plans, stripe_publishable_key, payment_mode }: PricingProps) {
-  const handleCheckout = async (planId: number) => {
-    router.post("/billing/checkout", { plan_id: planId }, {
-      onSuccess: (page: any) => {
-        if (page.props?.checkout_url) {
-          window.location.href = page.props.checkout_url
-        }
-      }
-    })
+  const handleCheckout = (planId: number) => {
+    // Create a form and submit it to trigger a full page navigation
+    const form = document.createElement('form')
+    form.method = 'POST'
+    form.action = '/billing/checkout'
+
+    // Add CSRF token
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+    if (csrfToken) {
+      const csrfInput = document.createElement('input')
+      csrfInput.type = 'hidden'
+      csrfInput.name = 'authenticity_token'
+      csrfInput.value = csrfToken
+      form.appendChild(csrfInput)
+    }
+
+    // Add plan_id
+    const planInput = document.createElement('input')
+    planInput.type = 'hidden'
+    planInput.name = 'plan_id'
+    planInput.value = planId.toString()
+    form.appendChild(planInput)
+
+    document.body.appendChild(form)
+    form.submit()
   }
 
   const getIntervalLabel = (interval: string) => {
@@ -82,8 +99,8 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {plans.map((plan, index) => (
-              <Card 
-                key={plan.id} 
+              <Card
+                key={plan.id}
                 className={`relative ${index === 1 ? "border-primary shadow-lg scale-105" : ""}`}
               >
                 {index === 1 && (
@@ -112,8 +129,8 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     variant={index === 1 ? "default" : "outline"}
                     onClick={() => handleCheckout(plan.id)}
                   >

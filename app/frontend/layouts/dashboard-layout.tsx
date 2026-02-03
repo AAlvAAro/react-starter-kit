@@ -11,6 +11,7 @@ import {
   LogOut,
   Menu,
   X,
+  CreditCard,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -111,31 +112,43 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </nav>
 
-        {/* Bottom links - Only visible to super admins */}
-        {user.role === "super_admin" && (
-          <div className="border-t border-sidebar-border py-4">
-            <div className="px-3 space-y-1">
-              <a
-                href="https://github.com/AAlvAAro"
-                className="sidebar-link sidebar-link-inactive"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-5 h-5" />
-                {t("sidebar.repository")}
-              </a>
-              <a
-                href="#"
-                className="sidebar-link sidebar-link-inactive"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FileText className="w-5 h-5" />
-                {t("sidebar.documentation")}
-              </a>
-            </div>
+        {/* Bottom links */}
+        <div className="border-t border-sidebar-border py-4">
+          <div className="px-3 space-y-1">
+            <Link
+              href="/dashboard/plans"
+              className="sidebar-link sidebar-link-inactive"
+            >
+              <CreditCard className="w-5 h-5" />
+              Plans
+            </Link>
+            <Link
+              href="/dashboard/project_md"
+              className="sidebar-link sidebar-link-inactive"
+            >
+              <FileText className="w-5 h-5" />
+              PROJECT.md Generator
+            </Link>
+            <a
+              href="https://github.com/AAlvAAro"
+              className="sidebar-link sidebar-link-inactive"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="w-5 h-5" />
+              {t("sidebar.repository")}
+            </a>
+            <a
+              href="#"
+              className="sidebar-link sidebar-link-inactive"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FileText className="w-5 h-5" />
+              {t("sidebar.documentation")}
+            </a>
           </div>
-        )}
+        </div>
 
         {/* User profile */}
         <div className="border-t border-sidebar-border p-3">

@@ -1,9 +1,24 @@
 import { Head, Link, usePage } from "@inertiajs/react"
 import { Button } from "@/components/ui/button"
-import { Package, Zap, Shield, Code, Github, Mail, ArrowRight } from "lucide-react"
+import { Package, Zap, Shield, Code, Github, Mail, ArrowRight, Check } from "lucide-react"
 import { t } from "@/lib/i18n"
 
-export default function Home() {
+interface Plan {
+  id: number
+  name: string
+  description: string
+  price_cents: number
+  interval: string
+  currency: string
+  features: string[]
+  stripe_price_id: string
+}
+
+interface HomeProps {
+  plans: Plan[]
+}
+
+export default function Home({ plans = [] }: HomeProps) {
   const { auth } = usePage().props as any
   const isLoggedIn = auth?.user != null
   const features = [
@@ -118,6 +133,50 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Pricing Section */}
+        {plans.length > 0 && (
+          <section className="container mx-auto px-4 py-20">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p className="text-muted-foreground text-lg">
+                  Choose the plan that works best for you
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {plans.map((plan) => (
+                  <div
+                    key={plan.id}
+                    className="bg-background rounded-lg p-8 border border-border hover:border-primary/50 transition-all hover:shadow-lg"
+                  >
+                    <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                    <p className="text-muted-foreground mb-6">{plan.description}</p>
+                    <div className="mb-6">
+                      <span className="text-4xl font-bold">
+                        ${(plan.price_cents / 100).toFixed(2)}
+                      </span>
+                      <span className="text-muted-foreground">
+                        /{plan.interval === "month" ? "mo" : plan.interval === "year" ? "yr" : ""}
+                      </span>
+                    </div>
+                    <Button className="w-full mb-6" asChild>
+                      <Link href="/pricing">Get Started</Link>
+                    </Button>
+                    <div className="space-y-3">
+                      {plan.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
 
         {/* Footer */}

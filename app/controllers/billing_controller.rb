@@ -15,9 +15,13 @@ class BillingController < InertiaController
   def checkout
     plan = Plan.find(params[:plan_id])
 
+    unless plan.stripe_price_id.present?
+      return redirect_to pricing_path, alert: I18n.t("flash.plan_not_configured")
+    end
+
     session = create_checkout_session(plan)
 
-    render json: { checkout_url: session.url }
+    redirect_to session.url, allow_other_host: true
   end
 
   def success
@@ -88,16 +92,25 @@ class BillingController < InertiaController
 
   def find_or_create_stripe_customer
     if Current.user.stripe_customer_id.present?
-      Stripe::Customer.retrieve(Current.user.stripe_customer_id)
+      begin
+        Stripe::Customer.retrieve(Current.user.stripe_customer_id)
+      rescue Stripe::InvalidRequestError
+        # Customer doesn't exist in Stripe, create a new one
+        create_stripe_customer
+      end
     else
-      customer = Stripe::Customer.create(
-        email: Current.user.email,
-        name: Current.user.name,
-        metadata: { user_id: Current.user.id }
-      )
-      Current.user.update!(stripe_customer_id: customer.id)
-      customer
+      create_stripe_customer
     end
+  end
+
+  def create_stripe_customer
+    customer = Stripe::Customer.create(
+      email: Current.user.email,
+      name: Current.user.name,
+      metadata: { user_id: Current.user.id }
+    )
+    Current.user.update!(stripe_customer_id: customer.id)
+    customer
   end
 
   def handle_successful_checkout(session)

@@ -1,6 +1,5 @@
-import { Link, usePage } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import { BookOpen, CreditCard, FileText, Folder, LayoutGrid } from "lucide-react"
-import { t } from "@/lib/i18n"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -14,8 +13,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboardAdminPlansPath, dashboardPath, dashboardProjectMdPath } from "@/routes"
-import type { NavItem, SharedData } from "@/types"
+import { dashboardPath, dashboardProjectMdPath } from "@/routes"
+import type { NavItem } from "@/types"
 
 import AppLogo from "./app-logo"
 
@@ -27,15 +26,12 @@ const mainNavItems: NavItem[] = [
   },
 ]
 
-const adminNavItems: NavItem[] = [
+const footerNavItems: NavItem[] = [
   {
     title: "Plans",
-    href: dashboardAdminPlansPath(),
+    href: "/dashboard/plans",
     icon: CreditCard,
   },
-]
-
-const superAdminFooterNavItems: NavItem[] = [
   {
     title: "PROJECT.md Generator",
     href: dashboardProjectMdPath(),
@@ -54,9 +50,6 @@ const superAdminFooterNavItems: NavItem[] = [
 ]
 
 export function AppSidebar() {
-  const { auth } = usePage<SharedData>().props
-  const isSuperAdmin = auth.user?.role === "super_admin"
-
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
@@ -73,11 +66,10 @@ export function AppSidebar() {
 
       <SidebarContent>
         <NavMain items={mainNavItems} />
-        {isSuperAdmin && <NavMain items={adminNavItems} label={t("sidebar.admin")} />}
       </SidebarContent>
 
       <SidebarFooter>
-        {isSuperAdmin && <NavFooter items={superAdminFooterNavItems} className="mt-auto" />}
+        <NavFooter items={footerNavItems} className="mt-auto" />
         <NavUser />
       </SidebarFooter>
     </Sidebar>

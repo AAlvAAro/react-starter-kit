@@ -46,7 +46,7 @@ interface PlansIndexProps {
 
 export default function PlansIndex({ plans }: PlansIndexProps) {
   const handleDelete = (planId: number) => {
-    router.delete(`/dashboard/admin/plans/${planId}`)
+    router.delete(`/dashboard/plans/${planId}`)
   }
 
   const getIntervalLabel = (interval: string) => {
@@ -73,7 +73,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
             <p className="text-muted-foreground">{t("admin.plans.subtitle")}</p>
           </div>
           <Button asChild>
-            <Link href="/dashboard/admin/plans/new">
+            <Link href="/dashboard/plans/new">
               <Plus className="w-4 h-4 mr-2" />
               {t("admin.plans.new")}
             </Link>
@@ -127,7 +127,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button variant="ghost" size="icon" asChild>
-                            <Link href={`/dashboard/admin/plans/${plan.id}/edit`}>
+                            <Link href={`/dashboard/plans/${plan.id}/edit`}>
                               <Pencil className="w-4 h-4" />
                             </Link>
                           </Button>

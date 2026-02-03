@@ -21,11 +21,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     get "project_md", to: "project_md#index", as: :project_md
     post "project_md", to: "project_md#create"
-
-    # Admin
-    namespace :admin do
-      resources :plans
-    end
+    resources :plans, except: [:show]
   end
 
   namespace :settings do
@@ -33,6 +29,9 @@ Rails.application.routes.draw do
     resource :password, only: [:show, :update]
     resource :email, only: [:show, :update]
     resources :sessions, only: [:index]
+    resource :billing, only: [:show], controller: 'billing' do
+      post :cancel, on: :collection
+    end
     inertia :appearance
   end
 
@@ -40,7 +39,7 @@ Rails.application.routes.draw do
   get :pricing, to: "billing#pricing"
   post "billing/checkout", to: "billing#checkout"
   get "billing/success", to: "billing#success"
-  get "billing/portal", to: "billing#portal"
+  post "billing/portal", to: "billing#portal"
 
   # Webhooks
   namespace :webhooks do

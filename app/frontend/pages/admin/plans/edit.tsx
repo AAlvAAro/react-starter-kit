@@ -43,7 +43,7 @@ export default function EditPlan({ plan }: EditPlanProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    patch(`/dashboard/admin/plans/${plan.id}`)
+    patch(`/dashboard/plans/${plan.id}`)
   }
 
   return (
@@ -187,7 +187,7 @@ export default function EditPlan({ plan }: EditPlanProps) {
                   {t("admin.plans.save")}
                 </Button>
                 <Button type="button" variant="outline" asChild>
-                  <Link href="/dashboard/admin/plans">{t("actions.cancel")}</Link>
+                  <Link href="/dashboard/plans">{t("actions.cancel")}</Link>
                 </Button>
               </div>
             </form>

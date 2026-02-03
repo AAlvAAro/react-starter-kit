@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class Dashboard::Admin::PlansController < InertiaController
+class Dashboard::PlansController < InertiaController
   before_action :require_super_admin
-  before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: [:edit, :update, :destroy]
 
   def index
     @plans = Plan.ordered
@@ -19,9 +19,16 @@ class Dashboard::Admin::PlansController < InertiaController
     @plan = Plan.new(plan_params)
 
     if @plan.save
-      redirect_to dashboard_admin_plans_path, notice: I18n.t("flash.plan_created")
+      # Automatically create Stripe product and price
+      begin
+        StripePlanService.create_product_and_price(@plan)
+        redirect_to dashboard_plans_path, notice: I18n.t("flash.plan_created_with_stripe")
+      rescue StripePlanService::StripeError => e
+        # Plan was saved but Stripe creation failed
+        redirect_to edit_dashboard_plan_path(@plan), alert: I18n.t("flash.stripe_creation_failed", error: e.message)
+      end
     else
-      redirect_to new_dashboard_admin_plan_path, inertia: { errors: @plan.errors }
+      redirect_to new_dashboard_plan_path, inertia: { errors: @plan.errors }
     end
   end
 
@@ -33,15 +40,15 @@ class Dashboard::Admin::PlansController < InertiaController
 
   def update
     if @plan.update(plan_params)
-      redirect_to dashboard_admin_plans_path, notice: I18n.t("flash.plan_updated")
+      redirect_to dashboard_plans_path, notice: I18n.t("flash.plan_updated")
     else
-      redirect_to edit_dashboard_admin_plan_path(@plan), inertia: { errors: @plan.errors }
+      redirect_to edit_dashboard_plan_path(@plan), inertia: { errors: @plan.errors }
     end
   end
 
   def destroy
     @plan.destroy
-    redirect_to dashboard_admin_plans_path, notice: I18n.t("flash.plan_deleted")
+    redirect_to dashboard_plans_path, notice: I18n.t("flash.plan_deleted")
   end
 
   private
@@ -57,10 +64,9 @@ class Dashboard::Admin::PlansController < InertiaController
   end
 
   def plan_params
-    params.require(:plan).permit(
+    params.permit(
       :name, :description, :stripe_price_id, :stripe_product_id,
-      :price_cents, :interval, :currency, :active, :position,
-      features: []
+      :price_cents, :interval, :currency, :active, :position, :features
     )
   end
 

@@ -5,6 +5,24 @@ class HomeController < InertiaController
   before_action :perform_authentication
 
   def index
-    render inertia: "home/index"
+    @plans = Plan.active.ordered
+    render inertia: "home/index", props: {
+      plans: @plans.map { |plan| plan_json(plan) }
+    }
+  end
+
+  private
+
+  def plan_json(plan)
+    {
+      id: plan.id,
+      name: plan.name,
+      description: plan.description,
+      price_cents: plan.price_cents,
+      interval: plan.interval,
+      currency: plan.currency,
+      features: plan.features_list,
+      stripe_price_id: plan.stripe_price_id
+    }
   end
 end

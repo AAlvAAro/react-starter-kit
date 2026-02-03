@@ -96,11 +96,46 @@ en-US:
   # Settings
   settings:
     title: "Settings"
+    subtitle: "Manage your account profile and settings"
     profile: "Profile"
     email: "Email"
     password: "Password"
     sessions: "Sessions"
+    billing: "Billing"
     appearance: "Appearance"
+    profile:
+      title: "Profile Information"
+      subtitle: "Update your name and language preferences"
+      name: "Name"
+      name_placeholder: "Your name"
+      locale: "Language"
+      locale_es: "Español (México)"
+      locale_en: "English (US)"
+      save: "Save"
+      saved: "Saved."
+    billing:
+      title: "Billing & Subscription"
+      subtitle: "Manage your subscription and payment history"
+      current_plan: "Current Plan"
+      current_plan_description: "Your active subscription plan"
+      payment_history: "Payment History"
+      payment_history_description: "View your past payments and invoices"
+      no_plan: "You don't have an active plan"
+      view_plans: "View Available Plans"
+      manage_billing: "Manage Billing"
+      cancel_subscription: "Cancel Subscription"
+      cancel_confirm: "Are you sure you want to cancel your subscription? You will still have access until the end of your billing period."
+      cancel_success: "Your subscription has been scheduled for cancellation at the end of the billing period."
+      cancel_error: "Failed to cancel subscription. Please try again."
+      no_subscription: "You don't have an active subscription to cancel."
+      subscription_canceled: "Your subscription will be canceled at the end of the billing period."
+      cancel_failed: "Failed to cancel subscription: %{error}"
+      payment: "Payment"
+      no_payments: "No payment history available"
+      monthly: "per month"
+      yearly: "per year"
+      one_time: "one-time"
+      stripe_info: "Billing is managed through Stripe. Click 'Manage Billing' to update payment methods or view invoices."
 
   # Auth
   auth:
@@ -120,9 +155,14 @@ en-US:
     profile_updated: "Your profile has been updated"
     subscription_activated: "Your subscription has been activated!"
     payment_failed: "Payment could not be processed. Please try again."
+    plan_not_configured: "This plan is not properly configured. Please contact support."
     plan_created: "Plan created successfully"
+    plan_created_with_stripe: "Plan created successfully and synced with Stripe!"
     plan_updated: "Plan updated successfully"
     plan_deleted: "Plan deleted successfully"
+    stripe_creation_failed: "Plan saved but Stripe sync failed: %{error}"
+    stripe_update_failed: "Plan updated but Stripe sync failed: %{error}"
+    no_permission: "You don't have permission to access this page"
 
   # Errors
   errors:

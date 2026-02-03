@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react"
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-react"
+import { BookOpen, CreditCard, Folder, LayoutGrid, Menu, Search } from "lucide-react"
 
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { Icon } from "@/components/icon"
@@ -48,6 +48,11 @@ const mainNavItems: NavItem[] = [
 
 const rightNavItems: NavItem[] = [
   {
+    title: "Plans",
+    href: "/dashboard/plans",
+    icon: CreditCard,
+  },
+  {
     title: "Repository",
     href: "https://github.com/inertia-rails/react-starter-kit",
     icon: Folder,
@@ -70,6 +75,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   const page = usePage()
   const { auth } = page.props
   const getInitials = useInitials()
+
   return (
     <>
       <div className="border-sidebar-border/80 border-b">

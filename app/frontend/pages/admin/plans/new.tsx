@@ -25,7 +25,7 @@ export default function NewPlan() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    post("/dashboard/admin/plans")
+    post("/dashboard/plans")
   }
 
   return (
@@ -169,7 +169,7 @@ export default function NewPlan() {
                   {t("admin.plans.save")}
                 </Button>
                 <Button type="button" variant="outline" asChild>
-                  <Link href="/dashboard/admin/plans">{t("actions.cancel")}</Link>
+                  <Link href="/dashboard/plans">{t("actions.cancel")}</Link>
                 </Button>
               </div>
             </form>

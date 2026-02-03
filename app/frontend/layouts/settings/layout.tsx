@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { t } from "@/lib/i18n"
 import {
   settingsAppearancePath,
+  settingsBillingPath,
   settingsEmailPath,
   settingsPasswordPath,
   settingsProfilePath,
@@ -29,6 +30,11 @@ const getSidebarNavItems = (): NavItem[] => [
   {
     title: t("settings.password"),
     href: settingsPasswordPath(),
+    icon: null,
+  },
+  {
+    title: t("settings.billing"),
+    href: settingsBillingPath(),
     icon: null,
   },
   {
