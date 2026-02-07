@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   end
 
   get :dashboard, to: "dashboard#index"
-  get :mcp, to: "mcp#index"
 
   resources :plans, except: [:show]
 
