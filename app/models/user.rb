@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
+  has_secure_token :mcp_token
 
   enum :role, {user: 0, admin: 1, super_admin: 2}, default: :user
 
