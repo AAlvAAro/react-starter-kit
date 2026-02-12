@@ -90,6 +90,7 @@ group :test do
 end
 
 # Custom gems
+gem "fast-mcp"
 gem "postmark-rails"
 gem "ruby_llm"
 gem "ruby_llm-mcp"

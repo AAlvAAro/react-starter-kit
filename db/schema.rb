@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_02_131018) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_07_111026) do
   create_table "plans", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_131018) do
     t.integer "current_plan_id"
     t.string "email", null: false
     t.string "locale", default: "es-MX"
+    t.string "mcp_token"
     t.string "name", null: false
     t.string "password_digest", null: false
     t.integer "role", default: 0, null: false
