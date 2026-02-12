@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react"
-import { BookOpen, CreditCard, Folder, LayoutGrid, Settings } from "lucide-react"
+import { BookOpen, CreditCard, Folder, LayoutGrid, Settings, Search } from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -24,6 +24,11 @@ const mainNavItems: NavItem[] = [
     title: "Dashboard",
     href: dashboardPath(),
     icon: LayoutGrid,
+  },
+  {
+    title: "Instagram",
+    href: "/instagram",
+    icon: Search,
   },
 ]
 

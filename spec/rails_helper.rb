@@ -8,6 +8,9 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "capybara/rspec"
 require "selenium-webdriver"
+require "webmock/rspec"
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Precompile Vite assets once before running the test suite
 ViteRuby.commands.build

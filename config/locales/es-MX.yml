@@ -1,16 +1,84 @@
 es-MX:
+  hello: "Hola mundo"
+
   # Common
-  app_name: "React Starter Kit"
+  common:
+    back: "Volver"
+    search: "Buscar"
+    loading: "Cargando..."
+    save: "Guardar"
+    cancel: "Cancelar"
+    delete: "Eliminar"
+    edit: "Editar"
+    settings: "Configuración"
+    logout: "Cerrar sesión"
+    profile: "Perfil"
 
   # Navigation
   nav:
+    home: "Inicio"
+    instagram: "Instagram"
     dashboard: "Panel"
-    catalog: "Catálogo"
-    orders: "Pedidos"
-    customers: "Clientes"
-    insights: "Estadísticas"
-    settings: "Configuración"
-    sign_out: "Cerrar sesión"
+    pricing: "Precios"
+
+  # Instagram Module
+  instagram:
+    search:
+      title: "Análisis de Perfiles de Instagram"
+      subtitle: "Ingresa un nombre de usuario de Instagram para obtener análisis con IA y estrategias de conversación"
+      placeholder: "Ingresa usuario (ej. @usuario)"
+      button: "Analizar Perfil"
+      searching: "Analizando..."
+    history:
+      title: "Búsquedas Recientes"
+      empty: "Aún no hay búsquedas. Comienza buscando un perfil de Instagram arriba."
+    profile:
+      followers: "Seguidores"
+      posts: "Publicaciones"
+      following: "Siguiendo"
+      back_to_searches: "Volver a búsquedas"
+    tabs:
+      overview: "Resumen"
+      insights: "Análisis"
+      prep: "Preparación"
+    overview:
+      title: "Resumen del Perfil"
+      description: "Este es un resumen del perfil de Instagram de @%{username}. Navega a la pestaña de Análisis para un análisis detallado o a Preparación para estrategias de conversación."
+      bio: "Biografía"
+    insights:
+      generating: "Generando análisis..."
+      tone: "Tono y Voz"
+      confidence: "Confianza"
+      topics: "Temas de Interés"
+      words: "Palabras Más Usadas"
+      personality: "Personalidad"
+      posture: "Pensamientos y Postura"
+      interests: "Intereses"
+      flags: "Señales"
+    strategy:
+      title: "Guía de Preparación"
+      subtitle: "Consejos de conversación generados por IA basados en el perfil de @%{username}"
+      generating: "Generando guía de preparación..."
+      icebreaker:
+        title: "Práctica de Rompehielos"
+        subtitle: "Practica iniciar una conversación con @%{username} en diferentes estados de ánimo"
+        generating: "Generando personas..."
+        start_typing: "Escribe para comenzar la conversación..."
+        chatting_as: "Chateando como: %{persona}"
+        reset: "Reiniciar"
+        change_persona: "Cambiar persona"
+        type_message: "Escribe tu mensaje..."
+
+  # Auth
+  auth:
+    sign_in: "Iniciar Sesión"
+    sign_up: "Registrarse"
+    sign_out: "Cerrar Sesión"
+    email: "Correo electrónico"
+    password: "Contraseña"
+    forgot_password: "¿Olvidaste tu contraseña?"
+    no_account: "¿No tienes cuenta?"
+    have_account: "¿Ya tienes cuenta?"
 
   # Actions
   actions:

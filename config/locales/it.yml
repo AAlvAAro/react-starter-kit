@@ -1,0 +1,81 @@
+it:
+  hello: "Ciao mondo"
+  
+  # Common
+  common:
+    back: "Indietro"
+    search: "Cerca"
+    loading: "Caricamento..."
+    save: "Salva"
+    cancel: "Annulla"
+    delete: "Elimina"
+    edit: "Modifica"
+    settings: "Impostazioni"
+    logout: "Esci"
+    profile: "Profilo"
+  
+  # Navigation
+  nav:
+    home: "Home"
+    instagram: "Instagram"
+    dashboard: "Dashboard"
+    pricing: "Prezzi"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "Analisi Profili Instagram"
+      subtitle: "Inserisci un nome utente Instagram per ottenere analisi AI e strategie di conversazione"
+      placeholder: "Inserisci nome utente (es. @username)"
+      button: "Analizza Profilo"
+      searching: "Analizzando..."
+    history:
+      title: "Ricerche Recenti"
+      empty: "Nessuna ricerca ancora. Inizia cercando un profilo Instagram sopra."
+    profile:
+      followers: "Follower"
+      posts: "Post"
+      following: "Seguiti"
+      back_to_searches: "Torna alle ricerche"
+    tabs:
+      overview: "Panoramica"
+      insights: "Analisi"
+      prep: "Preparazione"
+    overview:
+      title: "Riepilogo Profilo"
+      description: "Questa è una panoramica del profilo Instagram di @%{username}. Vai alla scheda Analisi per un'analisi dettagliata o alla scheda Preparazione per strategie di conversazione."
+      bio: "Bio"
+    insights:
+      generating: "Generando analisi..."
+      tone: "Tono e Voce"
+      confidence: "Confidenza"
+      topics: "Argomenti di Interesse"
+      words: "Parole Più Usate"
+      personality: "Personalità"
+      posture: "Pensieri e Postura"
+      interests: "Interessi"
+      flags: "Segnali"
+    strategy:
+      title: "Guida alla Preparazione"
+      subtitle: "Consigli di conversazione generati dall'AI basati sul profilo di @%{username}"
+      generating: "Generando guida alla preparazione..."
+      icebreaker:
+        title: "Pratica Rompighiaccio"
+        subtitle: "Pratica ad iniziare una conversazione con @%{username} in diversi stati d'animo"
+        generating: "Generando personaggi..."
+        start_typing: "Inizia a scrivere per iniziare la conversazione..."
+        chatting_as: "Chattando come: %{persona}"
+        reset: "Reimposta"
+        change_persona: "Cambia personaggio"
+        type_message: "Scrivi il tuo messaggio..."
+  
+  # Auth
+  auth:
+    sign_in: "Accedi"
+    sign_up: "Registrati"
+    sign_out: "Esci"
+    email: "Email"
+    password: "Password"
+    forgot_password: "Password dimenticata?"
+    no_account: "Non hai un account?"
+    have_account: "Hai già un account?"

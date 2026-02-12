@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         line-height: 1.6;
-        color: #0a0a0a;
-        background-color: #f5f5f5;
+        color: #1f2634;
+        background-color: #e8edf5;
         margin: 0;
         padding: 0;
       }
@@ -20,35 +20,28 @@
       .email-container {
         background-color: #ffffff;
         border-radius: 12px;
-        border: 1px solid #e5e5e5;
+        border: 1px solid #d4dce8;
         overflow: hidden;
       }
       .email-header {
-        background-color: #0a0a0a;
+        background-color: #1f2634;
         padding: 24px 32px;
         text-align: center;
       }
       .email-logo {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
         color: #ffffff;
         text-decoration: none;
       }
       .email-logo-icon {
-        width: 32px;
-        height: 32px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #0a0a0a;
-        font-weight: bold;
-        font-size: 14px;
+        width: 28px;
+        height: 28px;
+        display: inline-block;
       }
       .email-logo-text {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         color: #ffffff;
       }
@@ -57,14 +50,14 @@
       }
       .email-body p {
         margin: 0 0 16px 0;
-        color: #525252;
+        color: #5a6885;
       }
       .email-body p:last-child {
         margin-bottom: 0;
       }
       .email-button {
         display: inline-block;
-        background-color: #0a0a0a;
+        background-color: #ff55b2;
         color: #ffffff !important;
         text-decoration: none;
         padding: 12px 24px;
@@ -74,7 +67,7 @@
         margin: 8px 0 16px 0;
       }
       .email-button:hover {
-        background-color: #262626;
+        background-color: #ff3da3;
       }
       .email-divider {
         border: none;
@@ -83,7 +76,7 @@
       }
       .email-footer {
         padding: 24px 32px;
-        background-color: #fafafa;
+        background-color: #f8f9fb;
         border-top: 1px solid #e5e5e5;
       }
       .email-footer p {
@@ -92,7 +85,10 @@
         color: #737373;
       }
       .email-footer a {
-        color: #0a0a0a;
+        color: #ff55b2;
+        text-decoration: none;
+      }
+      .email-footer a:hover {
         text-decoration: underline;
       }
       .text-muted {
@@ -100,7 +96,7 @@
         font-size: 14px;
       }
       .text-strong {
-        color: #0a0a0a;
+        color: #1f2634;
         font-weight: 600;
       }
     </style>
@@ -111,8 +107,14 @@
       <div class="email-container">
         <div class="email-header">
           <a href="<%= root_url %>" class="email-logo">
-            <span class="email-logo-icon">R</span>
-            <span class="email-logo-text">React Starter Kit</span>
+            <svg class="email-logo-icon" viewBox="0 0 24 24" fill="none" stroke="#ff55b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/>
+              <path d="M19 17v4"/>
+              <path d="M3 5h4"/>
+              <path d="M17 19h4"/>
+            </svg>
+            <span class="email-logo-text">MeetIQ</span>
           </a>
         </div>
         <div class="email-body">

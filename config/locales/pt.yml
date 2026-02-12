@@ -1,0 +1,81 @@
+pt:
+  hello: "Olá mundo"
+  
+  # Common
+  common:
+    back: "Voltar"
+    search: "Buscar"
+    loading: "Carregando..."
+    save: "Salvar"
+    cancel: "Cancelar"
+    delete: "Excluir"
+    edit: "Editar"
+    settings: "Configurações"
+    logout: "Sair"
+    profile: "Perfil"
+  
+  # Navigation
+  nav:
+    home: "Início"
+    instagram: "Instagram"
+    dashboard: "Painel"
+    pricing: "Preços"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "Análise de Perfis do Instagram"
+      subtitle: "Digite um nome de usuário do Instagram para obter insights com IA e estratégias de conversa"
+      placeholder: "Digite usuário (ex. @usuario)"
+      button: "Analisar Perfil"
+      searching: "Analisando..."
+    history:
+      title: "Buscas Recentes"
+      empty: "Nenhuma busca ainda. Comece buscando um perfil do Instagram acima."
+    profile:
+      followers: "Seguidores"
+      posts: "Publicações"
+      following: "Seguindo"
+      back_to_searches: "Voltar às buscas"
+    tabs:
+      overview: "Visão Geral"
+      insights: "Análises"
+      prep: "Preparação"
+    overview:
+      title: "Resumo do Perfil"
+      description: "Esta é uma visão geral do perfil do Instagram de @%{username}. Navegue até a aba Análises para análise detalhada ou Preparação para estratégias de conversa."
+      bio: "Bio"
+    insights:
+      generating: "Gerando análises..."
+      tone: "Tom e Voz"
+      confidence: "Confiança"
+      topics: "Tópicos de Interesse"
+      words: "Palavras Mais Usadas"
+      personality: "Personalidade"
+      posture: "Pensamentos e Postura"
+      interests: "Interesses"
+      flags: "Sinais"
+    strategy:
+      title: "Guia de Preparação"
+      subtitle: "Dicas de conversa geradas por IA baseadas no perfil de @%{username}"
+      generating: "Gerando guia de preparação..."
+      icebreaker:
+        title: "Prática de Quebra-gelo"
+        subtitle: "Pratique iniciar uma conversa com @%{username} em diferentes humores"
+        generating: "Gerando personas..."
+        start_typing: "Digite para começar a conversa..."
+        chatting_as: "Conversando como: %{persona}"
+        reset: "Reiniciar"
+        change_persona: "Mudar persona"
+        type_message: "Digite sua mensagem..."
+  
+  # Auth
+  auth:
+    sign_in: "Entrar"
+    sign_up: "Cadastrar"
+    sign_out: "Sair"
+    email: "E-mail"
+    password: "Senha"
+    forgot_password: "Esqueceu a senha?"
+    no_account: "Não tem conta?"
+    have_account: "Já tem conta?"

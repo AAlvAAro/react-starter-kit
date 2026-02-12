@@ -97,3 +97,5 @@ gem "ruby_llm-mcp"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "stripe"
+
+gem "webmock", "~> 3.26", group: :test

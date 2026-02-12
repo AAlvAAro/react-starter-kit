@@ -29,3 +29,82 @@
 
 en:
   hello: "Hello world"
+
+  # Common
+  common:
+    back: "Back"
+    search: "Search"
+    loading: "Loading..."
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    settings: "Settings"
+    logout: "Logout"
+    profile: "Profile"
+
+  # Navigation
+  nav:
+    home: "Home"
+    instagram: "Instagram"
+    dashboard: "Dashboard"
+    pricing: "Pricing"
+
+  # Instagram Module
+  instagram:
+    search:
+      title: "Instagram Profile Insights"
+      subtitle: "Enter an Instagram username to get AI-powered insights and conversation strategies"
+      placeholder: "Enter username (e.g. @username)"
+      button: "Analyze Profile"
+      searching: "Analyzing..."
+    history:
+      title: "Recent Searches"
+      empty: "No searches yet. Start by searching for an Instagram profile above."
+    profile:
+      followers: "Followers"
+      posts: "Posts"
+      following: "Following"
+      back_to_searches: "Back to searches"
+    tabs:
+      overview: "Overview"
+      insights: "Insights"
+      prep: "Prep"
+    overview:
+      title: "Profile Summary"
+      description: "This is an overview of @%{username}'s Instagram profile. Navigate to the Insights tab for detailed analysis or the Prep tab for conversation strategies."
+      bio: "Bio"
+    insights:
+      generating: "Generating insights..."
+      tone: "Tone & Voice"
+      confidence: "Confidence"
+      topics: "Topics of Interest"
+      words: "Most Used Words"
+      personality: "Personality"
+      posture: "Thoughts & Posture"
+      interests: "Interests"
+      flags: "Flags"
+    strategy:
+      title: "Prep Guide"
+      subtitle: "AI-generated conversation tips based on @%{username}'s profile"
+      generating: "Generating prep guide..."
+      icebreaker:
+        title: "Icebreaker Practice"
+        subtitle: "Practice starting a conversation with @%{username} in different moods"
+        generating: "Generating personas..."
+        start_typing: "Start typing to begin the conversation..."
+        chatting_as: "Chatting as: %{persona}"
+        reset: "Reset"
+        change_persona: "Change persona"
+        type_message: "Type your message..."
+
+  # Auth
+  auth:
+    sign_in: "Sign In"
+    sign_up: "Sign Up"
+    sign_out: "Sign Out"
+    email: "Email"
+    password: "Password"
+    forgot_password: "Forgot password?"
+    no_account: "Don't have an account?"
+    have_account: "Already have an account?"

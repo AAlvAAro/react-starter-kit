@@ -17,6 +17,13 @@ Rails.application.routes.draw do
 
   get :dashboard, to: "dashboard#index"
 
+  # Instagram Profile Insights
+  resources :instagram, only: [:index, :create], controller: "instagram/instagram"
+  get "instagram/:username", to: "instagram/instagram#show", as: :instagram_profile
+  get "instagram/:username/insights", to: "instagram/instagram#insights", as: :instagram_profile_insights
+  get "instagram/:username/strategy", to: "instagram/instagram#strategy", as: :instagram_profile_strategy
+  post "instagram/:username/chat", to: "instagram/instagram#chat", as: :instagram_profile_chat
+
   resources :plans, except: [:show]
 
   namespace :settings do

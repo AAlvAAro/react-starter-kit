@@ -1,0 +1,81 @@
+hi:
+  hello: "नमस्ते दुनिया"
+  
+  # Common
+  common:
+    back: "वापस"
+    search: "खोजें"
+    loading: "लोड हो रहा है..."
+    save: "सहेजें"
+    cancel: "रद्द करें"
+    delete: "हटाएं"
+    edit: "संपादित करें"
+    settings: "सेटिंग्स"
+    logout: "लॉग आउट"
+    profile: "प्रोफ़ाइल"
+  
+  # Navigation
+  nav:
+    home: "होम"
+    instagram: "इंस्टाग्राम"
+    dashboard: "डैशबोर्ड"
+    pricing: "मूल्य निर्धारण"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "इंस्टाग्राम प्रोफ़ाइल विश्लेषण"
+      subtitle: "AI-संचालित अंतर्दृष्टि और बातचीत रणनीतियां प्राप्त करने के लिए इंस्टाग्राम उपयोगकर्ता नाम दर्ज करें"
+      placeholder: "उपयोगकर्ता नाम दर्ज करें (जैसे @username)"
+      button: "प्रोफ़ाइल का विश्लेषण करें"
+      searching: "विश्लेषण हो रहा है..."
+    history:
+      title: "हाल की खोजें"
+      empty: "अभी तक कोई खोज नहीं। ऊपर इंस्टाग्राम प्रोफ़ाइल खोजकर शुरू करें।"
+    profile:
+      followers: "फॉलोअर्स"
+      posts: "पोस्ट"
+      following: "फॉलोइंग"
+      back_to_searches: "खोजों पर वापस जाएं"
+    tabs:
+      overview: "अवलोकन"
+      insights: "अंतर्दृष्टि"
+      prep: "तैयारी"
+    overview:
+      title: "प्रोफ़ाइल सारांश"
+      description: "यह @%{username} की इंस्टाग्राम प्रोफ़ाइल का अवलोकन है। विस्तृत विश्लेषण के लिए अंतर्दृष्टि टैब पर जाएं या बातचीत रणनीतियों के लिए तैयारी टैब पर जाएं।"
+      bio: "बायो"
+    insights:
+      generating: "अंतर्दृष्टि उत्पन्न हो रही है..."
+      tone: "टोन और आवाज़"
+      confidence: "आत्मविश्वास"
+      topics: "रुचि के विषय"
+      words: "सबसे अधिक उपयोग किए गए शब्द"
+      personality: "व्यक्तित्व"
+      posture: "विचार और रुख"
+      interests: "रुचियां"
+      flags: "संकेत"
+    strategy:
+      title: "तैयारी गाइड"
+      subtitle: "@%{username} की प्रोफ़ाइल के आधार पर AI-जनित बातचीत सुझाव"
+      generating: "तैयारी गाइड उत्पन्न हो रही है..."
+      icebreaker:
+        title: "आइसब्रेकर अभ्यास"
+        subtitle: "विभिन्न मूड में @%{username} के साथ बातचीत शुरू करने का अभ्यास करें"
+        generating: "पर्सोना उत्पन्न हो रहे हैं..."
+        start_typing: "बातचीत शुरू करने के लिए टाइप करें..."
+        chatting_as: "के रूप में चैट कर रहे हैं: %{persona}"
+        reset: "रीसेट"
+        change_persona: "पर्सोना बदलें"
+        type_message: "अपना संदेश टाइप करें..."
+  
+  # Auth
+  auth:
+    sign_in: "साइन इन करें"
+    sign_up: "साइन अप करें"
+    sign_out: "साइन आउट करें"
+    email: "ईमेल"
+    password: "पासवर्ड"
+    forgot_password: "पासवर्ड भूल गए?"
+    no_account: "खाता नहीं है?"
+    have_account: "पहले से खाता है?"

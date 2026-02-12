@@ -1,0 +1,81 @@
+ar:
+  hello: "مرحبا بالعالم"
+  
+  # Common
+  common:
+    back: "رجوع"
+    search: "بحث"
+    loading: "جاري التحميل..."
+    save: "حفظ"
+    cancel: "إلغاء"
+    delete: "حذف"
+    edit: "تعديل"
+    settings: "الإعدادات"
+    logout: "تسجيل الخروج"
+    profile: "الملف الشخصي"
+  
+  # Navigation
+  nav:
+    home: "الرئيسية"
+    instagram: "انستغرام"
+    dashboard: "لوحة التحكم"
+    pricing: "الأسعار"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "تحليل ملفات انستغرام"
+      subtitle: "أدخل اسم مستخدم انستغرام للحصول على تحليلات الذكاء الاصطناعي واستراتيجيات المحادثة"
+      placeholder: "أدخل اسم المستخدم (مثال: @username)"
+      button: "تحليل الملف الشخصي"
+      searching: "جاري التحليل..."
+    history:
+      title: "عمليات البحث الأخيرة"
+      empty: "لا توجد عمليات بحث بعد. ابدأ بالبحث عن ملف انستغرام أعلاه."
+    profile:
+      followers: "المتابعون"
+      posts: "المنشورات"
+      following: "يتابع"
+      back_to_searches: "العودة للبحث"
+    tabs:
+      overview: "نظرة عامة"
+      insights: "التحليلات"
+      prep: "التحضير"
+    overview:
+      title: "ملخص الملف الشخصي"
+      description: "هذه نظرة عامة على ملف انستغرام @%{username}. انتقل إلى علامة التبويب التحليلات للتحليل المفصل أو علامة التبويب التحضير لاستراتيجيات المحادثة."
+      bio: "السيرة الذاتية"
+    insights:
+      generating: "جاري إنشاء التحليلات..."
+      tone: "النبرة والصوت"
+      confidence: "الثقة"
+      topics: "مواضيع الاهتمام"
+      words: "الكلمات الأكثر استخداماً"
+      personality: "الشخصية"
+      posture: "الأفكار والموقف"
+      interests: "الاهتمامات"
+      flags: "العلامات"
+    strategy:
+      title: "دليل التحضير"
+      subtitle: "نصائح محادثة مولدة بالذكاء الاصطناعي بناءً على ملف @%{username}"
+      generating: "جاري إنشاء دليل التحضير..."
+      icebreaker:
+        title: "تمرين كسر الجليد"
+        subtitle: "تدرب على بدء محادثة مع @%{username} في حالات مزاجية مختلفة"
+        generating: "جاري إنشاء الشخصيات..."
+        start_typing: "ابدأ الكتابة لبدء المحادثة..."
+        chatting_as: "محادثة كـ: %{persona}"
+        reset: "إعادة تعيين"
+        change_persona: "تغيير الشخصية"
+        type_message: "اكتب رسالتك..."
+  
+  # Auth
+  auth:
+    sign_in: "تسجيل الدخول"
+    sign_up: "إنشاء حساب"
+    sign_out: "تسجيل الخروج"
+    email: "البريد الإلكتروني"
+    password: "كلمة المرور"
+    forgot_password: "نسيت كلمة المرور؟"
+    no_account: "ليس لديك حساب؟"
+    have_account: "لديك حساب بالفعل؟"

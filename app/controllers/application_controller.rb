@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   def locale_from_params
-    locale = params[:locale]
+    locale = params[:lang] || params[:locale]
     return unless locale.present?
     return unless I18n.available_locales.map(&:to_s).include?(locale.to_s)
 

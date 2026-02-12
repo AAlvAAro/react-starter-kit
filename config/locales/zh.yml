@@ -1,0 +1,81 @@
+zh:
+  hello: "你好世界"
+  
+  # Common
+  common:
+    back: "返回"
+    search: "搜索"
+    loading: "加载中..."
+    save: "保存"
+    cancel: "取消"
+    delete: "删除"
+    edit: "编辑"
+    settings: "设置"
+    logout: "退出登录"
+    profile: "个人资料"
+  
+  # Navigation
+  nav:
+    home: "首页"
+    instagram: "Instagram"
+    dashboard: "仪表板"
+    pricing: "价格"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "Instagram个人资料分析"
+      subtitle: "输入Instagram用户名以获取AI驱动的洞察和对话策略"
+      placeholder: "输入用户名（例如：@username）"
+      button: "分析个人资料"
+      searching: "分析中..."
+    history:
+      title: "最近搜索"
+      empty: "暂无搜索记录。请在上方搜索Instagram个人资料。"
+    profile:
+      followers: "粉丝"
+      posts: "帖子"
+      following: "关注"
+      back_to_searches: "返回搜索"
+    tabs:
+      overview: "概览"
+      insights: "洞察"
+      prep: "准备"
+    overview:
+      title: "个人资料摘要"
+      description: "这是@%{username}的Instagram个人资料概览。导航到洞察标签查看详细分析，或到准备标签查看对话策略。"
+      bio: "简介"
+    insights:
+      generating: "正在生成洞察..."
+      tone: "语气和声音"
+      confidence: "置信度"
+      topics: "感兴趣的话题"
+      words: "常用词汇"
+      personality: "性格"
+      posture: "想法和态度"
+      interests: "兴趣"
+      flags: "标记"
+    strategy:
+      title: "准备指南"
+      subtitle: "基于@%{username}个人资料的AI生成对话技巧"
+      generating: "正在生成准备指南..."
+      icebreaker:
+        title: "破冰练习"
+        subtitle: "练习在不同情绪下与@%{username}开始对话"
+        generating: "正在生成角色..."
+        start_typing: "开始输入以开始对话..."
+        chatting_as: "正在聊天: %{persona}"
+        reset: "重置"
+        change_persona: "更换角色"
+        type_message: "输入您的消息..."
+  
+  # Auth
+  auth:
+    sign_in: "登录"
+    sign_up: "注册"
+    sign_out: "退出"
+    email: "电子邮件"
+    password: "密码"
+    forgot_password: "忘记密码？"
+    no_account: "没有账户？"
+    have_account: "已有账户？"

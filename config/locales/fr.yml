@@ -1,0 +1,81 @@
+fr:
+  hello: "Bonjour le monde"
+  
+  # Common
+  common:
+    back: "Retour"
+    search: "Rechercher"
+    loading: "Chargement..."
+    save: "Enregistrer"
+    cancel: "Annuler"
+    delete: "Supprimer"
+    edit: "Modifier"
+    settings: "Paramètres"
+    logout: "Déconnexion"
+    profile: "Profil"
+  
+  # Navigation
+  nav:
+    home: "Accueil"
+    instagram: "Instagram"
+    dashboard: "Tableau de bord"
+    pricing: "Tarifs"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "Analyse de Profils Instagram"
+      subtitle: "Entrez un nom d'utilisateur Instagram pour obtenir des analyses IA et des stratégies de conversation"
+      placeholder: "Entrez le nom d'utilisateur (ex. @username)"
+      button: "Analyser le Profil"
+      searching: "Analyse en cours..."
+    history:
+      title: "Recherches Récentes"
+      empty: "Aucune recherche encore. Commencez par rechercher un profil Instagram ci-dessus."
+    profile:
+      followers: "Abonnés"
+      posts: "Publications"
+      following: "Abonnements"
+      back_to_searches: "Retour aux recherches"
+    tabs:
+      overview: "Aperçu"
+      insights: "Analyses"
+      prep: "Préparation"
+    overview:
+      title: "Résumé du Profil"
+      description: "Voici un aperçu du profil Instagram de @%{username}. Accédez à l'onglet Analyses pour une analyse détaillée ou à l'onglet Préparation pour des stratégies de conversation."
+      bio: "Bio"
+    insights:
+      generating: "Génération des analyses..."
+      tone: "Ton et Voix"
+      confidence: "Confiance"
+      topics: "Sujets d'Intérêt"
+      words: "Mots les Plus Utilisés"
+      personality: "Personnalité"
+      posture: "Pensées et Posture"
+      interests: "Intérêts"
+      flags: "Signaux"
+    strategy:
+      title: "Guide de Préparation"
+      subtitle: "Conseils de conversation générés par IA basés sur le profil de @%{username}"
+      generating: "Génération du guide de préparation..."
+      icebreaker:
+        title: "Pratique Brise-glace"
+        subtitle: "Pratiquez à démarrer une conversation avec @%{username} dans différentes humeurs"
+        generating: "Génération des personnages..."
+        start_typing: "Commencez à taper pour démarrer la conversation..."
+        chatting_as: "Discussion en tant que: %{persona}"
+        reset: "Réinitialiser"
+        change_persona: "Changer de personnage"
+        type_message: "Tapez votre message..."
+  
+  # Auth
+  auth:
+    sign_in: "Se connecter"
+    sign_up: "S'inscrire"
+    sign_out: "Se déconnecter"
+    email: "Email"
+    password: "Mot de passe"
+    forgot_password: "Mot de passe oublié?"
+    no_account: "Pas de compte?"
+    have_account: "Déjà un compte?"

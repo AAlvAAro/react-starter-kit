@@ -1,0 +1,81 @@
+ja:
+  hello: "こんにちは"
+  
+  # Common
+  common:
+    back: "戻る"
+    search: "検索"
+    loading: "読み込み中..."
+    save: "保存"
+    cancel: "キャンセル"
+    delete: "削除"
+    edit: "編集"
+    settings: "設定"
+    logout: "ログアウト"
+    profile: "プロフィール"
+  
+  # Navigation
+  nav:
+    home: "ホーム"
+    instagram: "Instagram"
+    dashboard: "ダッシュボード"
+    pricing: "料金"
+  
+  # Instagram Module
+  instagram:
+    search:
+      title: "Instagramプロフィール分析"
+      subtitle: "Instagramのユーザー名を入力して、AIによる分析と会話戦略を取得"
+      placeholder: "ユーザー名を入力（例：@username）"
+      button: "プロフィールを分析"
+      searching: "分析中..."
+    history:
+      title: "最近の検索"
+      empty: "まだ検索がありません。上でInstagramプロフィールを検索してください。"
+    profile:
+      followers: "フォロワー"
+      posts: "投稿"
+      following: "フォロー中"
+      back_to_searches: "検索に戻る"
+    tabs:
+      overview: "概要"
+      insights: "分析"
+      prep: "準備"
+    overview:
+      title: "プロフィール概要"
+      description: "@%{username}のInstagramプロフィールの概要です。詳細な分析は「分析」タブ、会話戦略は「準備」タブをご覧ください。"
+      bio: "自己紹介"
+    insights:
+      generating: "分析を生成中..."
+      tone: "トーンと声"
+      confidence: "信頼度"
+      topics: "興味のあるトピック"
+      words: "よく使う言葉"
+      personality: "性格"
+      posture: "考えと姿勢"
+      interests: "興味"
+      flags: "注意点"
+    strategy:
+      title: "準備ガイド"
+      subtitle: "@%{username}のプロフィールに基づくAI生成の会話ヒント"
+      generating: "準備ガイドを生成中..."
+      icebreaker:
+        title: "アイスブレイク練習"
+        subtitle: "@%{username}との会話を様々な気分で練習"
+        generating: "ペルソナを生成中..."
+        start_typing: "入力して会話を始める..."
+        chatting_as: "チャット中: %{persona}"
+        reset: "リセット"
+        change_persona: "ペルソナを変更"
+        type_message: "メッセージを入力..."
+  
+  # Auth
+  auth:
+    sign_in: "ログイン"
+    sign_up: "新規登録"
+    sign_out: "ログアウト"
+    email: "メールアドレス"
+    password: "パスワード"
+    forgot_password: "パスワードをお忘れですか？"
+    no_account: "アカウントをお持ちでないですか？"
+    have_account: "すでにアカウントをお持ちですか？"

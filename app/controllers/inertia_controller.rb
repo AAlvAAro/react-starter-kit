@@ -7,5 +7,17 @@ class InertiaController < ApplicationController
         session: -> { Current.session.as_json(only: %i[id]) }
       },
       locale: -> { I18n.locale.to_s },
-      available_locales: -> { I18n.available_locales.map(&:to_s) }
+      available_locales: -> { I18n.available_locales.map(&:to_s) },
+      translations: -> { translations_for_frontend }
+
+  private
+
+  def translations_for_frontend
+    {
+      common: I18n.t("common", default: {}),
+      nav: I18n.t("nav", default: {}),
+      instagram: I18n.t("instagram", default: {}),
+      auth: I18n.t("auth", default: {})
+    }
+  end
 end
