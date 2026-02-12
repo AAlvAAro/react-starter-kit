@@ -29,42 +29,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_07_111026) do
     t.index ["stripe_price_id"], name: "index_plans_on_stripe_price_id", unique: true
   end
 
-  create_table "receipts", force: :cascade do |t|
-    t.datetime "cancelled_at"
-    t.datetime "created_at", null: false
-    t.string "customer_id"
-    t.string "dining_option"
-    t.string "employee_id"
-    t.json "line_items", default: []
-    t.string "loyverse_id"
-    t.text "note"
-    t.string "order"
-    t.json "payments", default: []
-    t.decimal "points_balance"
-    t.decimal "points_deducted"
-    t.decimal "points_earned"
-    t.string "pos_device_id"
-    t.datetime "receipt_date"
-    t.string "receipt_number"
-    t.string "receipt_type"
-    t.string "refund_for"
-    t.string "source"
-    t.string "store_id"
-    t.decimal "surcharge"
-    t.decimal "tip"
-    t.decimal "total_discount"
-    t.json "total_discounts", default: []
-    t.decimal "total_money"
-    t.decimal "total_tax"
-    t.json "total_taxes", default: []
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["loyverse_id"], name: "index_receipts_on_loyverse_id", unique: true
-    t.index ["receipt_date"], name: "index_receipts_on_receipt_date"
-    t.index ["receipt_type"], name: "index_receipts_on_receipt_type"
-    t.index ["user_id"], name: "index_receipts_on_user_id"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -95,7 +59,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_07_111026) do
     t.index ["stripe_subscription_id"], name: "index_users_on_stripe_subscription_id", unique: true
   end
 
-  add_foreign_key "receipts", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "plans", column: "current_plan_id"
 end

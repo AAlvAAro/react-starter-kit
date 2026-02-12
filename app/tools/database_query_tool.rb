@@ -25,14 +25,18 @@ class DatabaseQueryTool < ApplicationTool
         results: results.to_a
       }
     rescue ActiveRecord::StatementInvalid => e
+      Rails.logger.error("[DatabaseQueryTool] SQL error while executing query: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n")) if e.backtrace
       {
         success: false,
-        error: "SQL Error: #{e.message}"
+        error: "There was a problem with the SQL query."
       }
     rescue StandardError => e
+      Rails.logger.error("[DatabaseQueryTool] Unexpected error while executing query: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n")) if e.backtrace
       {
         success: false,
-        error: "Error: #{e.message}"
+        error: "An unexpected error occurred while executing the query."
       }
     end
   end

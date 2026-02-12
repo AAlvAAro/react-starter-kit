@@ -14,20 +14,36 @@
 # You can customize the options below to fit your needs.
 require 'fast_mcp'
 
-FastMcp.mount_in_rails(
-  Rails.application,
+fast_mcp_options = {
   name: Rails.application.class.module_parent_name.underscore.dasherize,
   version: '1.0.0',
-  path_prefix: '/mcp', # This is the default path prefix
-  messages_route: 'messages', # This is the default route for the messages endpoint
-  sse_route: 'sse', # This is the default route for the SSE endpoint
-  # Add allowed origins below, it defaults to Rails.application.config.hosts
-  allowed_origins: ['localhost', '127.0.0.1', '[::1]', /.*\.ngrok-free\.app/, /.*\.ngrok\.io/],
-  localhost_only: false, # Set to false to allow connections from ngrok
-  # authenticate: true,       # Uncomment to enable authentication
-  # auth_token: 'your-token', # Required if authenticate: true
+  path_prefix: '/mcp',
+  messages_route: 'messages',
+  sse_route: 'sse'
+}
+
+if Rails.env.development?
+  # In development, allow localhost and ngrok for easier testing
+  fast_mcp_options[:allowed_origins] = ['localhost', '127.0.0.1', '[::1]', /.*\.ngrok-free\.app/, /.*\.ngrok\.io/]
+  fast_mcp_options[:localhost_only] = false
+else
+  # In non-development environments, require authentication
+  fast_mcp_options[:authenticate] = true
+  fast_mcp_options[:auth_token] =
+    ENV.fetch('FAST_MCP_AUTH_TOKEN') do
+      Rails.application.credentials.dig(:fast_mcp, :auth_token)
+    end
+end
+
+FastMcp.mount_in_rails(
+  Rails.application,
+  **fast_mcp_options
 ) do |server|
   Rails.application.config.after_initialize do
+    # Eager load tools and resources in development to ensure they're discovered
+    Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/tools")) if Rails.env.development?
+    Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/resources")) if Rails.env.development?
+
     # FastMcp will automatically discover and register:
     # - All classes that inherit from ApplicationTool (which uses ActionTool::Base)
     # - All classes that inherit from ApplicationResource (which uses ActionResource::Base)

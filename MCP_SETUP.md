@@ -11,9 +11,9 @@ This Rails application is configured as an MCP (Model Context Protocol) server u
 - **DatabaseQueryTool** - Execute read-only SQL queries (SELECT only)
 
 ### Resources (Data AI can read)
-- **AppInfoResource** (`app://info`) - Application metadata
 - **DatabaseStatsResource** (`app://database/stats`) - Database statistics
 - **RoutesResource** (`app://routes`) - All application routes
+- **SampleResource** (`examples/users`) - Example users resource
 
 ## Testing the MCP Server
 
@@ -106,9 +106,9 @@ Create a new tool in `app/tools/`:
 # app/tools/my_custom_tool.rb
 class MyCustomTool < ApplicationTool
   description "What this tool does"
-  
+
   argument :param_name, type: :string, description: "Parameter description", required: true
-  
+
   def call(param_name:)
     # Your logic here
     { result: "success" }
@@ -127,7 +127,7 @@ class MyResource < ApplicationResource
   name "My Resource"
   description "What this resource provides"
   mime_type "application/json"
-  
+
   def read
     { data: "your data" }.to_json
   end

@@ -11,6 +11,15 @@ class CreateUserTool < ApplicationTool
   end
 
   def call(name:, email:, password:, role: "user")
+    # Validate role before assignment to prevent ArgumentError
+    unless User.roles.keys.include?(role)
+      return {
+        success: false,
+        message: "Invalid role",
+        errors: ["Role must be one of: #{User.roles.keys.join(', ')}"]
+      }
+    end
+
     user = User.new(
       name: name,
       email: email,

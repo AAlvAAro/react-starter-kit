@@ -33,13 +33,33 @@ RSpec.describe User, type: :model do
 
   describe "normalizations" do
     it "normalizes email to lowercase and strips whitespace" do
-      user = User.new(
+      user = User.create!(
         name: "Test User",
-        email: "  TEST@NORMALIZATION.COM  ",
-        password: "Secret1*3*5*"
+        email: " TEST@EXAMPLE.COM ",
+        password: "password123",
+        verified: true
       )
-      user.save!
-      expect(user.email).to eq("test@normalization.com")
+
+      expect(user.email).to eq("test@example.com")
+    end
+  end
+
+  describe "mcp_token" do
+    it "generates mcp_token on create" do
+      user = create(:user)
+
+      expect(user.mcp_token).to be_present
+      expect(user.mcp_token).to be_a(String)
+    end
+
+    it "can regenerate mcp_token" do
+      user = create(:user)
+      original_token = user.mcp_token
+
+      user.regenerate_mcp_token
+
+      expect(user.mcp_token).to be_present
+      expect(user.mcp_token).not_to eq(original_token)
     end
   end
 
