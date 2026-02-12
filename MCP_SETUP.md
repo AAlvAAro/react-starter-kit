@@ -12,7 +12,6 @@ This Rails application is configured as an MCP (Model Context Protocol) server u
 
 ### Resources (Data AI can read)
 - **AppInfoResource** (`app://info`) - Application metadata
-- **DatabaseStatsResource** (`app://database/stats`) - Database statistics
 - **RoutesResource** (`app://routes`) - All application routes
 
 ## Testing the MCP Server
