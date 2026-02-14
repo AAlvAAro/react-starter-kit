@@ -2,12 +2,12 @@
 service: react_starter_kit
 
 # Name of the container image (use your-user/app-name on external registries).
-image: aalvaar0/react_starter_kit
+image: aalvaaro/react_starter_kit
 
 # Deploy to these servers.
 servers:
   web:
-    - 10.0.0.1
+    - 46.62.128.250
 
   # Uncomment to enable SSR:
   # vite_ssr:
@@ -36,10 +36,10 @@ servers:
 # Where you keep your container images.
 registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  # server: localhost:5555
+  server: ghcr.io
 
   # Needed for authenticated registries.
-  username: aalvaar0
+  username: aalvaaro
 
   # Always use an access token rather than real password when possible.
   password:
@@ -101,7 +101,7 @@ builder:
   # dockerfile: Dockerfile-ssr
   cache:
     type: registry
-    image: aalvaar0/react_starter_kit-build-cache
+    image: aalvaaro/react_starter_kit-build-cache
     options: mode=max
 
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
