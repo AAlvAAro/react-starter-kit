@@ -9,14 +9,9 @@ RSpec.describe "Dashboard", type: :request do
 
       before { sign_in_as(user) }
 
-      it "returns a successful response" do
+      it "redirects to instagram index" do
         get dashboard_path
-        expect(response).to have_http_status(:ok)
-      end
-
-      it "renders the dashboard page" do
-        get dashboard_path
-        expect(response.body).to include("dashboard/index")
+        expect(response).to redirect_to(instagram_index_path)
       end
     end
 

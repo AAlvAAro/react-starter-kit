@@ -33,4 +33,17 @@ class User < ApplicationRecord
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
   end
+
+  def has_credits?
+    credits_remaining > 0
+  end
+
+  def use_credit!
+    raise "No credits remaining" unless has_credits?
+    decrement!(:credits_remaining)
+  end
+
+  def add_credits!(amount)
+    increment!(:credits_remaining, amount)
+  end
 end

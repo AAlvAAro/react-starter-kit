@@ -66,7 +66,7 @@ class Settings::BillingController < InertiaController
           currency: charge.currency,
           status: charge.status,
           created: charge.created,
-          description: charge.description || charge.metadata&.dig("plan_name") || "Payment"
+          description: charge.description || charge.metadata&.[]("plan_name") || "Payment"
         }
       end
     rescue Stripe::StripeError => e

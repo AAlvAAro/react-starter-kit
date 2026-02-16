@@ -7,19 +7,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   BadgeCheck, Users, Image, TrendingUp, AlertTriangle, CheckCircle,
   BarChart3, BookOpen, User as UserIcon, MessageSquare, ShieldAlert,
   Handshake, Briefcase, Mail, Presentation, Scale,
-  Settings, LogOut, ArrowLeft,
+  ArrowLeft, Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DashboardLayout } from "@/layouts/dashboard-layout";
 
 function formatCount(count: number | undefined): string {
   if (!count) return "—";
@@ -72,15 +66,22 @@ interface MessageCategory {
   messages: MessageTemplate[];
 }
 
+interface InsightSet {
+  insights?: InsightsData;
+  strategy?: StrategySection[];
+  message_templates?: MessageCategory[];
+}
+
 interface ProfileSearchData {
   id: number;
   username: string;
   instagram_profile: InstagramProfile;
-  insights?: InsightsData;
-  strategy?: StrategySection[];
-  message_templates?: MessageCategory[];
+  business?: InsightSet;
+  personal?: InsightSet;
   searched_at?: string;
 }
+
+type ViewMode = "business" | "personal";
 
 interface ShowProps {
   profile_search: ProfileSearchData;
@@ -94,11 +95,14 @@ const iconMap: Record<string, React.ElementType> = {
 export default function InstagramShow({ profile_search, active_tab }: ShowProps) {
   const profile = profile_search.instagram_profile;
   const profileUsername = profile_search.username;
+  const [viewMode, setViewMode] = useState<ViewMode>(profile?.is_business ? "business" : "personal");
+
+  const currentInsights = viewMode === "business" ? profile_search.business : profile_search.personal;
 
   const tabs = [
-    { id: "overview", label: "Overview", icon: UserIcon, href: `/instagram/${profileUsername}` },
+    { id: "overview", label: "Resumen", icon: UserIcon, href: `/instagram/${profileUsername}` },
     { id: "insights", label: "Insights", icon: BarChart3, href: `/instagram/${profileUsername}/insights` },
-    { id: "strategy", label: "Prep", icon: BookOpen, href: `/instagram/${profileUsername}/strategy` },
+    { id: "strategy", label: "Preparación", icon: BookOpen, href: `/instagram/${profileUsername}/strategy` },
   ];
 
   const userInitials = profile?.name
@@ -109,15 +113,16 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
     .slice(0, 2) || profile_search.username.slice(0, 2).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <DashboardLayout>
+      <div>
       {/* Back link */}
-      <div className="p-4">
+      <div className="mb-4">
         <Link
           href="/instagram"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to searches
+          Volver a búsquedas
         </Link>
       </div>
 
@@ -149,9 +154,9 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
             </div>
             <div className="flex gap-6 text-center">
               {[
-                { icon: Users, label: "Followers", value: formatCount(profile?.followers_count) },
+                { icon: Users, label: "Seguidores", value: formatCount(profile?.followers_count) },
                 { icon: Image, label: "Posts", value: formatCount(profile?.posts_count) },
-                { icon: TrendingUp, label: "Following", value: formatCount(profile?.following_count) },
+                { icon: TrendingUp, label: "Siguiendo", value: formatCount(profile?.following_count) },
               ].map((s) => (
                 <div key={s.label} className="space-y-1">
                   <s.icon className="h-4 w-4 mx-auto text-muted-foreground" />
@@ -164,23 +169,9 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
         </Card>
       </div>
 
-      {/* Tab Content */}
-      <div className="px-6">
-        {active_tab === "overview" && <OverviewTab profile={profile} username={profile_search.username} />}
-        {active_tab === "insights" && <InsightsTab insights={profile_search.insights} />}
-        {active_tab === "strategy" && (
-          <StrategyTab
-            username={profile_search.username}
-            profile={profile}
-            strategy={profile_search.strategy}
-            messageTemplates={profile_search.message_templates}
-          />
-        )}
-      </div>
-
-      {/* Floating Tab Navigation */}
-      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-1 px-2 py-2 rounded-full bg-card/90 backdrop-blur-md border border-border shadow-lg">
+      {/* Tab Navigation */}
+      <div className="mb-6">
+        <div className="flex items-center gap-1 p-1 rounded-lg bg-muted/50 w-fit">
           {tabs.map((tab) => {
             const isActive = active_tab === tab.id;
             return (
@@ -188,55 +179,67 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
                 key={tab.id}
                 href={tab.href}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
+                  "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <tab.icon className="h-4 w-4" />
-                <span className="hidden sm:inline">{tab.label}</span>
+                {tab.label}
               </Link>
             );
           })}
-
-          {/* User Menu Drop-up */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 px-3 py-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-all">
-                <UserIcon className="h-4 w-4" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent side="top" align="end" className="w-48 mb-2">
-              <DropdownMenuItem asChild>
-                <Link href="/settings/profile" className="cursor-pointer">
-                  <UserIcon className="h-4 w-4 mr-2" />
-                  Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/settings/profile" className="cursor-pointer">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Settings
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link
-                  href="/sessions"
-                  method="delete"
-                  as="button"
-                  className="w-full cursor-pointer text-destructive"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Logout
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
-      </nav>
-    </div>
+      </div>
+
+      {/* View Mode Toggle */}
+      {active_tab !== "overview" && (
+        <div className="mb-6 flex items-center gap-2">
+          <div className="inline-flex items-center rounded-full border border-border bg-muted/50 p-1">
+            <button
+              onClick={() => setViewMode("business")}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all",
+                viewMode === "business"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Briefcase className="h-3.5 w-3.5" />
+              Negocios
+            </button>
+            <button
+              onClick={() => setViewMode("personal")}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all",
+                viewMode === "personal"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Heart className="h-3.5 w-3.5" />
+              Personal
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Tab Content */}
+      <div>
+        {active_tab === "overview" && <OverviewTab profile={profile} username={profile_search.username} />}
+        {active_tab === "insights" && <InsightsTab insights={currentInsights?.insights} />}
+        {active_tab === "strategy" && (
+          <StrategyTab
+            username={profile_search.username}
+            profile={profile}
+            strategy={currentInsights?.strategy}
+            messageTemplates={currentInsights?.message_templates}
+          />
+        )}
+      </div>
+      </div>
+    </DashboardLayout>
   );
 }
 
@@ -289,7 +292,7 @@ function InsightsTab({ insights }: { insights?: InsightsData }) {
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground">{insights.tone.value}</p>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Confidence</span>
+                <span className="text-xs text-muted-foreground">Confianza</span>
                 <Progress value={insights.tone.score} className="flex-1" />
                 <span className="text-xs font-medium text-foreground">{insights.tone.score}%</span>
               </div>
@@ -429,9 +432,9 @@ function StrategyTab({
       {/* Prep Guide Section */}
       <section className="max-w-3xl mx-auto space-y-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Prep Guide</h1>
+          <h1 className="text-2xl font-bold text-foreground">Guía de Preparación</h1>
           <p className="text-muted-foreground mt-1">
-            AI-generated conversation tips based on @{username}'s profile
+            Consejos de conversación generados con IA basados en el perfil de @{username}
           </p>
         </div>
 
@@ -463,7 +466,7 @@ function StrategyTab({
         ) : (
           <Card>
             <CardContent className="py-8 text-center">
-              <p className="text-muted-foreground">Generating prep guide...</p>
+              <p className="text-muted-foreground">Generando guía de preparación...</p>
             </CardContent>
           </Card>
         )}

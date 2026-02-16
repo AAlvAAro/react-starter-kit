@@ -116,7 +116,7 @@ RSpec.describe InstagramProfile, type: :model do
       expect_any_instance_of(Instagram::PrepGuideGenerator).to receive(:generate)
       expect_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
 
-      profile.generate_all_insights!(purpose: "dating")
+      profile.generate_all_insights!(purpose: "personal")
     end
   end
 
@@ -125,13 +125,13 @@ RSpec.describe InstagramProfile, type: :model do
 
     it "returns true when purpose-specific insights are nil" do
       expect(profile.insights_stale?(purpose: "business")).to be true
-      expect(profile.insights_stale?(purpose: "dating")).to be true
+      expect(profile.insights_stale?(purpose: "personal")).to be true
     end
 
     it "returns false when purpose-specific insights exist" do
       profile.update!(business_insights_data: { "test" => "data" })
       expect(profile.insights_stale?(purpose: "business")).to be false
-      expect(profile.insights_stale?(purpose: "dating")).to be true
+      expect(profile.insights_stale?(purpose: "personal")).to be true
     end
   end
 

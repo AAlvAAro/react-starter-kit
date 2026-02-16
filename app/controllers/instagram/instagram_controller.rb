@@ -6,17 +6,43 @@ module Instagram
     before_action :set_profile_search, only: [:show, :insights, :strategy, :chat]
 
     def index
-      searches = Current.user.profile_searches.includes(:instagram_profile).recent.limit(20)
+      page = (params[:page] || 1).to_i
+      per_page = 6
+      query_filter = params[:q].to_s.strip.downcase.presence
+
+      searches = Current.user.profile_searches.includes(:instagram_profile).recent
+
+      if query_filter.present?
+        searches = searches.joins(:instagram_profile).where(
+          "LOWER(instagram_profiles.username) LIKE :q OR LOWER(instagram_profiles.name) LIKE :q",
+          q: "%#{query_filter}%"
+        )
+      end
+
+      total_count = searches.count
+      total_pages = (total_count.to_f / per_page).ceil
+      paginated_searches = searches.offset((page - 1) * per_page).limit(per_page)
+
       render inertia: "instagram/index", props: {
-        searches: searches.map do |s|
+        searches: paginated_searches.map do |s|
           {
             id: s.id,
             username: s.username,
             searched_at: s.searched_at,
             name: s.instagram_profile&.name,
-            avatar: proxy_image_url(s.instagram_profile&.avatar)
+            avatar: proxy_image_url(s.instagram_profile&.avatar),
+            is_business: s.instagram_profile&.is_business
           }
-        end
+        end,
+        filters: {
+          q: query_filter
+        },
+        pagination: {
+          current_page: page,
+          total_pages: total_pages,
+          total_count: total_count,
+          per_page: per_page
+        }
       }
     end
 
@@ -29,20 +55,43 @@ module Instagram
 
     def create
       username = params[:username].to_s.strip.downcase.delete_prefix("@")
-      purpose = params[:purpose].to_s.presence || "business"
 
-      instagram_profile = InstagramProfile.find_or_fetch(username)
+      # Find or create the instagram profile record (basic info only)
+      instagram_profile = InstagramProfile.find_or_initialize_by(username: username)
+      instagram_profile.save! if instagram_profile.new_record?
 
-      # Find or create the user's search record for this profile + purpose combination
-      profile_search = Current.user.profile_searches.find_or_initialize_by(
-        instagram_profile: instagram_profile,
-        purpose: purpose
+      # Check if this is a new search (costs a credit) or revisiting an existing one
+      profile_search = Current.user.profile_searches.find_by(
+        instagram_profile: instagram_profile
       )
-      profile_search.update!(searched_at: Time.current)
 
-      redirect_to instagram_profile_path(username: username)
-    rescue Instagram::SearchApiService::ApiError => e
-      redirect_to instagram_index_path, alert: e.message
+      if profile_search
+        # Existing search - just update timestamp, no credit needed
+        profile_search.update!(searched_at: Time.current)
+
+        redirect_to instagram_profile_path(username: username)
+      else
+        # New search - requires a credit
+        unless Current.user.has_credits?
+          redirect_to pricing_path, alert: "No tienes créditos disponibles. Adquiere un plan para continuar."
+          return
+        end
+
+        Current.user.use_credit!
+        profile_search = Current.user.profile_searches.create!(
+          instagram_profile: instagram_profile,
+          searched_at: Time.current,
+          status: "processing"
+        )
+
+        # Enqueue background job to fetch profile and generate both insight sets
+        FetchInstagramProfileJob.perform_later(profile_search.id)
+
+        redirect_to instagram_profile_path(username: username),
+                    notice: "Estamos analizando el perfil. Te notificaremos cuando esté listo."
+      end
+    rescue StandardError => e
+      redirect_to instagram_index_path, alert: "Error al procesar la solicitud: #{e.message}"
     end
 
     def fetch_profile
@@ -116,21 +165,19 @@ module Instagram
       end
 
       @profile_search = Current.user.profile_searches.find_by(instagram_profile: @instagram_profile)
-      @purpose = @profile_search&.purpose || "business"
 
-      # Generate AI insights if missing for this purpose
-      @instagram_profile.generate_all_insights!(purpose: @purpose) if @instagram_profile.insights_stale?(purpose: @purpose)
+      # Generate both business and personal insights if missing
+      @instagram_profile.generate_dual_insights!
     rescue Instagram::SearchApiService::ApiError, OpenaiService::ApiError => e
       redirect_to instagram_index_path, alert: e.message
     end
 
     def profile_search_json
-      purpose_insights = @instagram_profile.insights_for(@purpose)
+      dual = @instagram_profile.dual_insights
 
       {
         id: @instagram_profile.id,
         username: @instagram_profile.username,
-        purpose: @purpose,
         instagram_profile: {
           name: @instagram_profile.name,
           bio: @instagram_profile.bio,
@@ -144,9 +191,16 @@ module Instagram
           external_link: @instagram_profile.external_link,
           bio_links: @instagram_profile.bio_links
         },
-        insights: purpose_insights[:insights],
-        strategy: purpose_insights[:strategy],
-        message_templates: purpose_insights[:message_templates],
+        business: {
+          insights: dual[:business][:insights],
+          strategy: dual[:business][:strategy],
+          message_templates: dual[:business][:message_templates]
+        },
+        personal: {
+          insights: dual[:personal][:insights],
+          strategy: dual[:personal][:strategy],
+          message_templates: dual[:personal][:message_templates]
+        },
         searched_at: @profile_search&.searched_at
       }
     end

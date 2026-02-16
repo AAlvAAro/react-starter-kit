@@ -21,6 +21,7 @@ class HomeController < InertiaController
       price_cents: plan.price_cents,
       interval: plan.interval,
       currency: plan.currency,
+      credits: plan.credits,
       features: plan.features_list,
       stripe_price_id: plan.stripe_price_id
     }

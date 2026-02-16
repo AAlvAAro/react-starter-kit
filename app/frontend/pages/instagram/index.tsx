@@ -1,17 +1,11 @@
 import { useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
+import type { SharedData } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { History, User, ArrowRight, Search, Sparkles, Briefcase, Heart, Loader2, Instagram, Brain, FileText, CheckCircle2 } from "lucide-react";
-import { InstagramLayout } from "@/layouts/instagram-layout";
+import { User, ArrowRight, Search, Sparkles, Loader2, Instagram, Brain, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { cn } from "@/lib/utils";
 
 interface ProfileSearchItem {
@@ -20,33 +14,61 @@ interface ProfileSearchItem {
   searched_at: string;
   name?: string;
   avatar?: string;
+  is_business?: boolean;
+}
+
+interface Filters {
+  q?: string;
+}
+
+interface Pagination {
+  current_page: number;
+  total_pages: number;
+  total_count: number;
+  per_page: number;
 }
 
 interface IndexProps {
   searches: ProfileSearchItem[];
+  pagination?: Pagination;
+  filters?: Filters;
 }
 
-type SearchPurpose = "business" | "dating";
+export default function InstagramIndex({ searches = [], pagination, filters }: IndexProps) {
+  const { auth } = usePage<SharedData>().props;
+  const creditsRemaining = auth?.user?.credits_remaining ?? 0;
 
-interface LoadingStep {
-  id: string;
-  label: string;
-  icon: React.ElementType;
-  status: "pending" | "active" | "completed";
-}
-
-export default function InstagramIndex({ searches = [] }: IndexProps) {
   const [username, setUsername] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [showPurposeModal, setShowPurposeModal] = useState(false);
   const [searchedUsername, setSearchedUsername] = useState("");
-  const [currentStep, setCurrentStep] = useState(0);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
-  const loadingSteps: LoadingStep[] = [
-    { id: "fetch", label: "Obteniendo información de Instagram", icon: Instagram, status: currentStep === 0 ? "active" : currentStep > 0 ? "completed" : "pending" },
-    { id: "analyze", label: "Analizando y organizando datos", icon: FileText, status: currentStep === 1 ? "active" : currentStep > 1 ? "completed" : "pending" },
-    { id: "ai", label: "Generando insights con IA", icon: Brain, status: currentStep === 2 ? "active" : currentStep > 2 ? "completed" : "pending" },
-    { id: "prepare", label: "Preparando resultados personalizados", icon: Sparkles, status: currentStep === 3 ? "active" : currentStep > 3 ? "completed" : "pending" },
+  const loadingMessages = [
+    // Process messages
+    { text: "Conectando con Instagram...", icon: Instagram },
+    { text: "Descargando información del perfil...", icon: Instagram },
+    { text: "Analizando publicaciones recientes...", icon: FileText },
+    // Value propositions
+    { text: "💡 Descubre su estilo de comunicación preferido", icon: Brain },
+    { text: "🎯 Identifica temas que le apasionan", icon: Sparkles },
+    // More process
+    { text: "Procesando patrones de contenido...", icon: FileText },
+    { text: "Generando análisis de personalidad...", icon: Brain },
+    // Value propositions
+    { text: "💬 Obtén plantillas de mensajes personalizadas", icon: Sparkles },
+    { text: "🤝 Prepárate para causar una gran primera impresión", icon: Brain },
+    // More process
+    { text: "Creando guía de preparación...", icon: Sparkles },
+    { text: "Analizando tono y estilo de escritura...", icon: FileText },
+    // Value propositions
+    { text: "📊 Entiende qué contenido le interesa más", icon: Brain },
+    { text: "✨ Encuentra puntos en común para conectar", icon: Sparkles },
+    // Final process
+    { text: "Preparando plantillas de mensajes...", icon: Sparkles },
+    { text: "Finalizando insights personalizados...", icon: Sparkles },
+    // More value
+    { text: "🎯 Sabe qué temas evitar en la conversación", icon: Brain },
+    { text: "💼 Ideal para reuniones de negocios o citas", icon: Sparkles },
   ];
 
   const formatDate = (dateString: string) => {
@@ -62,54 +84,52 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
   const handleSearch = async () => {
     if (!username.trim()) return;
 
-    setSearchedUsername(username.replace(/^@/, ""));
-    setShowPurposeModal(true);
-  };
+    const cleanUsername = username.replace(/^@/, "");
+    setSearchedUsername(cleanUsername);
 
-  const handlePurposeSelect = async (purpose: SearchPurpose) => {
-    setShowPurposeModal(false);
+    // Check credits for new searches
+    if (creditsRemaining === 0) {
+      const existingSearch = searches.find(s => s.username === cleanUsername);
+      if (!existingSearch) {
+        router.visit('/pricing');
+        return;
+      }
+    }
+
     setIsSearching(true);
-    setCurrentStep(0);
+    setCarouselIndex(0);
 
-    // Simulate step progression for visual feedback
-    const stepInterval = setInterval(() => {
-      setCurrentStep((prev) => {
-        if (prev < 3) return prev + 1;
-        return prev;
-      });
+    // Carousel message rotation
+    const carouselInterval = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % loadingMessages.length);
     }, 2000);
 
     try {
-      // First fetch the profile
       const response = await fetch("/instagram/fetch_profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "",
         },
-        body: JSON.stringify({ username: searchedUsername }),
+        body: JSON.stringify({ username: cleanUsername }),
       });
 
       if (!response.ok) {
-        clearInterval(stepInterval);
+        clearInterval(carouselInterval);
         setIsSearching(false);
-        setCurrentStep(0);
+        setCarouselIndex(0);
         alert("No se pudo encontrar el perfil. Verifica el nombre de usuario.");
         return;
       }
 
-      // Complete all steps visually
-      setCurrentStep(4);
-      clearInterval(stepInterval);
+      clearInterval(carouselInterval);
 
-      // Small delay to show completion, then redirect
       setTimeout(() => {
-        router.post("/instagram", { username: searchedUsername, purpose });
+        router.post("/instagram", { username: cleanUsername });
       }, 800);
     } catch {
-      clearInterval(stepInterval);
       setIsSearching(false);
-      setCurrentStep(0);
+      setCarouselIndex(0);
       alert("Error al buscar el perfil.");
     }
   };
@@ -121,7 +141,7 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
   };
 
   return (
-    <InstagramLayout>
+    <DashboardLayout>
       {/* Loading Overlay with Steps */}
       {isSearching && (
         <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center">
@@ -134,100 +154,46 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
               <p className="text-sm text-muted-foreground">@{searchedUsername || username.replace(/^@/, "")}</p>
             </div>
 
-            <div className="space-y-3">
-              {loadingSteps.map((step) => {
-                const StepIcon = step.icon;
-                const isActive = step.status === "active";
-                const isCompleted = step.status === "completed";
-
+            {/* Carousel Message */}
+            <div className="relative h-16 overflow-hidden">
+              {loadingMessages.map((msg, idx) => {
+                const MsgIcon = msg.icon;
                 return (
                   <div
-                    key={step.id}
+                    key={idx}
                     className={cn(
-                      "flex items-center gap-4 p-4 rounded-lg border transition-all duration-300",
-                      isActive && "bg-primary/5 border-primary/30",
-                      isCompleted && "bg-muted/50 border-border",
-                      !isActive && !isCompleted && "bg-muted/20 border-border/50 opacity-50"
+                      "absolute inset-0 flex items-center justify-center gap-3 transition-all duration-500",
+                      idx === carouselIndex
+                        ? "opacity-100 translate-y-0"
+                        : idx < carouselIndex
+                          ? "opacity-0 -translate-y-full"
+                          : "opacity-0 translate-y-full"
                     )}
                   >
-                    <div className={cn(
-                      "h-10 w-10 rounded-full flex items-center justify-center shrink-0 transition-all",
-                      isActive && "bg-primary/20",
-                      isCompleted && "bg-green-500/20",
-                      !isActive && !isCompleted && "bg-muted"
-                    )}>
-                      {isCompleted ? (
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                      ) : isActive ? (
-                        <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                      ) : (
-                        <StepIcon className="h-5 w-5 text-muted-foreground" />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <p className={cn(
-                        "text-sm font-medium",
-                        isActive && "text-foreground",
-                        isCompleted && "text-muted-foreground",
-                        !isActive && !isCompleted && "text-muted-foreground"
-                      )}>
-                        {step.label}
-                      </p>
-                    </div>
-                    {isCompleted && (
-                      <span className="text-xs text-green-500 font-medium">Listo</span>
-                    )}
+                    <MsgIcon className="h-5 w-5 text-primary" />
+                    <p className="text-sm text-muted-foreground">{msg.text}</p>
                   </div>
                 );
               })}
             </div>
 
-            <p className="text-center text-xs text-muted-foreground">
+            {/* Simple animated dots */}
+            <div className="flex justify-center gap-2">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="h-2 w-2 rounded-full bg-primary animate-pulse"
+                  style={{ animationDelay: `${i * 200}ms` }}
+                />
+              ))}
+            </div>
+
+            <p className="text-center text-xs text-muted-foreground mt-4">
               Esto puede tomar unos segundos...
             </p>
           </div>
         </div>
       )}
-
-      {/* Purpose Selection Modal */}
-      <Dialog open={showPurposeModal} onOpenChange={setShowPurposeModal}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>¿Cuál es tu objetivo?</DialogTitle>
-            <DialogDescription>
-              Selecciona el propósito de tu búsqueda para obtener insights personalizados
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-3 py-4">
-            <Button
-              variant="outline"
-              className="h-auto p-4 justify-start gap-4"
-              onClick={() => handlePurposeSelect("business")}
-            >
-              <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
-                <Briefcase className="h-5 w-5 text-blue-500" />
-              </div>
-              <div className="text-left">
-                <p className="font-medium">Negocios</p>
-                <p className="text-sm text-muted-foreground">Reunión profesional, networking o colaboración</p>
-              </div>
-            </Button>
-            <Button
-              variant="outline"
-              className="h-auto p-4 justify-start gap-4"
-              onClick={() => handlePurposeSelect("dating")}
-            >
-              <div className="h-10 w-10 rounded-full bg-pink-500/10 flex items-center justify-center shrink-0">
-                <Heart className="h-5 w-5 text-pink-500" />
-              </div>
-              <div className="text-left">
-                <p className="font-medium">Citas</p>
-                <p className="text-sm text-muted-foreground">Conocer mejor a alguien que te interesa</p>
-              </div>
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       <div className="p-6 max-w-2xl mx-auto space-y-8">
         {/* Search Section */}
@@ -236,8 +202,8 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
             <Sparkles className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">¿Con quién te vas a reunir?</h1>
-            <p className="text-muted-foreground mt-1">Ingresa un nombre de usuario de Instagram para conocer más sobre ellos</p>
+            <h1 className="text-2xl font-bold text-foreground">¿Qué perfil quieres investigar?</h1>
+            <p className="text-muted-foreground mt-1">Ingresa un nombre de usuario de Instagram para obtener insights</p>
           </div>
 
           <div className="flex gap-2 max-w-md mx-auto">
@@ -261,11 +227,24 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
 
         {/* History Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center">
-              <History className="h-4 w-4 text-accent-foreground" />
-            </div>
-            <h2 className="text-lg font-semibold text-foreground">Búsquedas Recientes</h2>
+          {/* Search input */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Buscar por nombre o usuario..."
+              defaultValue={filters?.q || ""}
+              className="pl-9"
+              onChange={(e) => {
+                const value = e.target.value;
+                const timeout = setTimeout(() => {
+                  router.get('/instagram', {
+                    q: value || undefined,
+                    page: 1
+                  }, { preserveState: true });
+                }, 300);
+                return () => clearTimeout(timeout);
+              }}
+            />
           </div>
 
           {searches.length === 0 ? (
@@ -316,9 +295,37 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
                 </Link>
               ))}
             </div>
+
+          )}
+
+          {/* Pagination */}
+          {pagination && pagination.total_pages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={pagination.current_page <= 1}
+                onClick={() => router.get('/instagram', { page: pagination.current_page - 1 }, { preserveState: true })}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Anterior
+              </Button>
+              <span className="text-sm text-muted-foreground px-4">
+                Página {pagination.current_page} de {pagination.total_pages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={pagination.current_page >= pagination.total_pages}
+                onClick={() => router.get('/instagram', { page: pagination.current_page + 1 }, { preserveState: true })}
+              >
+                Siguiente
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           )}
         </div>
       </div>
-    </InstagramLayout>
+    </DashboardLayout>
   );
 }

@@ -59,6 +59,7 @@ class BillingController < InertiaController
       formatted_price: plan.formatted_price,
       interval: plan.interval,
       currency: plan.currency,
+      credits: plan.credits,
       features: plan.features_list,
       stripe_price_id: plan.stripe_price_id
     }
@@ -127,5 +128,8 @@ class BillingController < InertiaController
     end
 
     Current.user.update!(update_params)
+
+    # Add credits from the purchased plan
+    Current.user.add_credits!(plan.credits) if plan.credits.to_i > 0
   end
 end

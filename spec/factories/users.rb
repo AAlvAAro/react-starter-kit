@@ -6,5 +6,6 @@ FactoryBot.define do
     name { "Test User" }
     password { "Secret1*3*5*" }
     verified { true }
+    locale { "en" }
   end
 end

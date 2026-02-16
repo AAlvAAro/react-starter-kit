@@ -67,7 +67,7 @@ const translations: Record<string, Translations> = {
     "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js y TailwindCSS trabajando en perfecta armonía.",
     "landing.features.production.title": "Listo para Producción",
     "landing.features.production.description": "Incluye gestión de usuarios, sesiones, verificación de email y control de acceso basado en roles.",
-    "landing.footer.copyright": "React Starter Kit",
+    "landing.footer.copyright": "Instagram Stalker Pro",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contacto",
 
@@ -85,6 +85,9 @@ const translations: Record<string, Translations> = {
     "sidebar.platform": "Plataforma",
     "sidebar.admin": "Administrador",
     "sidebar.plans": "Planes",
+    "sidebar.searches": "Búsquedas",
+    "sidebar.insights": "Insights",
+    "sidebar.billing": "Facturación",
 
     // Admin Plans
     "admin.plans.title": "Planes de Pago",
@@ -300,7 +303,7 @@ const translations: Record<string, Translations> = {
     "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
     "landing.features.production.title": "Production Ready",
     "landing.features.production.description": "Includes user management, sessions, email verification, and role-based access control.",
-    "landing.footer.copyright": "React Starter Kit",
+    "landing.footer.copyright": "Instagram Stalker Pro",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contact",
 
@@ -318,6 +321,9 @@ const translations: Record<string, Translations> = {
     "sidebar.platform": "Platform",
     "sidebar.admin": "Admin",
     "sidebar.plans": "Plans",
+    "sidebar.searches": "Searches",
+    "sidebar.insights": "Insights",
+    "sidebar.billing": "Billing",
 
     // Admin Plans
     "admin.plans.title": "Payment Plans",

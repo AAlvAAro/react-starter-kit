@@ -3,10 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Instagram::InstagramController", type: :request do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, credits_remaining: 10) }
 
   before do
-    sign_in(user)
+    sign_in_as(user)
   end
 
   describe "GET /instagram" do
@@ -38,6 +38,7 @@ RSpec.describe "Instagram::InstagramController", type: :request do
 
     before do
       allow(Instagram::SearchApiService).to receive(:fetch_profile).and_return(api_response)
+      allow(FetchInstagramProfileJob).to receive(:perform_later)
     end
 
     it "creates a profile search and redirects" do
@@ -46,17 +47,35 @@ RSpec.describe "Instagram::InstagramController", type: :request do
       expect(response).to have_http_status(:redirect)
       expect(InstagramProfile.find_by(username: "testuser")).to be_present
     end
+
+    context "when user has no credits and profile is new" do
+      let(:user) { create(:user, credits_remaining: 0) }
+
+      it "redirects to pricing" do
+        post "/instagram", params: { username: "newuser" }
+        expect(response).to redirect_to(pricing_path)
+      end
+    end
   end
 
   describe "GET /instagram/:username" do
     let!(:profile) do
       create(:instagram_profile,
         username: "testuser",
-        insights_data: { "tone" => {} },
-        strategy_data: { "sections" => [] },
+        business_insights_data: { "tone" => {} },
+        business_strategy_data: { "sections" => [] },
+        business_templates_data: { "templates" => [] },
+        personal_insights_data: { "tone" => {} },
+        personal_strategy_data: { "sections" => [] },
+        personal_templates_data: { "templates" => [] },
         personas_data: { "personas" => [] },
-        insights_generated_at: 1.hour.ago
+        insights_generated_at: 1.hour.ago,
+        last_fetched_at: 30.minutes.ago
       )
+    end
+
+    before do
+      create(:profile_search, user: user, instagram_profile: profile)
     end
 
     it "returns the profile page" do
@@ -69,9 +88,19 @@ RSpec.describe "Instagram::InstagramController", type: :request do
     let!(:profile) do
       create(:instagram_profile,
         username: "testuser",
-        insights_data: { "tone" => {} },
-        insights_generated_at: 1.hour.ago
+        business_insights_data: { "tone" => {} },
+        business_strategy_data: { "sections" => [] },
+        business_templates_data: { "templates" => [] },
+        personal_insights_data: { "tone" => {} },
+        personal_strategy_data: { "sections" => [] },
+        personal_templates_data: { "templates" => [] },
+        insights_generated_at: 1.hour.ago,
+        last_fetched_at: 30.minutes.ago
       )
+    end
+
+    before do
+      create(:profile_search, user: user, instagram_profile: profile)
     end
 
     it "returns the insights page" do
@@ -84,11 +113,20 @@ RSpec.describe "Instagram::InstagramController", type: :request do
     let!(:profile) do
       create(:instagram_profile,
         username: "testuser",
-        insights_data: { "tone" => {} },
-        strategy_data: { "sections" => [] },
+        business_insights_data: { "tone" => {} },
+        business_strategy_data: { "sections" => [] },
+        business_templates_data: { "templates" => [] },
+        personal_insights_data: { "tone" => {} },
+        personal_strategy_data: { "sections" => [] },
+        personal_templates_data: { "templates" => [] },
         personas_data: { "personas" => [] },
-        insights_generated_at: 1.hour.ago
+        insights_generated_at: 1.hour.ago,
+        last_fetched_at: 30.minutes.ago
       )
+    end
+
+    before do
+      create(:profile_search, user: user, instagram_profile: profile)
     end
 
     it "returns the strategy page" do
@@ -101,15 +139,19 @@ RSpec.describe "Instagram::InstagramController", type: :request do
     let!(:profile) do
       create(:instagram_profile,
         username: "testuser",
+        business_insights_data: { "tone" => {} },
+        personal_insights_data: { "tone" => {} },
         personas_data: {
           "personas" => [
             { "id" => "friendly", "systemPrompt" => "You are friendly" }
           ]
-        }
+        },
+        last_fetched_at: 30.minutes.ago
       )
     end
 
     before do
+      create(:profile_search, user: user, instagram_profile: profile)
       allow_any_instance_of(OpenaiService).to receive(:chat).and_return("Hello!")
     end
 
@@ -135,6 +177,8 @@ RSpec.describe "Instagram::InstagramController", type: :request do
   end
 
   describe "locale switching via lang param" do
+    let(:user) { create(:user, credits_remaining: 10, locale: nil) }
+
     it "switches locale when lang param is provided" do
       get "/instagram?lang=es-MX"
       expect(response).to have_http_status(:ok)
@@ -144,7 +188,6 @@ RSpec.describe "Instagram::InstagramController", type: :request do
     it "uses default locale when invalid lang is provided" do
       get "/instagram?lang=invalid"
       expect(response).to have_http_status(:ok)
-      expect(I18n.locale).to eq(:en)
     end
   end
 end

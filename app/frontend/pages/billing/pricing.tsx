@@ -13,6 +13,7 @@ interface Plan {
   formatted_price: string
   interval: string
   currency: string
+  credits: number
   features: string[]
   stripe_price_id: string
 }
@@ -64,6 +65,20 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
     }
   }
 
+  // Calculate price per credit and savings
+  const basePricePerCredit = plans.length > 0 ? plans[0].price_cents / (plans[0].credits || 1) : 0
+
+  const getSavingsPercent = (plan: Plan) => {
+    if (!plan.credits || plan.credits <= 1) return 0
+    const pricePerCredit = plan.price_cents / plan.credits
+    return Math.round((1 - pricePerCredit / basePricePerCredit) * 100)
+  }
+
+  const getPricePerCredit = (plan: Plan) => {
+    if (!plan.credits) return 0
+    return (plan.price_cents / plan.credits / 100).toFixed(2)
+  }
+
   return (
     <>
       <Head title={t("pricing.title")} />
@@ -75,7 +90,7 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">R</span>
               </div>
-              <span className="font-semibold">React Starter Kit</span>
+              <span className="font-semibold">Instagram Stalker Pro</span>
             </Link>
             <nav className="flex items-center gap-4">
               <Link href="/sign_in" className="text-sm text-muted-foreground hover:text-foreground">
@@ -113,12 +128,31 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
                   <CardDescription>{plan.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="mb-6">
+                  <div className="mb-4">
                     <span className="text-4xl font-bold">{plan.formatted_price}</span>
                     <span className="text-muted-foreground ml-2">
                       {getIntervalLabel(plan.interval)}
                     </span>
                   </div>
+
+                  {/* Credits info */}
+                  <div className="mb-6 p-3 rounded-lg bg-muted/50 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Créditos incluidos</span>
+                      <span className="text-lg font-bold text-primary">{plan.credits || 1}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Precio por crédito</span>
+                      <span className="text-sm font-medium">${getPricePerCredit(plan)}</span>
+                    </div>
+                    {getSavingsPercent(plan) > 0 && (
+                      <div className="flex items-center justify-between pt-1 border-t border-border/50">
+                        <span className="text-sm text-muted-foreground">Ahorro</span>
+                        <span className="text-sm font-bold text-green-500">-{getSavingsPercent(plan)}%</span>
+                      </div>
+                    )}
+                  </div>
+
                   <ul className="space-y-3">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-2">

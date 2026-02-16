@@ -9,7 +9,7 @@ RSpec.describe Instagram::PrepGuideGenerator do
       name: "Test User",
       bio: "Test bio",
       followers_count: 1000,
-      insights_data: { "tone" => { "value" => "Friendly" } }
+      business_insights_data: { "tone" => { "value" => "Friendly" } }
     )
   end
 
@@ -32,13 +32,13 @@ RSpec.describe Instagram::PrepGuideGenerator do
       result = generator.generate
 
       expect(result).to eq(mock_strategy)
-      expect(instagram_profile.reload.strategy_data).to eq(mock_strategy)
+      expect(instagram_profile.reload.business_strategy_data).to eq(mock_strategy)
     end
 
     context "when strategy already exists and is fresh" do
       before do
         instagram_profile.update!(
-          strategy_data: mock_strategy,
+          business_strategy_data: mock_strategy,
           insights_generated_at: 1.hour.ago
         )
       end

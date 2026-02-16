@@ -35,6 +35,7 @@ export interface User {
   verified: boolean
   role: "user" | "admin" | "super_admin"
   locale?: string
+  credits_remaining: number
   created_at: string
   updated_at: string
   [key: string]: unknown // This allows for additional properties...

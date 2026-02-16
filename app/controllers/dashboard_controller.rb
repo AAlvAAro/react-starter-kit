@@ -4,6 +4,6 @@ class DashboardController < InertiaController
   before_action :authenticate
 
   def index
-    render inertia: "dashboard/index"
+    redirect_to instagram_index_path
   end
 end

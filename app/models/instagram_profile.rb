@@ -54,6 +54,11 @@ class InstagramProfile < ApplicationRecord
     Instagram::MessageTemplatesGenerator.new(self, locale: locale, purpose: purpose).generate
   end
 
+  def generate_dual_insights!(locale: I18n.locale)
+    generate_all_insights!(locale: locale, purpose: "business") if insights_stale?(purpose: "business")
+    generate_all_insights!(locale: locale, purpose: "personal") if insights_stale?(purpose: "personal")
+  end
+
   def insights_stale?(purpose: "business")
     data_column = "#{purpose}_insights_data"
     send(data_column).nil?
@@ -64,6 +69,13 @@ class InstagramProfile < ApplicationRecord
       insights: send("#{purpose}_insights_data"),
       strategy: send("#{purpose}_strategy_data")&.dig("sections"),
       message_templates: send("#{purpose}_templates_data")&.dig("templates")
+    }
+  end
+
+  def dual_insights
+    {
+      business: insights_for("business"),
+      personal: insights_for("personal")
     }
   end
 end

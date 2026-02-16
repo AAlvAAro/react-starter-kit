@@ -61,6 +61,9 @@ class Webhooks::StripeController < ApplicationController
     end
 
     user.update!(update_params)
+
+    # Add credits from the purchased plan
+    user.add_credits!(plan.credits) if plan.credits.to_i > 0
   end
 
   def handle_subscription_updated(subscription)

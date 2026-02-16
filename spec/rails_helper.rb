@@ -35,6 +35,11 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
   config.include AuthenticationHelpers, type: ->(type, _metadata) { [:system, :request, :controller].include?(type) }
+
+  config.before(:each) do
+    I18n.default_locale = :en
+    I18n.locale = :en
+  end
 end
 
 Shoulda::Matchers.configure do |config|

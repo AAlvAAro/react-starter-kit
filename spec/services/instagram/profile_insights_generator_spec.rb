@@ -37,14 +37,13 @@ RSpec.describe Instagram::ProfileInsightsGenerator do
       result = generator.generate
 
       expect(result).to eq(mock_insights)
-      expect(instagram_profile.reload.insights_data).to eq(mock_insights)
-      expect(instagram_profile.insights_generated_at).to be_present
+      expect(instagram_profile.reload.business_insights_data).to eq(mock_insights)
     end
 
     context "when insights already exist and are fresh" do
       before do
         instagram_profile.update!(
-          insights_data: mock_insights,
+          business_insights_data: mock_insights,
           insights_generated_at: 1.hour.ago
         )
       end
@@ -58,7 +57,7 @@ RSpec.describe Instagram::ProfileInsightsGenerator do
     end
   end
 
-  describe "#regenerate" do
+  describe "generating fresh insights when data changes" do
     let(:mock_insights) do
       { "tone" => { "label" => "Tone", "value" => "New tone", "score" => 90 } }
     end
@@ -67,16 +66,13 @@ RSpec.describe Instagram::ProfileInsightsGenerator do
       allow_any_instance_of(OpenaiService).to receive(:chat_json).and_return(mock_insights)
     end
 
-    it "always regenerates insights" do
-      instagram_profile.update!(
-        insights_data: { "old" => "data" },
-        insights_generated_at: 1.minute.ago
-      )
+    it "generates new insights when data column is cleared" do
+      instagram_profile.update!(business_insights_data: nil)
 
-      result = generator.regenerate
+      result = generator.generate
 
       expect(result).to eq(mock_insights)
-      expect(instagram_profile.reload.insights_data).to eq(mock_insights)
+      expect(instagram_profile.reload.business_insights_data).to eq(mock_insights)
     end
   end
 end

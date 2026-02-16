@@ -3,15 +3,12 @@ import { Link, usePage } from "@inertiajs/react"
 import { t } from "@/lib/i18n"
 import {
   Package,
-  LayoutDashboard,
-  Github,
-  FileText,
   ChevronDown,
   Settings,
   LogOut,
   Menu,
   X,
-  CreditCard,
+  Search,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -30,7 +27,7 @@ interface DashboardLayoutProps {
 }
 
 const getNavItems = () => [
-  { icon: LayoutDashboard, label: t("nav.dashboard"), href: "/dashboard" },
+  { icon: Search, label: t("sidebar.searches"), href: "/instagram", matchPrefix: "/instagram" },
   { icon: Settings, label: t("nav.settings"), href: "/settings/profile", matchPrefix: "/settings" },
 ]
 
@@ -74,7 +71,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold">React Starter Kit</span>
+            <span className="font-semibold text-sidebar-foreground">Profile Insights</span>
           </Link>
           <Button
             variant="ghost"
@@ -112,36 +109,29 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               })}
             </div>
           </nav>
+
         </div>
 
-        {/* Bottom links */}
-        <div className="border-t border-sidebar-border py-4">
-          <div className="px-3 space-y-1">
-            <Link
-              href="/plans"
-              className="sidebar-link sidebar-link-inactive"
-            >
-              <CreditCard className="w-5 h-5" />
-              {t("sidebar.plans")}
-            </Link>
-            <a
-              href="https://github.com/AAlvAAro"
-              className="sidebar-link sidebar-link-inactive"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="w-5 h-5" />
-              {t("sidebar.repository")}
-            </a>
-            <a
-              href="#"
-              className="sidebar-link sidebar-link-inactive"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FileText className="w-5 h-5" />
-              {t("sidebar.documentation")}
-            </a>
+        {/* Credits Badge */}
+        <div className="px-4 pb-3">
+          <div className="rounded-lg border border-sidebar-border bg-sidebar-accent/50 p-3">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-muted-foreground">Créditos</span>
+              <span className={cn(
+                "text-sm font-bold",
+                user.credits_remaining > 0 ? "text-primary" : "text-destructive"
+              )}>
+                {user.credits_remaining}
+              </span>
+            </div>
+            {user.credits_remaining === 0 && (
+              <Link
+                href="/pricing"
+                className="text-xs text-primary hover:underline"
+              >
+                Comprar créditos →
+              </Link>
+            )}
           </div>
         </div>
 
@@ -156,9 +146,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 text-left">
-                  <p className="text-sm font-medium">{user.name}</p>
+                  <p className="text-sm font-medium text-sidebar-foreground">{user.name}</p>
                 </div>
-                <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                <ChevronDown className="w-4 h-4 text-sidebar-foreground/50" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-56">
@@ -204,7 +194,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold">React Starter Kit</span>
+            <span className="font-semibold">Profile Insights</span>
           </div>
         </header>
 

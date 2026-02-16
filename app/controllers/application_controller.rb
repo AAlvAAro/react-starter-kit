@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
+    perform_authentication unless Current.session
     I18n.locale = extract_locale || I18n.default_locale
   end
 

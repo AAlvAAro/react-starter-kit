@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_16_121852) do
   create_table "instagram_profiles", force: :cascade do |t|
     t.string "avatar"
     t.string "avatar_hd"
@@ -20,9 +20,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
     t.json "business_strategy_data"
     t.json "business_templates_data"
     t.datetime "created_at", null: false
-    t.json "dating_insights_data"
-    t.json "dating_strategy_data"
-    t.json "dating_templates_data"
     t.string "external_link"
     t.integer "followers_count"
     t.integer "following_count"
@@ -33,6 +30,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
     t.datetime "last_fetched_at"
     t.json "message_templates_data"
     t.string "name"
+    t.json "personal_insights_data"
+    t.json "personal_strategy_data"
+    t.json "personal_templates_data"
     t.json "personas_data"
     t.integer "posts_count"
     t.json "posts_data"
@@ -46,6 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
   create_table "plans", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.integer "credits"
     t.string "currency", default: "usd"
     t.text "description"
     t.text "features"
@@ -62,10 +63,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
   end
 
   create_table "profile_searches", force: :cascade do |t|
+    t.datetime "completed_at"
     t.datetime "created_at", null: false
+    t.text "error_message"
     t.integer "instagram_profile_id", null: false
     t.string "purpose"
     t.datetime "searched_at"
+    t.string "status", default: "pending"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["instagram_profile_id"], name: "index_profile_searches_on_instagram_profile_id"
@@ -83,12 +87,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "credits_remaining", default: 0, null: false
     t.integer "current_plan_id"
     t.string "email", null: false
     t.string "locale", default: "es-MX"
     t.string "mcp_token"
     t.string "name", null: false
     t.string "password_digest", null: false
+    t.string "phone"
     t.integer "role", default: 0, null: false
     t.string "stripe_customer_id"
     t.string "stripe_subscription_id"
