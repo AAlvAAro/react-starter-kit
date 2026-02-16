@@ -29,17 +29,35 @@ module Instagram
 
     def create
       username = params[:username].to_s.strip.downcase.delete_prefix("@")
+      purpose = params[:purpose].to_s.presence || "business"
 
       instagram_profile = InstagramProfile.find_or_fetch(username)
 
-      Current.user.profile_searches.create!(
+      # Find or create the user's search record for this profile + purpose combination
+      profile_search = Current.user.profile_searches.find_or_initialize_by(
         instagram_profile: instagram_profile,
-        searched_at: Time.current
+        purpose: purpose
       )
+      profile_search.update!(searched_at: Time.current)
 
       redirect_to instagram_profile_path(username: username)
     rescue Instagram::SearchApiService::ApiError => e
       redirect_to instagram_index_path, alert: e.message
+    end
+
+    def fetch_profile
+      username = params[:username].to_s.strip.downcase.delete_prefix("@")
+
+      instagram_profile = InstagramProfile.find_or_fetch(username)
+
+      render json: {
+        success: true,
+        username: instagram_profile.username,
+        name: instagram_profile.name,
+        avatar: proxy_image_url(instagram_profile.avatar)
+      }
+    rescue Instagram::SearchApiService::ApiError => e
+      render json: { success: false, error: e.message }, status: :unprocessable_entity
     end
 
     def insights
@@ -97,18 +115,22 @@ module Instagram
         @instagram_profile = InstagramProfile.find_or_fetch(username)
       end
 
-      # Generate AI insights if stale or missing
-      @instagram_profile.generate_all_insights! if @instagram_profile.insights_stale?
-
       @profile_search = Current.user.profile_searches.find_by(instagram_profile: @instagram_profile)
+      @purpose = @profile_search&.purpose || "business"
+
+      # Generate AI insights if missing for this purpose
+      @instagram_profile.generate_all_insights!(purpose: @purpose) if @instagram_profile.insights_stale?(purpose: @purpose)
     rescue Instagram::SearchApiService::ApiError, OpenaiService::ApiError => e
       redirect_to instagram_index_path, alert: e.message
     end
 
     def profile_search_json
+      purpose_insights = @instagram_profile.insights_for(@purpose)
+
       {
         id: @instagram_profile.id,
         username: @instagram_profile.username,
+        purpose: @purpose,
         instagram_profile: {
           name: @instagram_profile.name,
           bio: @instagram_profile.bio,
@@ -122,9 +144,9 @@ module Instagram
           external_link: @instagram_profile.external_link,
           bio_links: @instagram_profile.bio_links
         },
-        insights: @instagram_profile.insights_data,
-        strategy: @instagram_profile.strategy_data&.dig("sections"),
-        message_templates: @instagram_profile.message_templates_data&.dig("templates"),
+        insights: purpose_insights[:insights],
+        strategy: purpose_insights[:strategy],
+        message_templates: purpose_insights[:message_templates],
         searched_at: @profile_search&.searched_at
       }
     end

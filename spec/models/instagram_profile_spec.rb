@@ -94,23 +94,6 @@ RSpec.describe InstagramProfile, type: :model do
     end
   end
 
-  describe "#insights_stale?" do
-    it "returns true when insights_generated_at is nil" do
-      profile = build(:instagram_profile, insights_generated_at: nil)
-      expect(profile.insights_stale?).to be true
-    end
-
-    it "returns true when insights_generated_at is more than 24 hours ago" do
-      profile = build(:instagram_profile, insights_generated_at: 25.hours.ago)
-      expect(profile.insights_stale?).to be true
-    end
-
-    it "returns false when insights_generated_at is within 24 hours" do
-      profile = build(:instagram_profile, insights_generated_at: 12.hours.ago)
-      expect(profile.insights_stale?).to be false
-    end
-  end
-
   describe "#generate_all_insights!" do
     let(:profile) { create(:instagram_profile) }
 
@@ -120,12 +103,52 @@ RSpec.describe InstagramProfile, type: :model do
       allow_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
     end
 
-    it "calls all three generators" do
+    it "calls all three generators with default business purpose" do
       expect_any_instance_of(Instagram::ProfileInsightsGenerator).to receive(:generate)
       expect_any_instance_of(Instagram::PrepGuideGenerator).to receive(:generate)
       expect_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
 
       profile.generate_all_insights!
+    end
+
+    it "calls all three generators with specified purpose" do
+      expect_any_instance_of(Instagram::ProfileInsightsGenerator).to receive(:generate)
+      expect_any_instance_of(Instagram::PrepGuideGenerator).to receive(:generate)
+      expect_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
+
+      profile.generate_all_insights!(purpose: "dating")
+    end
+  end
+
+  describe "#insights_stale?" do
+    let(:profile) { create(:instagram_profile) }
+
+    it "returns true when purpose-specific insights are nil" do
+      expect(profile.insights_stale?(purpose: "business")).to be true
+      expect(profile.insights_stale?(purpose: "dating")).to be true
+    end
+
+    it "returns false when purpose-specific insights exist" do
+      profile.update!(business_insights_data: { "test" => "data" })
+      expect(profile.insights_stale?(purpose: "business")).to be false
+      expect(profile.insights_stale?(purpose: "dating")).to be true
+    end
+  end
+
+  describe "#insights_for" do
+    let(:profile) { create(:instagram_profile) }
+
+    it "returns purpose-specific insights" do
+      profile.update!(
+        business_insights_data: { "tone" => "professional" },
+        business_strategy_data: { "sections" => [{ "id" => "1" }] },
+        business_templates_data: { "templates" => [{ "id" => "1" }] }
+      )
+
+      result = profile.insights_for("business")
+      expect(result[:insights]).to eq({ "tone" => "professional" })
+      expect(result[:strategy]).to eq([{ "id" => "1" }])
+      expect(result[:message_templates]).to eq([{ "id" => "1" }])
     end
   end
 end

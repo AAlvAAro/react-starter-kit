@@ -74,38 +74,28 @@ module Instagram
       - Base everything on the actual content provided
     PROMPT
 
-    def initialize(instagram_profile, locale: I18n.locale)
+    def initialize(instagram_profile, locale: I18n.locale, purpose: "business")
       @profile = instagram_profile
       @locale = locale
+      @purpose = purpose
     end
 
     def generate
-      return @profile.insights_data if @profile.insights_data.present? && !stale?
+      existing_data = @profile.send(data_column)
+      return existing_data if existing_data.present?
 
       insights = openai.chat_json(messages)
-      @profile.update!(
-        insights_data: insights,
-        insights_generated_at: Time.current
-      )
+      @profile.update!(data_column => insights)
       insights
     rescue OpenaiService::ApiError => e
       Rails.logger.error("Failed to generate insights: #{e.message}")
       nil
     end
 
-    def regenerate
-      insights = openai.chat_json(messages)
-      @profile.update!(
-        insights_data: insights,
-        insights_generated_at: Time.current
-      )
-      insights
-    end
-
     private
 
-    def stale?
-      @profile.insights_generated_at.nil? || @profile.insights_generated_at < 24.hours.ago
+    def data_column
+      "#{@purpose}_insights_data"
     end
 
     def openai

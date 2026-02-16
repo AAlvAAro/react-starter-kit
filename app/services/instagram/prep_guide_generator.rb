@@ -75,32 +75,28 @@ module Instagram
       - Available icons: MessageSquare, ShieldAlert, Handshake, Briefcase, Mail, Presentation, Scale
     PROMPT
 
-    def initialize(instagram_profile, locale: I18n.locale)
+    def initialize(instagram_profile, locale: I18n.locale, purpose: "business")
       @profile = instagram_profile
       @locale = locale
+      @purpose = purpose
     end
 
     def generate
-      return @profile.strategy_data if @profile.strategy_data.present? && !stale?
+      existing_data = @profile.send(data_column)
+      return existing_data if existing_data.present?
 
       strategy = openai.chat_json(messages)
-      @profile.update!(strategy_data: strategy)
+      @profile.update!(data_column => strategy)
       strategy
     rescue OpenaiService::ApiError => e
       Rails.logger.error("Failed to generate prep guide: #{e.message}")
       nil
     end
 
-    def regenerate
-      strategy = openai.chat_json(messages)
-      @profile.update!(strategy_data: strategy)
-      strategy
-    end
-
     private
 
-    def stale?
-      @profile.insights_generated_at.nil? || @profile.insights_generated_at < 24.hours.ago
+    def data_column
+      "#{@purpose}_strategy_data"
     end
 
     def openai

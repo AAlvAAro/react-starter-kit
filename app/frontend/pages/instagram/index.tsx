@@ -3,8 +3,16 @@ import { Link, router } from "@inertiajs/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { History, User, ArrowRight, Search, Sparkles } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { History, User, ArrowRight, Search, Sparkles, Briefcase, Heart, Loader2, Instagram, Brain, FileText, CheckCircle2 } from "lucide-react";
 import { InstagramLayout } from "@/layouts/instagram-layout";
+import { cn } from "@/lib/utils";
 
 interface ProfileSearchItem {
   id: number;
@@ -18,9 +26,28 @@ interface IndexProps {
   searches: ProfileSearchItem[];
 }
 
+type SearchPurpose = "business" | "dating";
+
+interface LoadingStep {
+  id: string;
+  label: string;
+  icon: React.ElementType;
+  status: "pending" | "active" | "completed";
+}
+
 export default function InstagramIndex({ searches = [] }: IndexProps) {
   const [username, setUsername] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [showPurposeModal, setShowPurposeModal] = useState(false);
+  const [searchedUsername, setSearchedUsername] = useState("");
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const loadingSteps: LoadingStep[] = [
+    { id: "fetch", label: "Obteniendo información de Instagram", icon: Instagram, status: currentStep === 0 ? "active" : currentStep > 0 ? "completed" : "pending" },
+    { id: "analyze", label: "Analizando y organizando datos", icon: FileText, status: currentStep === 1 ? "active" : currentStep > 1 ? "completed" : "pending" },
+    { id: "ai", label: "Generando insights con IA", icon: Brain, status: currentStep === 2 ? "active" : currentStep > 2 ? "completed" : "pending" },
+    { id: "prepare", label: "Preparando resultados personalizados", icon: Sparkles, status: currentStep === 3 ? "active" : currentStep > 3 ? "completed" : "pending" },
+  ];
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -32,10 +59,58 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
     });
   };
 
-  const handleSearch = () => {
-    if (username.trim()) {
-      setIsSearching(true);
-      router.post("/instagram", { username: username.replace(/^@/, "") });
+  const handleSearch = async () => {
+    if (!username.trim()) return;
+
+    setSearchedUsername(username.replace(/^@/, ""));
+    setShowPurposeModal(true);
+  };
+
+  const handlePurposeSelect = async (purpose: SearchPurpose) => {
+    setShowPurposeModal(false);
+    setIsSearching(true);
+    setCurrentStep(0);
+
+    // Simulate step progression for visual feedback
+    const stepInterval = setInterval(() => {
+      setCurrentStep((prev) => {
+        if (prev < 3) return prev + 1;
+        return prev;
+      });
+    }, 2000);
+
+    try {
+      // First fetch the profile
+      const response = await fetch("/instagram/fetch_profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "",
+        },
+        body: JSON.stringify({ username: searchedUsername }),
+      });
+
+      if (!response.ok) {
+        clearInterval(stepInterval);
+        setIsSearching(false);
+        setCurrentStep(0);
+        alert("No se pudo encontrar el perfil. Verifica el nombre de usuario.");
+        return;
+      }
+
+      // Complete all steps visually
+      setCurrentStep(4);
+      clearInterval(stepInterval);
+
+      // Small delay to show completion, then redirect
+      setTimeout(() => {
+        router.post("/instagram", { username: searchedUsername, purpose });
+      }, 800);
+    } catch {
+      clearInterval(stepInterval);
+      setIsSearching(false);
+      setCurrentStep(0);
+      alert("Error al buscar el perfil.");
     }
   };
 
@@ -47,6 +122,113 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
 
   return (
     <InstagramLayout>
+      {/* Loading Overlay with Steps */}
+      {isSearching && (
+        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="max-w-md w-full mx-4 space-y-8">
+            <div className="text-center space-y-2">
+              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+              <h2 className="text-xl font-bold text-foreground">Analizando perfil</h2>
+              <p className="text-sm text-muted-foreground">@{searchedUsername || username.replace(/^@/, "")}</p>
+            </div>
+
+            <div className="space-y-3">
+              {loadingSteps.map((step) => {
+                const StepIcon = step.icon;
+                const isActive = step.status === "active";
+                const isCompleted = step.status === "completed";
+
+                return (
+                  <div
+                    key={step.id}
+                    className={cn(
+                      "flex items-center gap-4 p-4 rounded-lg border transition-all duration-300",
+                      isActive && "bg-primary/5 border-primary/30",
+                      isCompleted && "bg-muted/50 border-border",
+                      !isActive && !isCompleted && "bg-muted/20 border-border/50 opacity-50"
+                    )}
+                  >
+                    <div className={cn(
+                      "h-10 w-10 rounded-full flex items-center justify-center shrink-0 transition-all",
+                      isActive && "bg-primary/20",
+                      isCompleted && "bg-green-500/20",
+                      !isActive && !isCompleted && "bg-muted"
+                    )}>
+                      {isCompleted ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      ) : isActive ? (
+                        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                      ) : (
+                        <StepIcon className="h-5 w-5 text-muted-foreground" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <p className={cn(
+                        "text-sm font-medium",
+                        isActive && "text-foreground",
+                        isCompleted && "text-muted-foreground",
+                        !isActive && !isCompleted && "text-muted-foreground"
+                      )}>
+                        {step.label}
+                      </p>
+                    </div>
+                    {isCompleted && (
+                      <span className="text-xs text-green-500 font-medium">Listo</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <p className="text-center text-xs text-muted-foreground">
+              Esto puede tomar unos segundos...
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Purpose Selection Modal */}
+      <Dialog open={showPurposeModal} onOpenChange={setShowPurposeModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>¿Cuál es tu objetivo?</DialogTitle>
+            <DialogDescription>
+              Selecciona el propósito de tu búsqueda para obtener insights personalizados
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-3 py-4">
+            <Button
+              variant="outline"
+              className="h-auto p-4 justify-start gap-4"
+              onClick={() => handlePurposeSelect("business")}
+            >
+              <div className="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
+                <Briefcase className="h-5 w-5 text-blue-500" />
+              </div>
+              <div className="text-left">
+                <p className="font-medium">Negocios</p>
+                <p className="text-sm text-muted-foreground">Reunión profesional, networking o colaboración</p>
+              </div>
+            </Button>
+            <Button
+              variant="outline"
+              className="h-auto p-4 justify-start gap-4"
+              onClick={() => handlePurposeSelect("dating")}
+            >
+              <div className="h-10 w-10 rounded-full bg-pink-500/10 flex items-center justify-center shrink-0">
+                <Heart className="h-5 w-5 text-pink-500" />
+              </div>
+              <div className="text-left">
+                <p className="font-medium">Citas</p>
+                <p className="text-sm text-muted-foreground">Conocer mejor a alguien que te interesa</p>
+              </div>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className="p-6 max-w-2xl mx-auto space-y-8">
         {/* Search Section */}
         <div className="text-center space-y-6">

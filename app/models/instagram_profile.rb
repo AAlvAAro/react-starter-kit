@@ -48,13 +48,22 @@ class InstagramProfile < ApplicationRecord
     last_fetched_at.nil? || last_fetched_at < 1.hour.ago
   end
 
-  def generate_all_insights!(locale: I18n.locale)
-    Instagram::ProfileInsightsGenerator.new(self, locale: locale).generate
-    Instagram::PrepGuideGenerator.new(self, locale: locale).generate
-    Instagram::MessageTemplatesGenerator.new(self, locale: locale).generate
+  def generate_all_insights!(locale: I18n.locale, purpose: "business")
+    Instagram::ProfileInsightsGenerator.new(self, locale: locale, purpose: purpose).generate
+    Instagram::PrepGuideGenerator.new(self, locale: locale, purpose: purpose).generate
+    Instagram::MessageTemplatesGenerator.new(self, locale: locale, purpose: purpose).generate
   end
 
-  def insights_stale?
-    insights_generated_at.nil? || insights_generated_at < 24.hours.ago
+  def insights_stale?(purpose: "business")
+    data_column = "#{purpose}_insights_data"
+    send(data_column).nil?
+  end
+
+  def insights_for(purpose)
+    {
+      insights: send("#{purpose}_insights_data"),
+      strategy: send("#{purpose}_strategy_data")&.dig("sections"),
+      message_templates: send("#{purpose}_templates_data")&.dig("templates")
+    }
   end
 end

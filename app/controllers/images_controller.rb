@@ -8,8 +8,8 @@ class ImagesController < ApplicationController
 
     return head :bad_request if url.blank?
 
-    # Only allow Instagram CDN URLs
-    unless url.match?(/\A https?:\/\/[a-z0-9-]+\.cdninstagram\.com\//ix)
+    # Only allow Instagram/Facebook CDN URLs
+    unless url.match?(/\Ahttps?:\/\/[a-z0-9-]+\.(cdninstagram\.com|fbcdn\.net)\//ix)
       return head :forbidden
     end
 

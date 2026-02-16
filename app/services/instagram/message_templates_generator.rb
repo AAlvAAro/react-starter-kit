@@ -83,32 +83,28 @@ module Instagram
       - Available icons: MessageSquare, Briefcase, Handshake, Mail
     PROMPT
 
-    def initialize(instagram_profile, locale: I18n.locale)
+    def initialize(instagram_profile, locale: I18n.locale, purpose: "business")
       @profile = instagram_profile
       @locale = locale
+      @purpose = purpose
     end
 
     def generate
-      return @profile.message_templates_data if @profile.message_templates_data.present? && !stale?
+      existing_data = @profile.send(data_column)
+      return existing_data if existing_data.present?
 
       templates = openai.chat_json(messages)
-      @profile.update!(message_templates_data: templates)
+      @profile.update!(data_column => templates)
       templates
     rescue OpenaiService::ApiError => e
       Rails.logger.error("Failed to generate message templates: #{e.message}")
       nil
     end
 
-    def regenerate
-      templates = openai.chat_json(messages)
-      @profile.update!(message_templates_data: templates)
-      templates
-    end
-
     private
 
-    def stale?
-      @profile.insights_generated_at.nil? || @profile.insights_generated_at < 24.hours.ago
+    def data_column
+      "#{@purpose}_templates_data"
     end
 
     def openai

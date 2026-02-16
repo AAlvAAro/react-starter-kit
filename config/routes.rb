@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   # Instagram Profile Insights
   resources :instagram, only: [:index, :create], controller: "instagram/instagram"
+  post "instagram/fetch_profile", to: "instagram/instagram#fetch_profile"
   get "instagram/:username", to: "instagram/instagram#show", as: :instagram_profile, constraints: { username: /[a-zA-Z0-9_.]+/ }
   get "instagram/:username/insights", to: "instagram/instagram#insights", as: :instagram_profile_insights, constraints: { username: /[a-zA-Z0-9_.]+/ }
   get "instagram/:username/strategy", to: "instagram/instagram#strategy", as: :instagram_profile_strategy, constraints: { username: /[a-zA-Z0-9_.]+/ }

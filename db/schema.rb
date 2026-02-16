@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_16_092558) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_16_103827) do
   create_table "instagram_profiles", force: :cascade do |t|
     t.string "avatar"
     t.string "avatar_hd"
     t.text "bio"
     t.json "bio_links"
+    t.json "business_insights_data"
+    t.json "business_strategy_data"
+    t.json "business_templates_data"
     t.datetime "created_at", null: false
+    t.json "dating_insights_data"
+    t.json "dating_strategy_data"
+    t.json "dating_templates_data"
     t.string "external_link"
     t.integer "followers_count"
     t.integer "following_count"
@@ -58,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_16_092558) do
   create_table "profile_searches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "instagram_profile_id", null: false
+    t.string "purpose"
     t.datetime "searched_at"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
