@@ -31,12 +31,12 @@ servers:
 #
 proxy:
   ssl: true
-  host: cursos.sabersobrecafe.com
+  host: instagram.alvarodelgado.dev
 
 # Where you keep your container images.
 registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  # server: localhost:5555
+  server: ghcr.io
 
   # Needed for authenticated registries.
   username: aalvaaro
