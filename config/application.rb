@@ -39,9 +39,9 @@ module ReactStarterKit
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Internationalization
-    config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :"es-MX", :pt, :ja, :zh, :it, :fr, :ar, :hi]
-    config.i18n.fallbacks = [:en]
+    config.i18n.default_locale = :"es-MX"
+    config.i18n.available_locales = [:"es-MX", :en, :pt, :ja, :zh, :it, :fr, :ar, :hi]
+    config.i18n.fallbacks = [:"es-MX", :en]
 
     # Don't generate system test files.
     config.generators.system_tests = nil

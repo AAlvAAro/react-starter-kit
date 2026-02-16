@@ -34,8 +34,8 @@ export default function Home({ plans = [] }: HomeProps) {
     },
     {
       icon: MessageCircle,
-      title: "Icebreaker Simulator",
-      description: "Practice starting conversations with AI personas so you feel confident walking in.",
+      title: "Message Templates",
+      description: "AI-generated DM templates and opening messages tailored to the person you want to connect with.",
     },
   ]
 
@@ -43,7 +43,7 @@ export default function Home({ plans = [] }: HomeProps) {
     "Walk into any meeting with confidence",
     "Find common ground instantly",
     "Know what topics to bring up (and avoid)",
-    "Practice icebreakers before going live",
+    "Get ready-to-use message templates",
   ]
 
   return (

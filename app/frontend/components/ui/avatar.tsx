@@ -21,12 +21,14 @@ function Avatar({
 
 function AvatarImage({
   className,
+  referrerPolicy = "no-referrer",
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+}: React.ComponentProps<typeof AvatarPrimitive.Image> & { referrerPolicy?: React.HTMLAttributeReferrerPolicy }) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
       className={cn("aspect-square size-full", className)}
+      referrerPolicy={referrerPolicy}
       {...props}
     />
   )

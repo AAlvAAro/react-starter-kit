@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
     it "validates password length is at least 8" do
       user = build(:user, password: "short")
       expect(user).not_to be_valid
-      expect(user.errors[:password]).to include("es demasiado corto (mínimo 8 caracteres)")
+      expect(user.errors[:password]).to include("is too short (minimum is 8 characters)")
     end
 
     it "validates email format" do

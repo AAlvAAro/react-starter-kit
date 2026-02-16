@@ -10,6 +10,8 @@ interface ProfileSearchItem {
   id: number;
   username: string;
   searched_at: string;
+  name?: string;
+  avatar?: string;
 }
 
 interface IndexProps {
@@ -52,8 +54,8 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
             <Sparkles className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Who are you meeting?</h1>
-            <p className="text-muted-foreground mt-1">Enter an Instagram username to learn about them</p>
+            <h1 className="text-2xl font-bold text-foreground">¿Con quién te vas a reunir?</h1>
+            <p className="text-muted-foreground mt-1">Ingresa un nombre de usuario de Instagram para conocer más sobre ellos</p>
           </div>
 
           <div className="flex gap-2 max-w-md mx-auto">
@@ -69,7 +71,7 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
               />
             </div>
             <Button onClick={handleSearch} disabled={isSearching || !username.trim()}>
-              {isSearching ? "Searching..." : "Analyze"}
+              {isSearching ? "Buscando..." : "Analizar"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -81,35 +83,52 @@ export default function InstagramIndex({ searches = [] }: IndexProps) {
             <div className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center">
               <History className="h-4 w-4 text-accent-foreground" />
             </div>
-            <h2 className="text-lg font-semibold text-foreground">Recent Searches</h2>
+            <h2 className="text-lg font-semibold text-foreground">Búsquedas Recientes</h2>
           </div>
 
           {searches.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center">
                 <p className="text-sm text-muted-foreground">
-                  No searches yet. Start by searching for an Instagram profile above.
+                  Aún no hay búsquedas. Comienza buscando un perfil de Instagram arriba.
                 </p>
               </CardContent>
             </Card>
           ) : (
-            <div className="space-y-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {searches.map((search) => (
                 <Link
                   key={search.id}
                   href={`/instagram/${search.username}`}
-                  className="block"
+                  className="block group"
                 >
-                  <Card className="hover:border-primary/50 transition-colors cursor-pointer">
-                    <CardContent className="p-4 flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-                        <User className="h-5 w-5 text-muted-foreground" />
+                  <Card className="hover:border-primary/50 hover:bg-accent/50 transition-all cursor-pointer h-full">
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
+                        {search.avatar ? (
+                          <img
+                            src={search.avatar}
+                            alt={search.name || search.username}
+                            referrerPolicy="no-referrer"
+                            className="h-full w-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                            }}
+                          />
+                        ) : null}
+                        <User className={`h-5 w-5 text-muted-foreground ${search.avatar ? 'hidden' : ''}`} />
                       </div>
-                      <div className="flex-1">
-                        <p className="font-medium text-foreground">@{search.username}</p>
-                        <p className="text-xs text-muted-foreground">{formatDate(search.searched_at)}</p>
+                      <div className="flex-1 min-w-0">
+                        {search.name && (
+                          <p className="font-medium text-foreground truncate">{search.name}</p>
+                        )}
+                        <p className={`text-muted-foreground truncate ${search.name ? 'text-sm' : 'font-medium text-foreground'}`}>
+                          @{search.username}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{formatDate(search.searched_at)}</p>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
                     </CardContent>
                   </Card>
                 </Link>

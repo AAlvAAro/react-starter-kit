@@ -8,7 +8,15 @@ module Instagram
     def index
       searches = Current.user.profile_searches.includes(:instagram_profile).recent.limit(20)
       render inertia: "instagram/index", props: {
-        searches: searches.map { |s| { id: s.id, username: s.username, searched_at: s.searched_at } }
+        searches: searches.map do |s|
+          {
+            id: s.id,
+            username: s.username,
+            searched_at: s.searched_at,
+            name: s.instagram_profile&.name,
+            avatar: proxy_image_url(s.instagram_profile&.avatar)
+          }
+        end
       }
     end
 
@@ -84,8 +92,8 @@ module Instagram
       username = params[:username].to_s.downcase
       @instagram_profile = InstagramProfile.find_by(username: username)
 
-      # If profile doesn't exist, try to fetch it
-      if @instagram_profile.nil?
+      # If profile doesn't exist or is stale, fetch fresh data
+      if @instagram_profile.nil? || @instagram_profile.stale?
         @instagram_profile = InstagramProfile.find_or_fetch(username)
       end
 
@@ -104,8 +112,8 @@ module Instagram
         instagram_profile: {
           name: @instagram_profile.name,
           bio: @instagram_profile.bio,
-          avatar: @instagram_profile.avatar,
-          avatar_hd: @instagram_profile.avatar_hd,
+          avatar: proxy_image_url(@instagram_profile.avatar),
+          avatar_hd: proxy_image_url(@instagram_profile.avatar_hd),
           is_verified: @instagram_profile.is_verified,
           is_business: @instagram_profile.is_business,
           posts_count: @instagram_profile.posts_count,
@@ -116,9 +124,14 @@ module Instagram
         },
         insights: @instagram_profile.insights_data,
         strategy: @instagram_profile.strategy_data&.dig("sections"),
-        personas: @instagram_profile.personas_data&.dig("personas"),
+        message_templates: @instagram_profile.message_templates_data&.dig("templates"),
         searched_at: @profile_search&.searched_at
       }
+    end
+
+    def proxy_image_url(url)
+      return nil if url.blank?
+      "/images/proxy?url=#{CGI.escape(url)}"
     end
   end
 end

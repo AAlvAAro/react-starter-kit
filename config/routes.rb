@@ -19,10 +19,10 @@ Rails.application.routes.draw do
 
   # Instagram Profile Insights
   resources :instagram, only: [:index, :create], controller: "instagram/instagram"
-  get "instagram/:username", to: "instagram/instagram#show", as: :instagram_profile
-  get "instagram/:username/insights", to: "instagram/instagram#insights", as: :instagram_profile_insights
-  get "instagram/:username/strategy", to: "instagram/instagram#strategy", as: :instagram_profile_strategy
-  post "instagram/:username/chat", to: "instagram/instagram#chat", as: :instagram_profile_chat
+  get "instagram/:username", to: "instagram/instagram#show", as: :instagram_profile, constraints: { username: /[a-zA-Z0-9_.]+/ }
+  get "instagram/:username/insights", to: "instagram/instagram#insights", as: :instagram_profile_insights, constraints: { username: /[a-zA-Z0-9_.]+/ }
+  get "instagram/:username/strategy", to: "instagram/instagram#strategy", as: :instagram_profile_strategy, constraints: { username: /[a-zA-Z0-9_.]+/ }
+  post "instagram/:username/chat", to: "instagram/instagram#chat", as: :instagram_profile_chat, constraints: { username: /[a-zA-Z0-9_.]+/ }
 
   resources :plans, except: [:show]
 
@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   namespace :webhooks do
     post :stripe, to: "stripe#create"
   end
+
+  get "images/proxy", to: "images#proxy"
 
   root "home#index"
 

@@ -117,13 +117,13 @@ RSpec.describe InstagramProfile, type: :model do
     before do
       allow_any_instance_of(Instagram::ProfileInsightsGenerator).to receive(:generate)
       allow_any_instance_of(Instagram::PrepGuideGenerator).to receive(:generate)
-      allow_any_instance_of(Instagram::ChatPersonaGenerator).to receive(:generate)
+      allow_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
     end
 
     it "calls all three generators" do
       expect_any_instance_of(Instagram::ProfileInsightsGenerator).to receive(:generate)
       expect_any_instance_of(Instagram::PrepGuideGenerator).to receive(:generate)
-      expect_any_instance_of(Instagram::ChatPersonaGenerator).to receive(:generate)
+      expect_any_instance_of(Instagram::MessageTemplatesGenerator).to receive(:generate)
 
       profile.generate_all_insights!
     end

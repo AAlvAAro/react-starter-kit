@@ -2,8 +2,22 @@
 
 module Instagram
   class ProfileInsightsGenerator
+    LOCALE_NAMES = {
+      en: "English",
+      "es-MX": "Spanish (Mexico)",
+      pt: "Portuguese",
+      ja: "Japanese",
+      zh: "Chinese",
+      it: "Italian",
+      fr: "French",
+      ar: "Arabic",
+      hi: "Hindi"
+    }.freeze
+
     SYSTEM_PROMPT = <<~PROMPT
       You are an expert social media analyst and psychologist. Analyze Instagram profiles to generate detailed insights about a person's communication style, interests, and personality.
+
+      **IMPORTANT: Respond entirely in %{language}. All text values in the JSON must be in %{language}.**
 
       Always respond with valid JSON matching this exact structure:
       {
@@ -60,8 +74,9 @@ module Instagram
       - Base everything on the actual content provided
     PROMPT
 
-    def initialize(instagram_profile)
+    def initialize(instagram_profile, locale: I18n.locale)
       @profile = instagram_profile
+      @locale = locale
     end
 
     def generate
@@ -97,9 +112,17 @@ module Instagram
       @openai ||= OpenaiService.new
     end
 
+    def language_name
+      LOCALE_NAMES[@locale.to_sym] || LOCALE_NAMES[@locale.to_s.to_sym] || "English"
+    end
+
+    def system_prompt_with_locale
+      SYSTEM_PROMPT % { language: language_name }
+    end
+
     def messages
       [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: system_prompt_with_locale },
         { role: "user", content: user_prompt }
       ]
     end

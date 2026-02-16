@@ -9,15 +9,13 @@ RSpec.describe OpenaiService do
     let(:messages) { [{ role: "user", content: "Hello" }] }
 
     context "when API call is successful" do
+      let(:mock_response) { double("Response", content: "Hello! How can I help you?") }
+      let(:mock_chat) { double("Chat") }
+
       before do
-        stub_request(:post, "https://api.openai.com/v1/chat/completions")
-          .to_return(
-            status: 200,
-            body: {
-              choices: [{ message: { content: "Hello! How can I help you?" } }]
-            }.to_json,
-            headers: { "Content-Type" => "application/json" }
-          )
+        allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+        allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+        allow(mock_chat).to receive(:ask).and_return(mock_response)
       end
 
       it "returns the response content" do
@@ -28,8 +26,7 @@ RSpec.describe OpenaiService do
 
     context "when API call fails" do
       before do
-        stub_request(:post, "https://api.openai.com/v1/chat/completions")
-          .to_return(status: 500, body: "Internal Server Error")
+        allow(RubyLLM).to receive(:chat).and_raise(StandardError.new("API Error"))
       end
 
       it "raises an ApiError" do
@@ -42,15 +39,13 @@ RSpec.describe OpenaiService do
     let(:messages) { [{ role: "user", content: "Return JSON" }] }
 
     context "when API returns valid JSON" do
+      let(:mock_response) { double("Response", content: '{"key": "value"}') }
+      let(:mock_chat) { double("Chat") }
+
       before do
-        stub_request(:post, "https://api.openai.com/v1/chat/completions")
-          .to_return(
-            status: 200,
-            body: {
-              choices: [{ message: { content: '{"key": "value"}' } }]
-            }.to_json,
-            headers: { "Content-Type" => "application/json" }
-          )
+        allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+        allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+        allow(mock_chat).to receive(:ask).and_return(mock_response)
       end
 
       it "returns parsed JSON" do
@@ -60,15 +55,13 @@ RSpec.describe OpenaiService do
     end
 
     context "when API returns invalid JSON" do
+      let(:mock_response) { double("Response", content: "not valid json") }
+      let(:mock_chat) { double("Chat") }
+
       before do
-        stub_request(:post, "https://api.openai.com/v1/chat/completions")
-          .to_return(
-            status: 200,
-            body: {
-              choices: [{ message: { content: "not valid json" } }]
-            }.to_json,
-            headers: { "Content-Type" => "application/json" }
-          )
+        allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+        allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+        allow(mock_chat).to receive(:ask).and_return(mock_response)
       end
 
       it "raises an ApiError" do

@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   DropdownMenu,
@@ -18,7 +16,7 @@ import {
 import {
   BadgeCheck, Users, Image, TrendingUp, AlertTriangle, CheckCircle,
   BarChart3, BookOpen, User as UserIcon, MessageSquare, ShieldAlert,
-  Handshake, Briefcase, Mail, Presentation, Scale, Send, RotateCcw,
+  Handshake, Briefcase, Mail, Presentation, Scale,
   Settings, LogOut, ArrowLeft,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -61,12 +59,17 @@ interface StrategySection {
   icon: string;
 }
 
-interface ChatPersona {
+interface MessageTemplate {
+  title: string;
+  content: string;
+  context: string;
+}
+
+interface MessageCategory {
   id: string;
-  name: string;
-  description: string;
-  color: "success" | "warning" | "destructive";
-  systemPrompt: string;
+  category: string;
+  icon: string;
+  messages: MessageTemplate[];
 }
 
 interface ProfileSearchData {
@@ -75,7 +78,7 @@ interface ProfileSearchData {
   instagram_profile: InstagramProfile;
   insights?: InsightsData;
   strategy?: StrategySection[];
-  personas?: ChatPersona[];
+  message_templates?: MessageCategory[];
   searched_at?: string;
 }
 
@@ -88,62 +91,9 @@ const iconMap: Record<string, React.ElementType> = {
   MessageSquare, ShieldAlert, Handshake, Briefcase, Mail, Presentation, Scale,
 };
 
-type Message = { role: "user" | "assistant"; content: string };
-
 export default function InstagramShow({ profile_search, active_tab }: ShowProps) {
   const profile = profile_search.instagram_profile;
   const profileUsername = profile_search.username;
-
-  // Strategy state
-  const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSend = async () => {
-    if (!input.trim() || !selectedPersona || isLoading) return;
-
-    const userMsg: Message = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`/instagram/${profileUsername}/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "",
-        },
-        body: JSON.stringify({
-          persona_id: selectedPersona,
-          message: input,
-          messages: messages,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.response) {
-        const aiMsg: Message = { role: "assistant", content: data.response };
-        setMessages((prev) => [...prev, aiMsg]);
-      }
-    } catch (error) {
-      console.error("Chat error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleReset = () => {
-    setMessages([]);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !isLoading) {
-      handleSend();
-    }
-  };
 
   const tabs = [
     { id: "overview", label: "Overview", icon: UserIcon, href: `/instagram/${profileUsername}` },
@@ -176,7 +126,17 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
         <Card>
           <CardContent className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-6">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={profile?.avatar_hd || profile?.avatar} />
+              {(profile?.avatar_hd || profile?.avatar) ? (
+                <img
+                  src={profile?.avatar_hd || profile?.avatar}
+                  alt={profile?.name || profile_search.username}
+                  referrerPolicy="no-referrer"
+                  className="aspect-square h-full w-full object-cover rounded-full"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              ) : null}
               <AvatarFallback>{userInitials}</AvatarFallback>
             </Avatar>
             <div className="flex-1 space-y-1">
@@ -211,17 +171,9 @@ export default function InstagramShow({ profile_search, active_tab }: ShowProps)
         {active_tab === "strategy" && (
           <StrategyTab
             username={profile_search.username}
+            profile={profile}
             strategy={profile_search.strategy}
-            personas={profile_search.personas}
-            selectedPersona={selectedPersona}
-            setSelectedPersona={setSelectedPersona}
-            messages={messages}
-            input={input}
-            setInput={setInput}
-            handleSend={handleSend}
-            handleReset={handleReset}
-            handleKeyDown={handleKeyDown}
-            isLoading={isLoading}
+            messageTemplates={profile_search.message_templates}
           />
         )}
       </div>
@@ -294,16 +246,16 @@ function OverviewTab({ profile, username }: { profile?: InstagramProfile; userna
     <div className="space-y-6 max-w-3xl mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Profile Summary</CardTitle>
+          <CardTitle className="text-base">Resumen del Perfil</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            This is an overview of @{username}'s Instagram profile. Navigate to the Insights tab for detailed analysis
-            or the Prep tab for conversation strategies.
+            Este es un resumen del perfil de Instagram de @{username}. Navega a la pestaña de Análisis para un análisis detallado
+            o a la pestaña de Preparación para estrategias de conversación.
           </p>
           {profile?.bio && (
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Bio</p>
+              <p className="text-xs text-muted-foreground mb-1">Biografía</p>
               <p className="text-sm text-foreground">{profile.bio}</p>
             </div>
           )}
@@ -453,99 +405,25 @@ function InsightsTab({ insights }: { insights?: InsightsData }) {
 // Strategy Tab Component
 interface StrategyTabProps {
   username: string;
+  profile?: InstagramProfile;
   strategy?: StrategySection[];
-  personas?: ChatPersona[];
-  selectedPersona: string | null;
-  setSelectedPersona: (id: string | null) => void;
-  messages: Message[];
-  input: string;
-  setInput: (value: string) => void;
-  handleSend: () => void;
-  handleReset: () => void;
-  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  isLoading?: boolean;
+  messageTemplates?: MessageCategory[];
 }
 
 function StrategyTab({
   username,
+  profile,
   strategy,
-  personas,
-  selectedPersona,
-  setSelectedPersona,
-  messages,
-  input,
-  setInput,
-  handleSend,
-  handleReset,
-  handleKeyDown,
-  isLoading,
+  messageTemplates,
 }: StrategyTabProps) {
-  // Chat view when persona is selected
-  if (selectedPersona && personas) {
-    const persona = personas.find((p) => p.id === selectedPersona);
-    if (!persona) return null;
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-    return (
-      <div className="max-w-2xl mx-auto h-[calc(100vh-20rem)] flex flex-col">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-lg font-bold text-foreground">Chatting as: {persona.name}</h1>
-            <p className="text-xs text-muted-foreground">{persona.description}</p>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleReset}>
-              <RotateCcw className="h-3.5 w-3.5 mr-1" /> Reset
-            </Button>
-            <Button variant="ghost" size="sm" onClick={() => { setSelectedPersona(null); handleReset(); }}>
-              Change persona
-            </Button>
-          </div>
-        </div>
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
-        <Card className="flex-1 flex flex-col overflow-hidden">
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-3">
-              {messages.length === 0 && (
-                <p className="text-sm text-muted-foreground text-center py-8">
-                  Start typing to begin the conversation...
-                </p>
-              )}
-              {messages.map((m, i) => (
-                <div
-                  key={i}
-                  className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}
-                >
-                  <div
-                    className={cn(
-                      "max-w-[80%] rounded-lg px-3 py-2 text-sm",
-                      m.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-foreground"
-                    )}
-                  >
-                    {m.content}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          <div className="border-t p-3 flex gap-2">
-            <Input
-              placeholder="Type your message..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <Button size="icon" onClick={handleSend}>
-              <Send className="h-4 w-4" />
-            </Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
-
-  // Default view: Prep Guide + Persona selection
   return (
     <div className="space-y-8">
       {/* Prep Guide Section */}
@@ -591,39 +469,76 @@ function StrategyTab({
         )}
       </section>
 
-      {/* Icebreaker Practice Section */}
+      {/* Message Templates Section */}
       <section className="max-w-3xl mx-auto space-y-4">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Icebreaker Practice</h2>
+          <h2 className="text-2xl font-bold text-foreground">Plantillas de Mensajes</h2>
           <p className="text-muted-foreground mt-1">
-            Practice starting a conversation with @{username} in different moods
+            Plantillas de DM generadas por IA para contactar a @{username}
           </p>
         </div>
 
-        {personas && personas.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-3">
-            {personas.map((p) => (
-              <Card
-                key={p.id}
-                className="cursor-pointer hover:border-primary/50 transition-colors h-full"
-                onClick={() => setSelectedPersona(p.id)}
-              >
-                <CardHeader className="pb-2">
-                  <Badge
-                    variant={p.color === "success" ? "default" : p.color === "warning" ? "secondary" : "destructive"}
-                    className="w-fit mb-2"
-                  >
-                    {p.name}
-                  </Badge>
-                  <CardDescription className="text-xs">{p.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+        {messageTemplates && messageTemplates.length > 0 ? (
+          <div className="space-y-4">
+            {messageTemplates.map((category) => {
+              const Icon = iconMap[category.icon] || MessageSquare;
+              return (
+                <Card key={category.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="h-8 w-8 rounded-md bg-accent flex items-center justify-center">
+                        <Icon className="h-4 w-4 text-accent-foreground" />
+                      </div>
+                      <CardTitle className="text-base">{category.category}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {category.messages.map((msg, idx) => {
+                      const msgId = `${category.id}-${idx}`;
+                      return (
+                        <div
+                          key={idx}
+                          className="p-3 rounded-lg bg-muted/50 border border-border/50 space-y-2"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <h4 className="text-sm font-medium text-foreground">{msg.title}</h4>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 px-2 text-xs"
+                              onClick={() => copyToClipboard(msg.content, msgId)}
+                            >
+                              {copiedId === msgId ? (
+                                <>
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  Copiado
+                                </>
+                              ) : (
+                                <>
+                                  <Mail className="h-3 w-3 mr-1" />
+                                  Copiar
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                          <p className="text-sm text-foreground bg-background p-2 rounded border">
+                            {msg.content}
+                          </p>
+                          <p className="text-xs text-muted-foreground italic">
+                            {msg.context}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         ) : (
           <Card>
             <CardContent className="py-8 text-center">
-              <p className="text-muted-foreground">Generating personas...</p>
+              <p className="text-muted-foreground">Generando plantillas de mensajes...</p>
             </CardContent>
           </Card>
         )}

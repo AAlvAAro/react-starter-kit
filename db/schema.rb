@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_12_154153) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_16_092558) do
   create_table "instagram_profiles", force: :cascade do |t|
     t.string "avatar"
     t.string "avatar_hd"
@@ -25,6 +25,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_12_154153) do
     t.boolean "is_business"
     t.boolean "is_verified"
     t.datetime "last_fetched_at"
+    t.json "message_templates_data"
     t.string "name"
     t.json "personas_data"
     t.integer "posts_count"

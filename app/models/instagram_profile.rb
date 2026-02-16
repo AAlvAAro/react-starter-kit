@@ -2,6 +2,7 @@
 
 class InstagramProfile < ApplicationRecord
   has_many :profile_searches, dependent: :nullify
+  has_many :users, through: :profile_searches
 
   validates :username, presence: true, uniqueness: true
 
@@ -47,10 +48,10 @@ class InstagramProfile < ApplicationRecord
     last_fetched_at.nil? || last_fetched_at < 1.hour.ago
   end
 
-  def generate_all_insights!
-    Instagram::ProfileInsightsGenerator.new(self).generate
-    Instagram::PrepGuideGenerator.new(self).generate
-    Instagram::ChatPersonaGenerator.new(self).generate
+  def generate_all_insights!(locale: I18n.locale)
+    Instagram::ProfileInsightsGenerator.new(self, locale: locale).generate
+    Instagram::PrepGuideGenerator.new(self, locale: locale).generate
+    Instagram::MessageTemplatesGenerator.new(self, locale: locale).generate
   end
 
   def insights_stale?
