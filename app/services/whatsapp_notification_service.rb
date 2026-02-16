@@ -20,7 +20,7 @@ class WhatsappNotificationService
     )
 
     message = <<~MSG
-      ✨ *MeetIQ* - Tu análisis está listo
+      ✨ *Instagram Stalker Pro* - Tu análisis está listo
 
       Hola #{@user.name}! El análisis del perfil @#{username} ya está disponible.
 
