@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :profile_searches, dependent: :destroy
   has_many :instagram_profiles, through: :profile_searches
+  has_many :tiktok_searches, dependent: :destroy
+  has_many :tiktok_profiles, through: :tiktok_searches
   belongs_to :current_plan, class_name: "Plan", optional: true
 
   validates :name, presence: true

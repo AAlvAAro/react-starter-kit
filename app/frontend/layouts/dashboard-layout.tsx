@@ -8,7 +8,8 @@ import {
   LogOut,
   Menu,
   X,
-  Search,
+  Instagram,
+  Music,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -27,7 +28,9 @@ interface DashboardLayoutProps {
 }
 
 const getNavItems = () => [
-  { icon: Search, label: t("sidebar.searches"), href: "/instagram", matchPrefix: "/instagram" },
+  { icon: Package, label: "Dashboard", href: "/dashboard", matchPrefix: "/dashboard" },
+  { icon: Instagram, label: "Instagram", href: "/instagram", matchPrefix: "/instagram" },
+  { icon: Music, label: "TikTok", href: "/tiktok", matchPrefix: "/tiktok" },
   { icon: Settings, label: t("nav.settings"), href: "/settings/profile", matchPrefix: "/settings" },
 ]
 

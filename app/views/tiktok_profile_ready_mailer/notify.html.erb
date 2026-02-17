@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { text-align: center; padding: 20px 0; }
+    .logo { font-size: 24px; font-weight: bold; color: #7c3aed; }
+    .card { background: #f9fafb; border-radius: 12px; padding: 24px; margin: 20px 0; }
+    .profile { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .avatar { width: 60px; height: 60px; border-radius: 50%; background: #e5e7eb; }
+    .username { font-size: 18px; font-weight: 600; color: #111; }
+    .button { display: inline-block; background: #7c3aed; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; margin-top: 16px; }
+    .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">✨ Instagram Stalker Pro</div>
+  </div>
+
+  <p>Hola <%= @user.name %>,</p>
+
+  <p>¡Tu análisis de TikTok está listo! Ya puedes ver los insights personalizados para prepararte antes de tu próxima conversación.</p>
+
+  <div class="card">
+    <div class="profile">
+      <% if @tiktok_profile.avatar.present? %>
+        <img src="<%= @tiktok_profile.avatar %>" alt="<%= @username %>" class="avatar">
+      <% end %>
+      <div>
+        <div class="username">@<%= @username %></div>
+        <div style="color: #6b7280;"><%= @tiktok_profile.name %></div>
+      </div>
+    </div>
+
+    <p><strong>Lo que encontrarás:</strong></p>
+    <ul>
+      <li>Análisis de personalidad y estilo de comunicación</li>
+      <li>Temas de interés y puntos en común</li>
+      <li>Guía de preparación para tu conversación</li>
+      <li>Plantillas de mensajes personalizadas</li>
+    </ul>
+
+    <a href="<%= tiktok_profile_url(username: @username) %>" class="button">
+      Ver análisis completo →
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>Instagram Stalker Pro - Prepárate para cada conversación importante</p>
+  </div>
+</body>
+</html>

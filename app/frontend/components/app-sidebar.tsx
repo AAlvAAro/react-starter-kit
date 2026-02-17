@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react"
-import { BookOpen, CreditCard, Folder, LayoutGrid, Settings, Search } from "lucide-react"
+import { BookOpen, CreditCard, Folder, LayoutGrid, Settings, Instagram, Music } from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -28,7 +28,12 @@ const mainNavItems: NavItem[] = [
   {
     title: "Instagram",
     href: "/instagram",
-    icon: Search,
+    icon: Instagram,
+  },
+  {
+    title: "TikTok",
+    href: "/tiktok",
+    icon: Music,
   },
 ]
 

@@ -25,6 +25,13 @@ Rails.application.routes.draw do
   get "instagram/:username/strategy", to: "instagram/instagram#strategy", as: :instagram_profile_strategy, constraints: { username: /[a-zA-Z0-9_.]+/ }
   post "instagram/:username/chat", to: "instagram/instagram#chat", as: :instagram_profile_chat, constraints: { username: /[a-zA-Z0-9_.]+/ }
 
+  # TikTok Profile Insights
+  resources :tiktok, only: [:index, :create], controller: "tiktok/tiktok"
+  post "tiktok/fetch_profile", to: "tiktok/tiktok#fetch_profile"
+  get "tiktok/:username", to: "tiktok/tiktok#show", as: :tiktok_profile, constraints: { username: /[a-zA-Z0-9_.]+/ }
+  get "tiktok/:username/insights", to: "tiktok/tiktok#insights", as: :tiktok_profile_insights, constraints: { username: /[a-zA-Z0-9_.]+/ }
+  get "tiktok/:username/strategy", to: "tiktok/tiktok#strategy", as: :tiktok_profile_strategy, constraints: { username: /[a-zA-Z0-9_.]+/ }
+
   resources :plans, except: [:show]
 
   namespace :settings do

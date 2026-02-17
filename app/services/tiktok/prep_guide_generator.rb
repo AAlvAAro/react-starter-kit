@@ -1,0 +1,160 @@
+# frozen_string_literal: true
+
+module Tiktok
+  class PrepGuideGenerator
+    LOCALE_NAMES = {
+      en: "English",
+      "es-MX": "Spanish (Mexico)",
+      pt: "Portuguese",
+      ja: "Japanese",
+      zh: "Chinese",
+      it: "Italian",
+      fr: "French",
+      ar: "Arabic",
+      hi: "Hindi"
+    }.freeze
+
+    SYSTEM_PROMPT = <<~PROMPT
+      You are an expert conversation coach and social skills trainer. Generate a prep guide to help someone have a great conversation with a TikTok creator.
+
+      **IMPORTANT: Respond entirely in %{language}. All text values in the JSON must be in %{language}.**
+
+      Always respond with valid JSON matching this exact structure:
+      {
+        "sections": [
+          {
+            "id": "icebreakers",
+            "question": "What are good icebreakers?",
+            "answer": "Detailed advice...",
+            "icon": "MessageSquare"
+          },
+          {
+            "id": "avoid",
+            "question": "What should I avoid talking about?",
+            "answer": "Detailed advice...",
+            "icon": "ShieldAlert"
+          },
+          {
+            "id": "topics",
+            "question": "What topics should I bring up?",
+            "answer": "Detailed advice...",
+            "icon": "Handshake"
+          },
+          {
+            "id": "common",
+            "question": "What do we have in common?",
+            "answer": "Detailed advice...",
+            "icon": "Briefcase"
+          },
+          {
+            "id": "contact",
+            "question": "How should I reach out?",
+            "answer": "Detailed advice...",
+            "icon": "Mail"
+          },
+          {
+            "id": "impression",
+            "question": "How to make a great first impression?",
+            "answer": "Detailed advice...",
+            "icon": "Presentation"
+          },
+          {
+            "id": "followup",
+            "question": "How to follow up after meeting?",
+            "answer": "Detailed advice...",
+            "icon": "Scale"
+          }
+        ]
+      }
+
+      Guidelines:
+      - Be specific and reference actual content from their profile
+      - Give actionable, practical advice
+      - Keep answers 2-4 sentences each
+      - Be warm and encouraging in tone
+      - Available icons: MessageSquare, ShieldAlert, Handshake, Briefcase, Mail, Presentation, Scale
+    PROMPT
+
+    def initialize(tiktok_profile, locale: I18n.locale, purpose: "business")
+      @profile = tiktok_profile
+      @locale = locale
+      @purpose = purpose
+    end
+
+    def generate
+      existing_data = @profile.send(data_column)
+      return existing_data if existing_data.present?
+
+      strategy = openai.chat_json(messages)
+      @profile.update!(data_column => strategy)
+      strategy
+    rescue OpenaiService::ApiError => e
+      Rails.logger.error("Failed to generate TikTok prep guide: #{e.message}")
+      nil
+    end
+
+    private
+
+    def data_column
+      "#{@purpose}_strategy_data"
+    end
+
+    def openai
+      @openai ||= OpenaiService.new
+    end
+
+    def language_name
+      LOCALE_NAMES[@locale.to_sym] || LOCALE_NAMES[@locale.to_s.to_sym] || "English"
+    end
+
+    def system_prompt_with_locale
+      SYSTEM_PROMPT % { language: language_name }
+    end
+
+    def messages
+      [
+        { role: "system", content: system_prompt_with_locale },
+        { role: "user", content: user_prompt }
+      ]
+    end
+
+    def user_prompt
+      insights_summary = build_insights_summary
+
+      <<~PROMPT
+        Generate a conversation prep guide for someone who wants to connect with this TikTok creator:
+
+        **Profile:**
+        - Username: @#{@profile.username}
+        - Name: #{@profile.name}
+        - Bio: #{@profile.bio}
+        - Followers: #{@profile.followers_count}
+        - Hearts/Likes: #{@profile.hearts_count}
+        - Verified: #{@profile.is_verified}
+
+        **Insights about this person:**
+        #{insights_summary}
+
+        Generate practical, specific advice for having a great conversation with this person.
+      PROMPT
+    end
+
+    def build_insights_summary
+      insights = @profile.send("#{@purpose}_insights_data")
+      return "No insights available yet" if insights.blank?
+
+      parts = []
+      parts << "Tone: #{insights.dig('tone', 'value')}" if insights.dig("tone", "value")
+      parts << "Topics: #{insights.dig('topics', 'items')&.join(', ')}" if insights.dig("topics", "items")
+      parts << "Interests: #{insights.dig('interests', 'items')&.join(', ')}" if insights.dig("interests", "items")
+      parts << "Posture: #{insights.dig('posture', 'value')}" if insights.dig("posture", "value")
+
+      if insights.dig("flags", "items")
+        flags = insights.dig("flags", "items").map { |f| "- #{f['text']} (#{f['type']})" }
+        parts << "Flags:\n#{flags.join("\n")}"
+      end
+
+      parts.join("\n\n")
+    end
+  end
+end
