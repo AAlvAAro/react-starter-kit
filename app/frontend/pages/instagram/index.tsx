@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Link, router, usePage } from "@inertiajs/react";
+import { useState, useEffect } from "react";
+import { router, usePage } from "@inertiajs/react";
+import { createConsumer } from "@rails/actioncable";
 import type { SharedData } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { User, ArrowRight, Search, Sparkles, Loader2, Instagram, Brain, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { User, ArrowRight, Search, Sparkles, Loader2, Instagram, Brain, FileText, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { DashboardLayout } from "@/layouts/dashboard-layout";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +17,7 @@ interface ProfileSearchItem {
   name?: string;
   avatar?: string;
   is_business?: boolean;
+  status?: string;
 }
 
 interface Filters {
@@ -42,6 +45,26 @@ export default function InstagramIndex({ searches = [], pagination, filters }: I
   const [isSearching, setIsSearching] = useState(false);
   const [searchedUsername, setSearchedUsername] = useState("");
   const [carouselIndex, setCarouselIndex] = useState(0);
+
+  // Subscribe to Action Cable for real-time updates
+  const hasProcessingSearches = searches.some(s => s.status === "processing" || s.status === "pending");
+
+  useEffect(() => {
+    if (!hasProcessingSearches) return;
+
+    const cable = createConsumer();
+    const subscription = cable.subscriptions.create("ProfileSearchesChannel", {
+      received(data: { type: string }) {
+        if (data.type === "profile_ready") {
+          router.reload();
+        }
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [hasProcessingSearches]);
 
   const loadingMessages = [
     // Process messages
@@ -125,7 +148,12 @@ export default function InstagramIndex({ searches = [], pagination, filters }: I
       clearInterval(carouselInterval);
 
       setTimeout(() => {
-        router.post("/instagram", { username: cleanUsername });
+        router.post("/instagram", { username: cleanUsername }, {
+          onFinish: () => {
+            setIsSearching(false);
+            setCarouselIndex(0);
+          }
+        });
       }, 800);
     } catch {
       setIsSearching(false);
@@ -189,7 +217,7 @@ export default function InstagramIndex({ searches = [], pagination, filters }: I
             </div>
 
             <p className="text-center text-xs text-muted-foreground mt-4">
-              Esto puede tomar unos segundos...
+              Esto puede tomar unos minutos...
             </p>
           </div>
         </div>
@@ -257,13 +285,15 @@ export default function InstagramIndex({ searches = [], pagination, filters }: I
             </Card>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2">
-              {searches.map((search) => (
-                <Link
+              {searches.map((search) => {
+                const isProcessing = search.status === "processing" || search.status === "pending";
+                return (
+                <div
                   key={search.id}
-                  href={`/instagram/${search.username}`}
-                  className="block group"
+                  className={`block group ${isProcessing ? 'pointer-events-none opacity-75' : 'cursor-pointer'}`}
+                  onClick={() => !isProcessing && router.visit(`/instagram/${search.username}`)}
                 >
-                  <Card className="hover:border-primary/50 hover:bg-accent/50 transition-all cursor-pointer h-full">
+                  <Card className={`transition-all h-full ${isProcessing ? '' : 'hover:border-primary/50 hover:bg-accent/50 cursor-pointer'}`}>
                     <CardContent className="p-4 flex items-center gap-3">
                       <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
                         {search.avatar ? (
@@ -289,11 +319,19 @@ export default function InstagramIndex({ searches = [], pagination, filters }: I
                         </p>
                         <p className="text-xs text-muted-foreground mt-0.5">{formatDate(search.searched_at)}</p>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                      {isProcessing ? (
+                        <Badge variant="secondary" className="shrink-0 gap-1">
+                          <Clock className="h-3 w-3 animate-pulse" />
+                          Procesando
+                        </Badge>
+                      ) : (
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                      )}
                     </CardContent>
                   </Card>
-                </Link>
-              ))}
+                </div>
+              );
+              })}
             </div>
 
           )}

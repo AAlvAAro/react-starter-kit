@@ -21,6 +21,14 @@ class FetchInstagramProfileJob < ApplicationJob
     # Mark as ready
     profile_search.update!(status: "ready", completed_at: Time.current)
 
+    # Broadcast to user's channel to update UI in real-time
+    ProfileSearchesChannel.broadcast_to(user, {
+      type: "profile_ready",
+      profile_search_id: profile_search.id,
+      username: instagram_profile.username,
+      status: "ready"
+    })
+
     # Send notifications
     ProfileReadyMailer.with(profile_search: profile_search).notify.deliver_later
     WhatsappNotificationService.new(user).profile_ready(profile_search) if user.phone.present?

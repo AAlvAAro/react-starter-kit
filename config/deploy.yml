@@ -7,7 +7,7 @@ image: aalvaaro/instagram_stalker_pro
 # Deploy to these servers.
 servers:
   web:
-    - 46.62.128.250
+    - 5.78.115.67
 
   # Uncomment to enable SSR:
   # vite_ssr:

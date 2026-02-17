@@ -31,7 +31,8 @@ module Instagram
             searched_at: s.searched_at,
             name: s.instagram_profile&.name,
             avatar: proxy_image_url(s.instagram_profile&.avatar),
-            is_business: s.instagram_profile&.is_business
+            is_business: s.instagram_profile&.is_business,
+            status: s.status
           }
         end,
         filters: {
@@ -87,8 +88,8 @@ module Instagram
         # Enqueue background job to fetch profile and generate both insight sets
         FetchInstagramProfileJob.perform_later(profile_search.id)
 
-        redirect_to instagram_profile_path(username: username),
-                    notice: "Estamos analizando el perfil. Te notificaremos cuando esté listo."
+        redirect_to instagram_index_path,
+                    notice: "¡Perfil en proceso! Te enviaremos un correo cuando el análisis de @#{username} esté listo."
       end
     rescue StandardError => e
       redirect_to instagram_index_path, alert: "Error al procesar la solicitud: #{e.message}"
