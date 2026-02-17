@@ -31,7 +31,7 @@ servers:
 #
 proxy:
   ssl: true
-  host: instagram.alvarodelgado.dev
+  host: whois.socialtoolkit.co
 
 # Where you keep your container images.
 registry:
