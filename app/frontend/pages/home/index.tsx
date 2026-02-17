@@ -49,14 +49,14 @@ export default function Home({ plans = [] }: HomeProps) {
 
   return (
     <>
-      <Head title="Instagram Stalker Pro - Insights de Perfiles de Instagram" />
+      <Head title="Social Toolkit - Insights de Perfiles de Instagram" />
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="border-b border-border sticky top-0 z-50 bg-card/80 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
               <Sparkles className="w-6 h-6 text-primary" />
-              <span className="font-semibold text-lg">Instagram Stalker Pro</span>
+              <span className="font-semibold text-lg">Social Toolkit</span>
             </Link>
             <nav className="flex items-center gap-4">
               {isLoggedIn ? (
@@ -188,7 +188,7 @@ export default function Home({ plans = [] }: HomeProps) {
         <section className="container mx-auto px-4 py-20">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">¿Por qué Instagram Stalker Pro?</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">¿Por qué Social Toolkit?</h2>
               <p className="text-muted-foreground text-lg">
                 Transforma cómo te preparas para conexiones significativas
               </p>
@@ -288,7 +288,7 @@ export default function Home({ plans = [] }: HomeProps) {
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary" />
                 <span className="text-sm text-muted-foreground">
-                  Instagram Stalker Pro © {new Date().getFullYear()}
+                  Social Toolkit © {new Date().getFullYear()}
                 </span>
               </div>
               <div className="flex items-center gap-6">

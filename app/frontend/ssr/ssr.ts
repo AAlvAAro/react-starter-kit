@@ -10,7 +10,7 @@ interface ResolvedComponent {
   default: ReactNode & { layout?: (page: ReactNode) => ReactNode }
 }
 
-const appName = import.meta.env.VITE_APP_NAME ?? "Instagram Stalker Pro"
+const appName = import.meta.env.VITE_APP_NAME ?? "Social Toolkit"
 
 createServer((page) =>
   createInertiaApp({

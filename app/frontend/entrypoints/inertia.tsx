@@ -7,7 +7,7 @@ import { initializeTheme } from "@/hooks/use-appearance"
 import { setLocale } from "@/lib/i18n"
 import PersistentLayout from "@/layouts/persistent-layout"
 
-const appName = import.meta.env.VITE_APP_NAME ?? "Instagram Stalker Pro"
+const appName = import.meta.env.VITE_APP_NAME ?? "Social Toolkit"
 
 void createInertiaApp({
   // Set default page title
