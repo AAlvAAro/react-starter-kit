@@ -20,7 +20,7 @@ class WhatsappNotificationService
     )
 
     message = <<~MSG
-      ✨ *Instagram Stalker Pro* - Tu análisis está listo
+      🛒 *Nexara AI* - Your insights are ready
 
       Hola #{@user.name}! El análisis del perfil @#{username} ya está disponible.
 

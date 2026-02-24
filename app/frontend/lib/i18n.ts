@@ -67,7 +67,7 @@ const translations: Record<string, Translations> = {
     "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js y TailwindCSS trabajando en perfecta armonía.",
     "landing.features.production.title": "Listo para Producción",
     "landing.features.production.description": "Incluye gestión de usuarios, sesiones, verificación de email y control de acceso basado en roles.",
-    "landing.footer.copyright": "Instagram Stalker Pro",
+    "landing.footer.copyright": "Nexara AI",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contacto",
 
@@ -303,7 +303,7 @@ const translations: Record<string, Translations> = {
     "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
     "landing.features.production.title": "Production Ready",
     "landing.features.production.description": "Includes user management, sessions, email verification, and role-based access control.",
-    "landing.footer.copyright": "Instagram Stalker Pro",
+    "landing.footer.copyright": "Nexara AI",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contact",
 

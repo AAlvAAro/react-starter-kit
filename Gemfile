@@ -84,12 +84,15 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+
   # Synchronize Capybara commands with application JavaScript and AJAX requests
   gem "capybara-lockstep"
   gem "selenium-webdriver"
+  gem "webmock"
 end
 
 # Custom gems
+gem "bigcommerce-ruby"
 gem "fast-mcp"
 gem "postmark-rails"
 gem "ruby_llm"
@@ -97,5 +100,4 @@ gem "ruby_llm-mcp"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "stripe"
-
-gem "webmock", "~> 3.26", group: :test
+gem "telegram-bot-ruby", "~> 2.5"

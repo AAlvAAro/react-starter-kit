@@ -90,7 +90,7 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">R</span>
               </div>
-              <span className="font-semibold">Instagram Stalker Pro</span>
+              <span className="font-semibold">Nexara AI</span>
             </Link>
             <nav className="flex items-center gap-4">
               <Link href="/sign_in" className="text-sm text-muted-foreground hover:text-foreground">

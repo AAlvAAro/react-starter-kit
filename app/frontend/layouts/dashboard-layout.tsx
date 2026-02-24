@@ -8,7 +8,7 @@ import {
   LogOut,
   Menu,
   X,
-  Search,
+  LayoutDashboard,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -27,7 +27,7 @@ interface DashboardLayoutProps {
 }
 
 const getNavItems = () => [
-  { icon: Search, label: t("sidebar.searches"), href: "/instagram", matchPrefix: "/instagram" },
+  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard", matchPrefix: "/dashboard" },
   { icon: Settings, label: t("nav.settings"), href: "/settings/profile", matchPrefix: "/settings" },
 ]
 
@@ -71,7 +71,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-sidebar-foreground">Profile Insights</span>
+            <span className="font-semibold text-sidebar-foreground">Nexara AI</span>
           </Link>
           <Button
             variant="ghost"
@@ -110,29 +110,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </nav>
 
-        </div>
-
-        {/* Credits Badge */}
-        <div className="px-4 pb-3">
-          <div className="rounded-lg border border-sidebar-border bg-sidebar-accent/50 p-3">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-medium text-muted-foreground">Créditos</span>
-              <span className={cn(
-                "text-sm font-bold",
-                user.credits_remaining > 0 ? "text-primary" : "text-destructive"
-              )}>
-                {user.credits_remaining}
-              </span>
-            </div>
-            {user.credits_remaining === 0 && (
-              <Link
-                href="/pricing"
-                className="text-xs text-primary hover:underline"
-              >
-                Comprar créditos →
-              </Link>
-            )}
-          </div>
         </div>
 
         {/* User profile */}
@@ -194,7 +171,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-semibold">Profile Insights</span>
+            <span className="font-semibold">Nexara AI</span>
           </div>
         </header>
 

@@ -41,8 +41,11 @@ FastMcp.mount_in_rails(
 ) do |server|
   Rails.application.config.after_initialize do
     # Eager load tools and resources in development to ensure they're discovered
-    Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/tools")) if Rails.env.development?
-    Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/resources")) if Rails.env.development?
+    if Rails.env.development?
+      Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/tools"))
+      Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/tools/bigcommerce_tools"))
+      Rails.autoloaders.main.eager_load_dir(Rails.root.join("app/resources"))
+    end
 
     # FastMcp will automatically discover and register:
     # - All classes that inherit from ApplicationTool (which uses ActionTool::Base)

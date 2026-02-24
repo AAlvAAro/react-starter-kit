@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     post :stripe, to: "stripe#create"
   end
 
+  # Telegram Bot Webhook
+  post "telegram/webhook", to: "telegram_webhooks#create"
+
   get "images/proxy", to: "images#proxy"
 
   root "home#index"
