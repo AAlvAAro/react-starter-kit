@@ -1,72 +1,133 @@
-# Inertia Rails React Starter Kit
+```
+ ██▀███   ▄▄▄       ██▓ ██▓      ██████     ▄▄▄       ██▓    ██ ▄█▀ ██▓▄▄▄█████▓
+▓██ ▒ ██▒▒████▄    ▓██▒▓██▒    ▒██    ▒    ▒████▄    ▓██▒    ██▄█▒ ▓██▒▓  ██▒ ▓▒
+▓██ ░▄█ ▒▒██  ▀█▄  ▒██▒▒██░    ░ ▓██▄      ▒██  ▀█▄  ▒██▒   ▓███▄░ ▒██▒▒ ▓██░ ▒░
+▒██▀▀█▄  ░██▄▄▄▄██ ░██░▒██░      ▒   ██▒   ░██▄▄▄▄██ ░██░   ▓██ █▄ ░██░░ ▓██▓ ░
+░██▓ ▒██▒ ▓█   ▓██▒░██░░██████▒▒██████▒▒    ▓█   ▓██▒░██░   ▒██▒ █▄░██░  ▒██▒ ░
+░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░▓  ░ ▒░▓  ░▒ ▒▓▒ ▒ ░    ▒▒   ▓▒█░░▓     ▒ ▒▒ ▓▒░▓    ▒ ░░
+  ░▒ ░ ▒░  ▒   ▒▒ ░ ▒ ░░ ░ ▒  ░░ ░▒  ░ ░     ▒   ▒▒ ░ ▒ ░   ░ ░▒ ▒░ ▒ ░    ░
+  ░░   ░   ░   ▒    ▒ ░  ░ ░   ░  ░  ░       ░   ▒    ▒ ░   ░ ░░ ░  ▒ ░  ░
+   ░           ░  ░ ░      ░  ░      ░           ░  ░ ░     ░  ░    ░
+```
 
-A modern full-stack starter application with Rails backend and React frontend using Inertia.js based on the [Laravel Starter Kit](https://github.com/laravel/react-starter-kit).
+> *"I'm trying to free your mind, Neo. But I can only show you the door. You're the one that has to walk through it."*
+> — Morpheus
 
-## Features
+---
 
-- [Inertia Rails](https://inertia-rails.dev) & [Vite Rails](https://vite-ruby.netlify.app) setup
-- [React](https://react.dev) frontend with TypeScript & [shadcn/ui](https://ui.shadcn.com) component library
-- User authentication system (based on [Authentication Zero](https://github.com/lazaronixon/authentication-zero))
-- [Kamal](https://kamal-deploy.org/) for deployment
-- Optional SSR support
+**Wake up, developer...** The Matrix has you. Follow the white rabbit.
 
-See also:
-- [Svelte Starter Kit](https://github.com/inertia-rails/svelte-starter-kit) for Inertia Rails with Svelte
-- [Vue Starter Kit](https://github.com/inertia-rails/vue-starter-kit) for Inertia Rails with Vue
+A modern full-stack starter kit for building **AI-powered applications** with Rails and React. Forked from [inertia-rails/react-starter-kit](https://github.com/inertia-rails/react-starter-kit).
 
-<a href="https://evilmartians.com/?utm_source=inertia-rails-react-starter-kit&utm_campaign=project_page">
+---
+
+## 💊 Choose Your Pill
+
+| 🔴 Red Pill | 🔵 Blue Pill |
+|-------------|--------------|
+| Clone this repo | Stay in wonderland |
+| Build something real | Keep using boilerplate |
+| See how deep the rabbit hole goes | Believe whatever you want |
+
+---
+
+## ⚡ What's Inside the Construct
+
+```
+SYSTEM LOADING...
+├── [Inertia Rails]      → Seamless SPA experience
+├── [Vite Rails]         → Lightning-fast builds
+├── [React + TypeScript] → The One framework
+├── [shadcn/ui]          → Beautiful components
+├── [Authentication]     → Based on Authentication Zero
+├── [Stripe]             → Payment integration
+├── [Kamal]              → Deploy anywhere
+└── [SSR Support]        → Optional server-side rendering
+```
+
+---
+
+## 🖥️ Jack In
+
+```bash
+# There is no spoon... but there is a setup script
+$ bin/setup
+
+# The Matrix is loading...
+$ open http://localhost:3000
+```
+
+---
+
+## 🔮 Enabling SSR (Server-Side Rendering)
+
+> *"You have to let it all go, Neo. Fear, doubt, and disbelief. Free your mind."*
+
+### Step 1: Uncomment the hydration code
+
+Open `app/frontend/entrypoints/inertia.ts`:
+
+```ts
+// Uncomment the following to enable SSR hydration:
+if (el.hasChildNodes()) {
+  hydrateRoot(el, createElement(App, props))
+  return
+}
+```
+
+### Step 2: Configure deployment
+
+Open `config/deploy.yml` and uncomment:
+
+```yml
+servers:
+  vite_ssr:
+    hosts:
+      - 192.168.0.1
+    cmd: bundle exec vite ssr
+    options:
+      network-alias: vite_ssr
+
+env:
+  clear:
+    INERTIA_SSR_ENABLED: true
+    INERTIA_SSR_URL: "http://vite_ssr:13714"
+
+builder:
+  dockerfile: Dockerfile-ssr
+```
+
+**You are The One.** Deploy with SSR support.
+
+---
+
+## 🙏 Acknowledgments
+
+> *"I didn't say it would be easy, Neo. I just said it would be the truth."*
+
+This project is a fork of [inertia-rails/react-starter-kit](https://github.com/inertia-rails/react-starter-kit), originally created by [Evil Martians](https://evilmartians.com/).
+
+<a href="https://evilmartians.com/?utm_source=rails-ai-kit&utm_campaign=project_page">
 <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Built by Evil Martians" width="236" height="54">
 </a>
 
-## Setup
+---
 
-1. Clone this repository
-2. Setup dependencies & run the server:
-   ```bash
-   bin/setup
-   ```
-3. Open http://localhost:3000
+## 📜 License
 
-## Enabling SSR
+```
+THE MATRIX HAS YOU...
 
-This starter kit comes with optional SSR support. To enable it, follow these steps:
+This project is available as open source under the MIT License.
+The original inertia-rails/react-starter-kit is also MIT licensed.
 
-1. Open `app/frontend/entrypoints/inertia.ts` and uncomment part of the `setup` function:
-   ```ts
-   // Uncomment the following to enable SSR hydration:
-   // if (el.hasChildNodes()) {
-   //   hydrateRoot(el, createElement(App, props))
-   //   return
-   // }
-   ```
-2. Open `config/deploy.yml` and uncomment several lines:
-   ```yml
-   servers:
-     # Uncomment to enable SSR:
-     # vite_ssr:
-     #   hosts:
-     #     - 192.168.0.1
-     #   cmd: bundle exec vite ssr
-     #   options:
-     #     network-alias: vite_ssr
-      
-   # ...
-      
-   env:
-     clear:
-       # Uncomment to enable SSR:
-       # INERTIA_SSR_ENABLED: true
-       # INERTIA_SSR_URL: "http://vite_ssr:13714"
-      
-   # ...
-      
-   builder:
-     # Uncomment to enable SSR:
-     # dockerfile: Dockerfile-ssr
-   ```
-   
-That's it! Now you can deploy your app with SSR support.
+There is no spoon. There is only code.
+```
 
-## License
+[MIT License](https://opensource.org/licenses/MIT)
 
-The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+---
+
+```
+ END OF LINE
+```
