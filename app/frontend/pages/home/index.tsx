@@ -1,7 +1,22 @@
 import { Head, Link, usePage } from "@inertiajs/react"
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Package, Zap, Shield, Code, Github, Mail, ArrowRight, Check, Bot, CreditCard, Send, Bug, MessageSquare, Cpu } from "lucide-react"
+import {
+  Package,
+  Zap,
+  Shield,
+  Code,
+  Github,
+  Mail,
+  ArrowRight,
+  Check,
+  Bot,
+  CreditCard,
+  Send,
+  Bug,
+  MessageSquare,
+  Cpu,
+} from "lucide-react"
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null)
@@ -19,7 +34,7 @@ function useScrollReveal() {
           }
         })
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     )
 
     observer.observe(element)
@@ -57,22 +72,26 @@ export default function Home({ plans = [] }: HomeProps) {
     {
       icon: Zap,
       title: "Lightning Fast",
-      description: "Built with Vite and React for blazing fast development and production builds.",
+      description:
+        "Built with Vite and React for blazing fast development and production builds.",
     },
     {
       icon: Shield,
       title: "Secure by Default",
-      description: "Authentication, authorization, and security best practices built-in from day one.",
+      description:
+        "Authentication, authorization, and security best practices built-in from day one.",
     },
     {
       icon: Code,
       title: "Modern Stack",
-      description: "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
+      description:
+        "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
     },
     {
       icon: Package,
       title: "Production Ready",
-      description: "Includes user management, sessions, email verification, and role-based access control.",
+      description:
+        "Includes user management, sessions, email verification, and role-based access control.",
     },
   ]
 
@@ -80,22 +99,26 @@ export default function Home({ plans = [] }: HomeProps) {
     {
       icon: Cpu,
       title: "FastMCP",
-      description: "Model Context Protocol integration for AI assistants and tool calling.",
+      description:
+        "Model Context Protocol integration for AI assistants and tool calling.",
     },
     {
       icon: Bot,
       title: "ruby_llm",
-      description: "Multi-provider LLM support: OpenAI, Anthropic, Google Gemini, and more.",
+      description:
+        "Multi-provider LLM support: OpenAI, Anthropic, Google Gemini, and more.",
     },
     {
       icon: CreditCard,
       title: "Stripe",
-      description: "Payment processing, subscriptions, and billing portal out of the box.",
+      description:
+        "Payment processing, subscriptions, and billing portal out of the box.",
     },
     {
       icon: Send,
       title: "Postmark",
-      description: "Transactional email delivery with high deliverability rates.",
+      description:
+        "Transactional email delivery with high deliverability rates.",
     },
     {
       icon: Bug,
@@ -112,10 +135,10 @@ export default function Home({ plans = [] }: HomeProps) {
   return (
     <>
       <Head title="Rails AI Kit - AI-Ready Rails SaaS Starter" />
-      <div className="min-h-screen bg-background">
+      <div className="bg-background min-h-screen">
         {/* Header */}
-        <header className="border-b border-border">
-          <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+        <header className="border-border border-b">
+          <div className="container mx-auto flex items-center justify-between px-4 py-2">
             <div className="flex items-center">
               <img src="/icon.png" alt="Rails AI Kit" className="h-12" />
             </div>
@@ -124,16 +147,16 @@ export default function Home({ plans = [] }: HomeProps) {
                 href="https://github.com/AAlvAAro/rails-ai-kit"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
               >
-                <Github className="w-5 h-5" />
+                <Github className="h-5 w-5" />
                 <span className="hidden sm:inline">GitHub</span>
               </a>
               <a
                 href="mailto:hola@alvarodelgado.dev"
-                className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="h-5 w-5" />
                 <span className="hidden sm:inline">Contact</span>
               </a>
             </nav>
@@ -141,24 +164,28 @@ export default function Home({ plans = [] }: HomeProps) {
         </header>
 
         {/* Hero Section */}
-        <section ref={heroRef} className="container mx-auto px-4 py-20 lg:py-32 opacity-0 translate-y-8 transition-all duration-700 ease-out">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-sm">
-              <Zap className="w-4 h-4" />
+        <section
+          ref={heroRef}
+          className="container mx-auto translate-y-8 px-4 py-20 opacity-0 transition-all duration-700 ease-out lg:py-32"
+        >
+          <div className="mx-auto max-w-4xl space-y-8 text-center">
+            <div className="bg-muted inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm">
+              <Zap className="h-4 w-4" />
               <span>Rails + React + TypeScript</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-              Build Modern Web Apps{" "}
-              <span className="text-primary">Faster</span>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              Build Modern Web Apps <span className="text-primary">Faster</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A production-ready starter kit combining the power of Ruby on Rails with the flexibility of React. Authentication, user management, and modern UI components included.
+            <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
+              A production-ready starter kit combining the power of Ruby on
+              Rails with the flexibility of React. Authentication, user
+              management, and modern UI components included.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Button size="lg" asChild>
                 <Link href="/docs" className="flex items-center gap-2">
                   Get Started
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
@@ -171,25 +198,32 @@ export default function Home({ plans = [] }: HomeProps) {
         </section>
 
         {/* Features Section */}
-        <section ref={featuresRef} className="container mx-auto px-4 py-20 bg-muted/50 opacity-0 translate-y-8 transition-all duration-700 ease-out">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Everything You Need</h2>
+        <section
+          ref={featuresRef}
+          className="bg-muted/50 container mx-auto translate-y-8 px-4 py-20 opacity-0 transition-all duration-700 ease-out"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                Everything You Need
+              </h2>
               <p className="text-muted-foreground text-lg">
                 Built with modern best practices and production-ready features
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {coreFeatures.map((feature) => (
                 <div
                   key={feature.title}
-                  className="bg-background rounded-lg p-6 border border-border hover:border-primary/50 transition-colors"
+                  className="bg-background border-border hover:border-primary/50 rounded-lg border p-6 transition-colors"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <feature.icon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  <h3 className="mb-2 font-semibold">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {feature.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -197,29 +231,37 @@ export default function Home({ plans = [] }: HomeProps) {
         </section>
 
         {/* AI Features Section */}
-        <section ref={aiRef} className="container mx-auto px-4 py-20 opacity-0 translate-y-8 transition-all duration-700 ease-out">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-sm text-primary mb-4">
-                <Bot className="w-4 h-4" />
+        <section
+          ref={aiRef}
+          className="container mx-auto translate-y-8 px-4 py-20 opacity-0 transition-all duration-700 ease-out"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-16 text-center">
+              <div className="bg-primary/10 text-primary mb-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm">
+                <Bot className="h-4 w-4" />
                 <span>AI-Powered</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">AI & Integrations</h2>
+              <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                AI & Integrations
+              </h2>
               <p className="text-muted-foreground text-lg">
-                Pre-configured integrations to build AI-powered SaaS applications
+                Pre-configured integrations to build AI-powered SaaS
+                applications
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {aiFeatures.map((feature) => (
                 <div
                   key={feature.title}
-                  className="bg-background rounded-lg p-6 border border-border hover:border-primary/50 transition-colors"
+                  className="bg-background border-border hover:border-primary/50 rounded-lg border p-6 transition-colors"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-primary" />
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <feature.icon className="text-primary h-6 w-6" />
                   </div>
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  <h3 className="mb-2 font-semibold">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {feature.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -228,37 +270,49 @@ export default function Home({ plans = [] }: HomeProps) {
 
         {/* Pricing Section */}
         {plans.length > 0 && (
-          <section ref={pricingRef} className="container mx-auto px-4 py-20 opacity-0 translate-y-8 transition-all duration-700 ease-out">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+          <section
+            ref={pricingRef}
+            className="container mx-auto translate-y-8 px-4 py-20 opacity-0 transition-all duration-700 ease-out"
+          >
+            <div className="mx-auto max-w-6xl">
+              <div className="mb-16 text-center">
+                <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+                  Simple, Transparent Pricing
+                </h2>
                 <p className="text-muted-foreground text-lg">
                   Choose the plan that works best for you
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {plans.map((plan) => (
                   <div
                     key={plan.id}
-                    className="bg-background rounded-lg p-8 border border-border hover:border-primary/50 transition-all hover:shadow-lg"
+                    className="bg-background border-border hover:border-primary/50 rounded-lg border p-8 transition-all hover:shadow-lg"
                   >
-                    <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                    <p className="text-muted-foreground mb-6">{plan.description}</p>
+                    <h3 className="mb-2 text-2xl font-bold">{plan.name}</h3>
+                    <p className="text-muted-foreground mb-6">
+                      {plan.description}
+                    </p>
                     <div className="mb-6">
                       <span className="text-4xl font-bold">
                         ${(plan.price_cents / 100).toFixed(2)}
                       </span>
                       <span className="text-muted-foreground">
-                        /{plan.interval === "month" ? "mo" : plan.interval === "year" ? "yr" : ""}
+                        /
+                        {plan.interval === "month"
+                          ? "mo"
+                          : plan.interval === "year"
+                            ? "yr"
+                            : ""}
                       </span>
                     </div>
-                    <Button className="w-full mb-6" asChild>
+                    <Button className="mb-6 w-full" asChild>
                       <Link href="/pricing">Get Started</Link>
                     </Button>
                     <div className="space-y-3">
                       {plan.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                          <Check className="text-primary mt-0.5 h-5 w-5 flex-shrink-0" />
                           <span className="text-sm">{feature}</span>
                         </div>
                       ))}
@@ -270,9 +324,8 @@ export default function Home({ plans = [] }: HomeProps) {
           </section>
         )}
 
-
         {/* Footer */}
-        <footer className="border-t border-border">
+        <footer className="border-border border-t">
           <div className="container mx-auto px-4 py-4">
             <div className="flex flex-col items-center justify-center">
               <img src="/logo.png" alt="Rails AI Kit" className="h-18" />

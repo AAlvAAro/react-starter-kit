@@ -71,7 +71,9 @@ export default function Email() {
                 )}
 
                 <div className="grid gap-2">
-                  <Label htmlFor="password_challenge">{t("settings.email.current_password")}</Label>
+                  <Label htmlFor="password_challenge">
+                    {t("settings.email.current_password")}
+                  </Label>
 
                   <Input
                     id="password_challenge"
@@ -79,14 +81,18 @@ export default function Email() {
                     type="password"
                     className="mt-1 block w-full"
                     autoComplete="current-password"
-                    placeholder={t("settings.email.current_password_placeholder")}
+                    placeholder={t(
+                      "settings.email.current_password_placeholder",
+                    )}
                   />
 
                   <InputError messages={errors.password_challenge} />
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button disabled={processing}>{t("settings.email.save")}</Button>
+                  <Button disabled={processing}>
+                    {t("settings.email.save")}
+                  </Button>
 
                   <Transition
                     show={recentlySuccessful}
@@ -95,7 +101,9 @@ export default function Email() {
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                   >
-                    <p className="text-sm text-neutral-600">{t("settings.email.saved")}</p>
+                    <p className="text-sm text-neutral-600">
+                      {t("settings.email.saved")}
+                    </p>
                   </Transition>
                 </div>
               </>

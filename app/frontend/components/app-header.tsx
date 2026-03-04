@@ -1,5 +1,12 @@
 import { Link, usePage } from "@inertiajs/react"
-import { BookOpen, CreditCard, Folder, LayoutGrid, Menu, Search } from "lucide-react"
+import {
+  BookOpen,
+  CreditCard,
+  Folder,
+  LayoutGrid,
+  Menu,
+  Search,
+} from "lucide-react"
 
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { Icon } from "@/components/icon"

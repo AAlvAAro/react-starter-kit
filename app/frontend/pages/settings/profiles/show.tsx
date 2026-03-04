@@ -8,7 +8,13 @@ import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsProfilePath } from "@/routes"
@@ -58,13 +64,21 @@ export default function Profile() {
                 <div className="grid gap-2">
                   <Label htmlFor="locale">{t("settings.profile.locale")}</Label>
 
-                  <Select name="locale" value={locale} onValueChange={setLocale}>
+                  <Select
+                    name="locale"
+                    value={locale}
+                    onValueChange={setLocale}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="es-MX">{t("settings.profile.locale_es")}</SelectItem>
-                      <SelectItem value="en-US">{t("settings.profile.locale_en")}</SelectItem>
+                      <SelectItem value="es-MX">
+                        {t("settings.profile.locale_es")}
+                      </SelectItem>
+                      <SelectItem value="en-US">
+                        {t("settings.profile.locale_en")}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -72,7 +86,9 @@ export default function Profile() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button disabled={processing}>{t("settings.profile.save")}</Button>
+                  <Button disabled={processing}>
+                    {t("settings.profile.save")}
+                  </Button>
 
                   <Transition
                     show={recentlySuccessful}
@@ -81,7 +97,9 @@ export default function Profile() {
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                   >
-                    <p className="text-sm text-neutral-600">{t("settings.profile.saved")}</p>
+                    <p className="text-sm text-neutral-600">
+                      {t("settings.profile.saved")}
+                    </p>
                   </Transition>
                 </div>
               </>

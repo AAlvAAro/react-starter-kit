@@ -1,7 +1,13 @@
 import { Head, Link, router } from "@inertiajs/react"
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
   Table,
@@ -74,7 +80,7 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
           </div>
           <Button asChild>
             <Link href="/plans/new">
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               {t("admin.plans.new")}
             </Link>
           </Button>
@@ -83,11 +89,13 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
         <Card>
           <CardHeader>
             <CardTitle>{t("admin.plans.list")}</CardTitle>
-            <CardDescription>{t("admin.plans.list_description")}</CardDescription>
+            <CardDescription>
+              {t("admin.plans.list_description")}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {plans.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
+              <div className="text-muted-foreground py-8 text-center">
                 {t("admin.plans.empty")}
               </div>
             ) : (
@@ -99,7 +107,9 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
                     <TableHead>{t("admin.plans.interval")}</TableHead>
                     <TableHead>{t("admin.plans.status")}</TableHead>
                     <TableHead>{t("admin.plans.stripe_id")}</TableHead>
-                    <TableHead className="text-right">{t("admin.plans.actions")}</TableHead>
+                    <TableHead className="text-right">
+                      {t("admin.plans.actions")}
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -111,12 +121,12 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
                       <TableCell>
                         {plan.active ? (
                           <Badge variant="default" className="bg-green-500">
-                            <Check className="w-3 h-3 mr-1" />
+                            <Check className="mr-1 h-3 w-3" />
                             {t("admin.plans.active")}
                           </Badge>
                         ) : (
                           <Badge variant="secondary">
-                            <X className="w-3 h-3 mr-1" />
+                            <X className="mr-1 h-3 w-3" />
                             {t("admin.plans.inactive")}
                           </Badge>
                         )}
@@ -128,25 +138,33 @@ export default function PlansIndex({ plans }: PlansIndexProps) {
                         <div className="flex items-center justify-end gap-2">
                           <Button variant="ghost" size="icon" asChild>
                             <Link href={`/plans/${plan.id}/edit`}>
-                              <Pencil className="w-4 h-4" />
+                              <Pencil className="h-4 w-4" />
                             </Link>
                           </Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button variant="ghost" size="icon">
-                                <Trash2 className="w-4 h-4 text-destructive" />
+                                <Trash2 className="text-destructive h-4 w-4" />
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>{t("admin.plans.delete_confirm_title")}</AlertDialogTitle>
+                                <AlertDialogTitle>
+                                  {t("admin.plans.delete_confirm_title")}
+                                </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  {t("admin.plans.delete_confirm_description", { name: plan.name })}
+                                  {t("admin.plans.delete_confirm_description", {
+                                    name: plan.name,
+                                  })}
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => handleDelete(plan.id)}>
+                                <AlertDialogCancel>
+                                  {t("actions.cancel")}
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDelete(plan.id)}
+                                >
                                   {t("actions.delete")}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
