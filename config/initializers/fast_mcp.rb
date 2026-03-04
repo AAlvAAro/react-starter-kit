@@ -12,25 +12,25 @@
 
 # Mount the MCP middleware in your Rails application
 # You can customize the options below to fit your needs.
-require 'fast_mcp'
+require "fast_mcp"
 
 fast_mcp_options = {
   name: Rails.application.class.module_parent_name.underscore.dasherize,
-  version: '1.0.0',
-  path_prefix: '/mcp',
-  messages_route: 'messages',
-  sse_route: 'sse'
+  version: "1.0.0",
+  path_prefix: "/mcp",
+  messages_route: "messages",
+  sse_route: "sse"
 }
 
 if Rails.env.development?
   # In development, allow localhost and ngrok for easier testing
-  fast_mcp_options[:allowed_origins] = ['localhost', '127.0.0.1', '[::1]', /.*\.ngrok-free\.app/, /.*\.ngrok\.io/]
+  fast_mcp_options[:allowed_origins] = ["localhost", "127.0.0.1", "[::1]", /.*\.ngrok-free\.app/, /.*\.ngrok\.io/]
   fast_mcp_options[:localhost_only] = false
 else
   # In non-development environments, require authentication
   fast_mcp_options[:authenticate] = true
   fast_mcp_options[:auth_token] =
-    ENV.fetch('FAST_MCP_AUTH_TOKEN') do
+    ENV.fetch("FAST_MCP_AUTH_TOKEN") do
       Rails.application.credentials.dig(:fast_mcp, :auth_token)
     end
 end

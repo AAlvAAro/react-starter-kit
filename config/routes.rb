@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resource :password, only: [:show, :update]
     resource :email, only: [:show, :update]
     resources :sessions, only: [:index]
-    resource :billing, only: [:show], controller: 'billing' do
+    resource :billing, only: [:show], controller: "billing" do
       post :cancel, on: :collection
     end
     inertia :appearance

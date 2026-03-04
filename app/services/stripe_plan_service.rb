@@ -27,7 +27,7 @@ class StripePlanService
 
     # Add recurring interval for subscriptions
     unless @plan.one_time?
-      price_params[:recurring] = { interval: @plan.interval }
+      price_params[:recurring] = {interval: @plan.interval}
     end
 
     price = Stripe::Price.create(price_params)
@@ -38,7 +38,7 @@ class StripePlanService
       stripe_price_id: price.id
     )
 
-    { product: product, price: price }
+    {product: product, price: price}
   rescue Stripe::StripeError => e
     raise StripeError, "Failed to create Stripe product/price: #{e.message}"
   end

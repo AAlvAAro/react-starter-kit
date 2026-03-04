@@ -5,7 +5,7 @@ module AuthenticationHelpers
 
   def sign_in(user)
     session = user.sessions.create!
-    post sign_in_url, params: { email: user.email, password: user.password || "Secret1*3*5*" }
+    post sign_in_url, params: {email: user.email, password: user.password || "Secret1*3*5*"}
   end
 
   def sign_in_as(user)
