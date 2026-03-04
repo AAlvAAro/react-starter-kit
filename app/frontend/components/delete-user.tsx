@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { usersPath } from "@/routes"
 import { t } from "@/lib/i18n"
+import { usersPath } from "@/routes"
 
 export default function DeleteUser() {
   const passwordInput = useRef<HTMLInputElement>(null)
@@ -27,12 +27,10 @@ export default function DeleteUser() {
         title={t("settings.delete.title")}
         description={t("settings.delete.subtitle")}
       />
-      <div className="space-y-4 rounded-lg border border-destructive/20 bg-destructive/5 p-4">
-        <div className="relative space-y-0.5 text-destructive">
+      <div className="border-destructive/20 bg-destructive/5 space-y-4 rounded-lg border p-4">
+        <div className="text-destructive relative space-y-0.5">
           <p className="font-medium">{t("settings.delete.warning")}</p>
-          <p className="text-sm">
-            {t("settings.delete.warning_text")}
-          </p>
+          <p className="text-sm">{t("settings.delete.warning_text")}</p>
         </div>
 
         <Dialog>
@@ -40,9 +38,7 @@ export default function DeleteUser() {
             <Button variant="destructive">{t("settings.delete.button")}</Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>
-              {t("settings.delete.dialog_title")}
-            </DialogTitle>
+            <DialogTitle>{t("settings.delete.dialog_title")}</DialogTitle>
             <DialogDescription>
               {t("settings.delete.dialog_description")}
             </DialogDescription>
@@ -86,7 +82,9 @@ export default function DeleteUser() {
                     </DialogClose>
 
                     <Button variant="destructive" disabled={processing} asChild>
-                      <button type="submit">{t("settings.delete.button")}</button>
+                      <button type="submit">
+                        {t("settings.delete.button")}
+                      </button>
                     </Button>
                   </DialogFooter>
                 </>

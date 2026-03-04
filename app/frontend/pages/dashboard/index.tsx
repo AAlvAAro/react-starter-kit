@@ -1,4 +1,5 @@
 import { LayoutDashboard } from "lucide-react"
+
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { t } from "@/lib/i18n"
 
@@ -7,9 +8,9 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="animate-fade-up">
         {/* Page header */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center">
-            <LayoutDashboard className="w-5 h-5" />
+        <div className="mb-8 flex items-center gap-3">
+          <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-lg">
+            <LayoutDashboard className="h-5 w-5" />
           </div>
           <div>
             <h1 className="text-2xl font-semibold">{t("dashboard.title")}</h1>
@@ -21,12 +22,12 @@ export default function Dashboard() {
 
         {/* Placeholder content */}
         <div className="stat-card">
-          <div className="text-center py-12">
-            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <LayoutDashboard className="w-6 h-6 text-muted-foreground" />
+          <div className="py-12 text-center">
+            <div className="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+              <LayoutDashboard className="text-muted-foreground h-6 w-6" />
             </div>
-            <h3 className="font-semibold mb-1">{t("dashboard.welcome")}</h3>
-            <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+            <h3 className="mb-1 font-semibold">{t("dashboard.welcome")}</h3>
+            <p className="text-muted-foreground mx-auto max-w-sm text-sm">
               {t("dashboard.welcome_message")}
             </p>
           </div>

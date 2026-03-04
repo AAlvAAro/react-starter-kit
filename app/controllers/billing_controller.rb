@@ -107,7 +107,7 @@ class BillingController < InertiaController
     customer = Stripe::Customer.create(
       email: Current.user.email,
       name: Current.user.name,
-      metadata: { user_id: Current.user.id }
+      metadata: {user_id: Current.user.id}
     )
     Current.user.update!(stripe_customer_id: customer.id)
     customer
@@ -117,7 +117,7 @@ class BillingController < InertiaController
     plan_id = session.metadata.plan_id
     plan = Plan.find(plan_id)
 
-    update_params = { current_plan: plan }
+    update_params = {current_plan: plan}
 
     if session.mode == "subscription"
       update_params[:stripe_subscription_id] = session.subscription

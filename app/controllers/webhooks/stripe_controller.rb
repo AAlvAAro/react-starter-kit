@@ -13,16 +13,16 @@ class Webhooks::StripeController < ApplicationController
         payload, sig_header, StripeConfig.webhook_secret
       )
     rescue JSON::ParserError
-      render json: { error: "Invalid payload" }, status: :bad_request
+      render json: {error: "Invalid payload"}, status: :bad_request
       return
     rescue Stripe::SignatureVerificationError
-      render json: { error: "Invalid signature" }, status: :bad_request
+      render json: {error: "Invalid signature"}, status: :bad_request
       return
     end
 
     handle_event(event)
 
-    render json: { received: true }
+    render json: {received: true}
   end
 
   private
@@ -51,7 +51,7 @@ class Webhooks::StripeController < ApplicationController
     plan = Plan.find_by(id: session.metadata.plan_id)
     return unless plan
 
-    update_params = { current_plan: plan }
+    update_params = {current_plan: plan}
 
     if session.mode == "subscription"
       update_params[:stripe_subscription_id] = session.subscription

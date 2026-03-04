@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
-import { settingsPasswordPath } from "@/routes"
 import { t } from "@/lib/i18n"
+import { settingsPasswordPath } from "@/routes"
 export default function Password() {
   return (
     <DashboardLayout>
@@ -35,7 +35,9 @@ export default function Password() {
             {({ errors, processing, recentlySuccessful }) => (
               <>
                 <div className="grid gap-2">
-                  <Label htmlFor="password_challenge">{t("settings.password.current")}</Label>
+                  <Label htmlFor="password_challenge">
+                    {t("settings.password.current")}
+                  </Label>
 
                   <Input
                     id="password_challenge"
@@ -82,7 +84,9 @@ export default function Password() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button disabled={processing}>{t("settings.password.save")}</Button>
+                  <Button disabled={processing}>
+                    {t("settings.password.save")}
+                  </Button>
 
                   <Transition
                     show={recentlySuccessful}
@@ -91,7 +95,9 @@ export default function Password() {
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                   >
-                    <p className="text-sm text-neutral-600">{t("settings.password.saved")}</p>
+                    <p className="text-sm text-neutral-600">
+                      {t("settings.password.saved")}
+                    </p>
                   </Transition>
                 </div>
               </>

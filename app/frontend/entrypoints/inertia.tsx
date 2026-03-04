@@ -4,8 +4,8 @@ import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
 import { initializeTheme } from "@/hooks/use-appearance"
-import { setLocale } from "@/lib/i18n"
 import PersistentLayout from "@/layouts/persistent-layout"
+import { setLocale } from "@/lib/i18n"
 
 const appName = import.meta.env.VITE_APP_NAME ?? "React Starter Kit"
 

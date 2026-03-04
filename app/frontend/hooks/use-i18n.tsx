@@ -1,5 +1,12 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react"
-import { t as translate, setLocale as setI18nLocale, getLocale, getAvailableLocales } from "@/lib/i18n"
+import type { ReactNode } from "react"
+import { createContext, useCallback, useContext, useState } from "react"
+
+import {
+  getAvailableLocales,
+  getLocale,
+  setLocale as setI18nLocale,
+  t as translate,
+} from "@/lib/i18n"
 
 interface I18nContextType {
   locale: string
@@ -24,7 +31,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     (key: string, params?: Record<string, string | number>) => {
       return translate(key, params)
     },
-    [locale] // Re-render when locale changes
+    [], // translate function handles locale internally
   )
 
   return (

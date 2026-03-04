@@ -28,7 +28,7 @@ class PlansController < InertiaController
         redirect_to edit_dashboard_plan_path(@plan), alert: I18n.t("flash.stripe_creation_failed", error: e.message)
       end
     else
-      redirect_to new_dashboard_plan_path, inertia: { errors: @plan.errors }
+      redirect_to new_dashboard_plan_path, inertia: {errors: @plan.errors}
     end
   end
 
@@ -42,7 +42,7 @@ class PlansController < InertiaController
     if @plan.update(plan_params)
       redirect_to dashboard_plans_path, notice: I18n.t("flash.plan_updated")
     else
-      redirect_to edit_dashboard_plan_path(@plan), inertia: { errors: @plan.errors }
+      redirect_to edit_dashboard_plan_path(@plan), inertia: {errors: @plan.errors}
     end
   end
 

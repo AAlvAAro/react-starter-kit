@@ -47,26 +47,33 @@ const translations: Record<string, Translations> = {
     "dashboard.title": "Panel de control",
     "dashboard.subtitle": "Bienvenido a tu panel de control.",
     "dashboard.welcome": "Bienvenido",
-    "dashboard.welcome_message": "Tu panel de control está listo. Comienza a construir tu aplicación.",
+    "dashboard.welcome_message":
+      "Tu panel de control está listo. Comienza a construir tu aplicación.",
 
     // Landing
     "landing.badge": "Rails + React + TypeScript",
     "landing.hero.title": "Construye Aplicaciones Web Modernas",
     "landing.hero.title_highlight": "Más Rápido",
-    "landing.hero.description": "Un starter kit listo para producción que combina el poder de Ruby on Rails con la flexibilidad de React. Autenticación, gestión de usuarios y componentes UI modernos incluidos.",
+    "landing.hero.description":
+      "Un starter kit listo para producción que combina el poder de Ruby on Rails con la flexibilidad de React. Autenticación, gestión de usuarios y componentes UI modernos incluidos.",
     "landing.hero.get_started": "Comenzar",
     "landing.hero.sign_in": "Iniciar sesión",
     "landing.hero.go_to_dashboard": "Ir al Panel",
     "landing.features.title": "Todo lo que Necesitas",
-    "landing.features.subtitle": "Construido con las mejores prácticas modernas y características listas para producción",
+    "landing.features.subtitle":
+      "Construido con las mejores prácticas modernas y características listas para producción",
     "landing.features.fast.title": "Ultrarrrápido",
-    "landing.features.fast.description": "Construido con Vite y React para desarrollo y compilaciones de producción ultrarrrápidas.",
+    "landing.features.fast.description":
+      "Construido con Vite y React para desarrollo y compilaciones de producción ultrarrrápidas.",
     "landing.features.secure.title": "Seguro por Defecto",
-    "landing.features.secure.description": "Autenticación, autorización y mejores prácticas de seguridad integradas desde el primer día.",
+    "landing.features.secure.description":
+      "Autenticación, autorización y mejores prácticas de seguridad integradas desde el primer día.",
     "landing.features.modern.title": "Stack Moderno",
-    "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js y TailwindCSS trabajando en perfecta armonía.",
+    "landing.features.modern.description":
+      "Rails, React, TypeScript, Inertia.js y TailwindCSS trabajando en perfecta armonía.",
     "landing.features.production.title": "Listo para Producción",
-    "landing.features.production.description": "Incluye gestión de usuarios, sesiones, verificación de email y control de acceso basado en roles.",
+    "landing.features.production.description":
+      "Incluye gestión de usuarios, sesiones, verificación de email y control de acceso basado en roles.",
     "landing.footer.copyright": "React Starter Kit",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contacto",
@@ -105,7 +112,8 @@ const translations: Record<string, Translations> = {
     "admin.plans.yearly": "Anual",
     "admin.plans.one_time": "Pago único",
     "admin.plans.delete_confirm_title": "¿Eliminar plan?",
-    "admin.plans.delete_confirm_description": "¿Estás seguro de que deseas eliminar el plan {name}? Esta acción no se puede deshacer.",
+    "admin.plans.delete_confirm_description":
+      "¿Estás seguro de que deseas eliminar el plan {name}? Esta acción no se puede deshacer.",
     "admin.plans.edit": "Editar Plan",
     "admin.plans.create": "Crear Plan",
     "admin.plans.description": "Descripción",
@@ -120,7 +128,8 @@ const translations: Record<string, Translations> = {
     "sidebar.documentation": "Documentación",
 
     // Email
-    "mailer.footer": "¿Tienes preguntas? Simplemente responde a este correo y nuestro equipo de soporte te ayudará.",
+    "mailer.footer":
+      "¿Tienes preguntas? Simplemente responde a este correo y nuestro equipo de soporte te ayudará.",
     "mailer.password_reset.subject": "Restablece tu contraseña",
     "mailer.email_verification.subject": "Verifica tu correo electrónico",
 
@@ -149,11 +158,13 @@ const translations: Record<string, Translations> = {
     "settings.email.current_password": "Contraseña actual",
     "settings.email.current_password_placeholder": "Contraseña actual",
     "settings.email.unverified": "Tu correo electrónico no está verificado.",
-    "settings.email.resend": "Haz clic aquí para reenviar el correo de verificación.",
+    "settings.email.resend":
+      "Haz clic aquí para reenviar el correo de verificación.",
     "settings.email.save": "Guardar",
     "settings.email.saved": "Guardado",
     "settings.password.title": "Actualizar contraseña",
-    "settings.password.subtitle": "Asegúrate de que tu cuenta use una contraseña larga y aleatoria para mantenerse segura",
+    "settings.password.subtitle":
+      "Asegúrate de que tu cuenta use una contraseña larga y aleatoria para mantenerse segura",
     "settings.password.current": "Contraseña actual",
     "settings.password.current_placeholder": "Contraseña actual",
     "settings.password.new": "Nueva contraseña",
@@ -163,13 +174,15 @@ const translations: Record<string, Translations> = {
     "settings.password.save": "Guardar contraseña",
     "settings.password.saved": "Guardado",
     "settings.sessions.title": "Sesiones",
-    "settings.sessions.subtitle": "Administra tus sesiones activas en todos tus dispositivos",
+    "settings.sessions.subtitle":
+      "Administra tus sesiones activas en todos tus dispositivos",
     "settings.sessions.current": "Sesión activa",
     "settings.sessions.ip": "IP",
     "settings.sessions.active_since": "Activo desde",
     "settings.sessions.log_out": "Cerrar sesión",
     "settings.appearance.title": "Configuración de apariencia",
-    "settings.appearance.subtitle": "Actualiza la configuración de apariencia de tu cuenta",
+    "settings.appearance.subtitle":
+      "Actualiza la configuración de apariencia de tu cuenta",
     "settings.appearance.theme": "Tema",
     "settings.appearance.light": "Claro",
     "settings.appearance.dark": "Oscuro",
@@ -178,34 +191,47 @@ const translations: Record<string, Translations> = {
     "settings.delete.subtitle": "Elimina tu cuenta y todos sus recursos",
     "settings.delete.button": "Eliminar cuenta",
     "settings.delete.warning": "Advertencia",
-    "settings.delete.warning_text": "Por favor procede con precaución, esto no se puede deshacer.",
-    "settings.delete.dialog_title": "¿Estás seguro de que quieres eliminar tu cuenta?",
-    "settings.delete.dialog_description": "Una vez que tu cuenta sea eliminada, todos sus recursos y datos también serán eliminados permanentemente. Por favor ingresa tu contraseña para confirmar que deseas eliminar tu cuenta permanentemente.",
+    "settings.delete.warning_text":
+      "Por favor procede con precaución, esto no se puede deshacer.",
+    "settings.delete.dialog_title":
+      "¿Estás seguro de que quieres eliminar tu cuenta?",
+    "settings.delete.dialog_description":
+      "Una vez que tu cuenta sea eliminada, todos sus recursos y datos también serán eliminados permanentemente. Por favor ingresa tu contraseña para confirmar que deseas eliminar tu cuenta permanentemente.",
     "settings.delete.password_label": "Contraseña",
     "settings.delete.password_placeholder": "Contraseña",
     "settings.delete.cancel": "Cancelar",
     "settings.billing.title": "Facturación y Suscripción",
-    "settings.billing.subtitle": "Administra tu suscripción e historial de pagos",
+    "settings.billing.subtitle":
+      "Administra tu suscripción e historial de pagos",
     "settings.billing.current_plan": "Plan Actual",
-    "settings.billing.current_plan_description": "Tu plan de suscripción activo",
+    "settings.billing.current_plan_description":
+      "Tu plan de suscripción activo",
     "settings.billing.payment_history": "Historial de Pagos",
-    "settings.billing.payment_history_description": "Ver tus pagos anteriores y facturas",
+    "settings.billing.payment_history_description":
+      "Ver tus pagos anteriores y facturas",
     "settings.billing.no_plan": "No tienes un plan activo",
     "settings.billing.view_plans": "Ver Planes Disponibles",
     "settings.billing.manage_billing": "Administrar Facturación",
     "settings.billing.cancel_subscription": "Cancelar Suscripción",
-    "settings.billing.cancel_confirm": "¿Estás seguro de que deseas cancelar tu suscripción? Seguirás teniendo acceso hasta el final de tu período de facturación.",
-    "settings.billing.cancel_success": "Tu suscripción ha sido programada para cancelación al final del período de facturación.",
-    "settings.billing.cancel_error": "Error al cancelar la suscripción. Por favor intenta de nuevo.",
-    "settings.billing.no_subscription": "No tienes una suscripción activa para cancelar.",
-    "settings.billing.subscription_canceled": "Tu suscripción será cancelada al final del período de facturación.",
-    "settings.billing.cancel_failed": "Error al cancelar la suscripción: %{error}",
+    "settings.billing.cancel_confirm":
+      "¿Estás seguro de que deseas cancelar tu suscripción? Seguirás teniendo acceso hasta el final de tu período de facturación.",
+    "settings.billing.cancel_success":
+      "Tu suscripción ha sido programada para cancelación al final del período de facturación.",
+    "settings.billing.cancel_error":
+      "Error al cancelar la suscripción. Por favor intenta de nuevo.",
+    "settings.billing.no_subscription":
+      "No tienes una suscripción activa para cancelar.",
+    "settings.billing.subscription_canceled":
+      "Tu suscripción será cancelada al final del período de facturación.",
+    "settings.billing.cancel_failed":
+      "Error al cancelar la suscripción: %{error}",
     "settings.billing.payment": "Pago",
     "settings.billing.no_payments": "No hay historial de pagos disponible",
     "settings.billing.monthly": "por mes",
     "settings.billing.yearly": "por año",
     "settings.billing.one_time": "pago único",
-    "settings.billing.stripe_info": "La facturación se administra a través de Stripe. Haz clic en 'Administrar Facturación' para actualizar métodos de pago o ver facturas.",
+    "settings.billing.stripe_info":
+      "La facturación se administra a través de Stripe. Haz clic en 'Administrar Facturación' para actualizar métodos de pago o ver facturas.",
     "settings.billing.status.active": "activo",
     "settings.billing.status.succeeded": "exitoso",
     "settings.billing.status.canceled": "cancelado",
@@ -222,7 +248,8 @@ const translations: Record<string, Translations> = {
     "auth.no_account": "¿No tienes cuenta?",
     "auth.have_account": "¿Ya tienes cuenta?",
     "auth.login.title": "Inicia sesión en tu cuenta",
-    "auth.login.description": "Ingresa tu correo y contraseña para iniciar sesión",
+    "auth.login.description":
+      "Ingresa tu correo y contraseña para iniciar sesión",
     "auth.login.email": "Correo electrónico",
     "auth.login.email_placeholder": "correo@ejemplo.com",
     "auth.login.password": "Contraseña",
@@ -240,13 +267,13 @@ const translations: Record<string, Translations> = {
     "auth.signup.password_confirmation_placeholder": "Confirmar contraseña",
     "auth.signup.button": "Crear cuenta",
     "auth.password_reset.title": "Olvidé mi contraseña",
-    "auth.password_reset.description": "Ingresa tu correo para recibir un enlace de recuperación",
+    "auth.password_reset.description":
+      "Ingresa tu correo para recibir un enlace de recuperación",
     "auth.password_reset.email": "Correo electrónico",
     "auth.password_reset.email_placeholder": "correo@ejemplo.com",
     "auth.password_reset.button": "Enviar enlace de recuperación",
     "auth.password_reset.return": "O, regresar a",
     "auth.password_reset.login": "iniciar sesión",
-
   },
   "en-US": {
     // Navigation
@@ -280,26 +307,33 @@ const translations: Record<string, Translations> = {
     "dashboard.title": "Dashboard",
     "dashboard.subtitle": "Welcome to your dashboard.",
     "dashboard.welcome": "Welcome",
-    "dashboard.welcome_message": "Your dashboard is ready. Start building your application.",
+    "dashboard.welcome_message":
+      "Your dashboard is ready. Start building your application.",
 
     // Landing
     "landing.badge": "Rails + React + TypeScript",
     "landing.hero.title": "Build Modern Web Apps",
     "landing.hero.title_highlight": "Faster",
-    "landing.hero.description": "A production-ready starter kit combining the power of Ruby on Rails with the flexibility of React. Authentication, user management, and modern UI components included.",
+    "landing.hero.description":
+      "A production-ready starter kit combining the power of Ruby on Rails with the flexibility of React. Authentication, user management, and modern UI components included.",
     "landing.hero.get_started": "Get Started",
     "landing.hero.sign_in": "Sign In",
     "landing.hero.go_to_dashboard": "Go to Dashboard",
     "landing.features.title": "Everything You Need",
-    "landing.features.subtitle": "Built with modern best practices and production-ready features",
+    "landing.features.subtitle":
+      "Built with modern best practices and production-ready features",
     "landing.features.fast.title": "Lightning Fast",
-    "landing.features.fast.description": "Built with Vite and React for blazing fast development and production builds.",
+    "landing.features.fast.description":
+      "Built with Vite and React for blazing fast development and production builds.",
     "landing.features.secure.title": "Secure by Default",
-    "landing.features.secure.description": "Authentication, authorization, and security best practices built-in from day one.",
+    "landing.features.secure.description":
+      "Authentication, authorization, and security best practices built-in from day one.",
     "landing.features.modern.title": "Modern Stack",
-    "landing.features.modern.description": "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
+    "landing.features.modern.description":
+      "Rails, React, TypeScript, Inertia.js, and TailwindCSS working in perfect harmony.",
     "landing.features.production.title": "Production Ready",
-    "landing.features.production.description": "Includes user management, sessions, email verification, and role-based access control.",
+    "landing.features.production.description":
+      "Includes user management, sessions, email verification, and role-based access control.",
     "landing.footer.copyright": "React Starter Kit",
     "landing.footer.github": "GitHub",
     "landing.footer.contact": "Contact",
@@ -338,7 +372,8 @@ const translations: Record<string, Translations> = {
     "admin.plans.yearly": "Yearly",
     "admin.plans.one_time": "One-time",
     "admin.plans.delete_confirm_title": "Delete plan?",
-    "admin.plans.delete_confirm_description": "Are you sure you want to delete the plan {name}? This action cannot be undone.",
+    "admin.plans.delete_confirm_description":
+      "Are you sure you want to delete the plan {name}? This action cannot be undone.",
     "admin.plans.edit": "Edit Plan",
     "admin.plans.create": "Create Plan",
     "admin.plans.description": "Description",
@@ -353,7 +388,8 @@ const translations: Record<string, Translations> = {
     "sidebar.documentation": "Documentation",
 
     // Email
-    "mailer.footer": "Have questions? Just reply to this email and our support team will help you out.",
+    "mailer.footer":
+      "Have questions? Just reply to this email and our support team will help you out.",
     "mailer.password_reset.subject": "Reset your password",
     "mailer.email_verification.subject": "Verify your email",
 
@@ -399,34 +435,45 @@ const translations: Record<string, Translations> = {
     "settings.delete.subtitle": "Delete your account and all of its resources",
     "settings.delete.button": "Delete account",
     "settings.delete.warning": "Warning",
-    "settings.delete.warning_text": "Please proceed with caution, this cannot be undone.",
-    "settings.delete.dialog_title": "Are you sure you want to delete your account?",
-    "settings.delete.dialog_description": "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+    "settings.delete.warning_text":
+      "Please proceed with caution, this cannot be undone.",
+    "settings.delete.dialog_title":
+      "Are you sure you want to delete your account?",
+    "settings.delete.dialog_description":
+      "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
     "settings.delete.password_label": "Password",
     "settings.delete.password_placeholder": "Password",
     "settings.delete.cancel": "Cancel",
     "settings.billing.title": "Billing & Subscription",
     "settings.billing.subtitle": "Manage your subscription and payment history",
     "settings.billing.current_plan": "Current Plan",
-    "settings.billing.current_plan_description": "Your active subscription plan",
+    "settings.billing.current_plan_description":
+      "Your active subscription plan",
     "settings.billing.payment_history": "Payment History",
-    "settings.billing.payment_history_description": "View your past payments and invoices",
+    "settings.billing.payment_history_description":
+      "View your past payments and invoices",
     "settings.billing.no_plan": "You don't have an active plan",
     "settings.billing.view_plans": "View Available Plans",
     "settings.billing.manage_billing": "Manage Billing",
     "settings.billing.cancel_subscription": "Cancel Subscription",
-    "settings.billing.cancel_confirm": "Are you sure you want to cancel your subscription? You will still have access until the end of your billing period.",
-    "settings.billing.cancel_success": "Your subscription has been scheduled for cancellation at the end of the billing period.",
-    "settings.billing.cancel_error": "Failed to cancel subscription. Please try again.",
-    "settings.billing.no_subscription": "You don't have an active subscription to cancel.",
-    "settings.billing.subscription_canceled": "Your subscription will be canceled at the end of the billing period.",
+    "settings.billing.cancel_confirm":
+      "Are you sure you want to cancel your subscription? You will still have access until the end of your billing period.",
+    "settings.billing.cancel_success":
+      "Your subscription has been scheduled for cancellation at the end of the billing period.",
+    "settings.billing.cancel_error":
+      "Failed to cancel subscription. Please try again.",
+    "settings.billing.no_subscription":
+      "You don't have an active subscription to cancel.",
+    "settings.billing.subscription_canceled":
+      "Your subscription will be canceled at the end of the billing period.",
     "settings.billing.cancel_failed": "Failed to cancel subscription: %{error}",
     "settings.billing.payment": "Payment",
     "settings.billing.no_payments": "No payment history available",
     "settings.billing.monthly": "per month",
     "settings.billing.yearly": "per year",
     "settings.billing.one_time": "one-time",
-    "settings.billing.stripe_info": "Billing is managed through Stripe. Click 'Manage Billing' to update payment methods or view invoices.",
+    "settings.billing.stripe_info":
+      "Billing is managed through Stripe. Click 'Manage Billing' to update payment methods or view invoices.",
     "settings.billing.status.active": "active",
     "settings.billing.status.succeeded": "succeeded",
     "settings.billing.status.canceled": "canceled",
@@ -450,7 +497,8 @@ const translations: Record<string, Translations> = {
     "auth.login.password_placeholder": "Password",
     "auth.login.button": "Log in",
     "auth.signup.title": "Create an account",
-    "auth.signup.description": "Enter your details below to create your account",
+    "auth.signup.description":
+      "Enter your details below to create your account",
     "auth.signup.name": "Name",
     "auth.signup.name_placeholder": "Full name",
     "auth.signup.email": "Email address",
@@ -461,13 +509,13 @@ const translations: Record<string, Translations> = {
     "auth.signup.password_confirmation_placeholder": "Confirm password",
     "auth.signup.button": "Create account",
     "auth.password_reset.title": "Forgot password",
-    "auth.password_reset.description": "Enter your email to receive a password reset link",
+    "auth.password_reset.description":
+      "Enter your email to receive a password reset link",
     "auth.password_reset.email": "Email address",
     "auth.password_reset.email_placeholder": "email@example.com",
     "auth.password_reset.button": "Email password reset link",
     "auth.password_reset.return": "Or, return to",
     "auth.password_reset.login": "log in",
-
   },
 }
 
@@ -483,8 +531,12 @@ export function getLocale(): string {
   return currentLocale
 }
 
-export function t(key: string, params?: Record<string, string | number>): string {
-  const localeTranslations = translations[currentLocale] || translations["en-US"]
+export function t(
+  key: string,
+  params?: Record<string, string | number>,
+): string {
+  const localeTranslations =
+    translations[currentLocale] || translations["en-US"]
   let translation = (localeTranslations[key] as string) || key
 
   if (params) {

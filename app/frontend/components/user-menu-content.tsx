@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { UserInfo } from "@/components/user-info"
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation"
+import { t } from "@/lib/i18n"
 import { sessionPath, settingsProfilePath } from "@/routes"
 import type { User } from "@/types"
-import { t } from "@/lib/i18n"
 
 interface UserMenuContentProps {
   auth: {

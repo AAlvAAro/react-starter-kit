@@ -15,7 +15,7 @@ class DatabaseStatsResource < ApplicationResource
       users_by_role: User.group(:role).count,
       plans_by_interval: Plan.group(:interval).count,
       recent_users: User.order(created_at: :desc).limit(5).pluck(:email, :created_at).map do |email, created_at|
-        { email: email, created_at: created_at.iso8601 }
+        {email: email, created_at: created_at.iso8601}
       end
     }
 

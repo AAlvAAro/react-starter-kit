@@ -1,5 +1,11 @@
 import { Link } from "@inertiajs/react"
-import { BookOpen, CreditCard, Folder, LayoutGrid, Settings } from "lucide-react"
+import {
+  BookOpen,
+  CreditCard,
+  Folder,
+  LayoutGrid,
+  Settings,
+} from "lucide-react"
 
 import { NavFooter } from "@/components/nav-footer"
 import { NavMain } from "@/components/nav-main"
@@ -13,9 +19,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { t } from "@/lib/i18n"
 import { dashboardPath, settingsProfilePath } from "@/routes"
 import type { NavItem } from "@/types"
-import { t } from "@/lib/i18n"
 
 import AppLogo from "./app-logo"
 

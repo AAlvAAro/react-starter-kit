@@ -1,8 +1,16 @@
-import { Head, Link, router } from "@inertiajs/react"
+import { Head, Link } from "@inertiajs/react"
 import { Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { t } from "@/lib/i18n"
 
 interface Plan {
@@ -23,27 +31,29 @@ interface PricingProps {
   payment_mode: string
 }
 
-export default function Pricing({ plans, stripe_publishable_key, payment_mode }: PricingProps) {
+export default function Pricing({ plans }: PricingProps) {
   const handleCheckout = (planId: number) => {
     // Create a form and submit it to trigger a full page navigation
-    const form = document.createElement('form')
-    form.method = 'POST'
-    form.action = '/billing/checkout'
+    const form = document.createElement("form")
+    form.method = "POST"
+    form.action = "/billing/checkout"
 
     // Add CSRF token
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+    const csrfToken = document
+      .querySelector('meta[name="csrf-token"]')
+      ?.getAttribute("content")
     if (csrfToken) {
-      const csrfInput = document.createElement('input')
-      csrfInput.type = 'hidden'
-      csrfInput.name = 'authenticity_token'
+      const csrfInput = document.createElement("input")
+      csrfInput.type = "hidden"
+      csrfInput.name = "authenticity_token"
       csrfInput.value = csrfToken
       form.appendChild(csrfInput)
     }
 
     // Add plan_id
-    const planInput = document.createElement('input')
-    planInput.type = 'hidden'
-    planInput.name = 'plan_id'
+    const planInput = document.createElement("input")
+    planInput.type = "hidden"
+    planInput.name = "plan_id"
     planInput.value = planId.toString()
     form.appendChild(planInput)
 
@@ -67,18 +77,23 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
   return (
     <>
       <Head title={t("pricing.title")} />
-      <div className="min-h-screen bg-background">
+      <div className="bg-background min-h-screen">
         {/* Header */}
-        <header className="border-b border-border">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <header className="border-border border-b">
+          <div className="container mx-auto flex items-center justify-between px-4 py-4">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">R</span>
+              <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
+                <span className="text-primary-foreground text-sm font-bold">
+                  R
+                </span>
               </div>
               <span className="font-semibold">React Starter Kit</span>
             </Link>
             <nav className="flex items-center gap-4">
-              <Link href="/sign_in" className="text-sm text-muted-foreground hover:text-foreground">
+              <Link
+                href="/sign_in"
+                className="text-muted-foreground hover:text-foreground text-sm"
+              >
                 {t("auth.sign_in")}
               </Link>
               <Button asChild size="sm">
@@ -90,18 +105,18 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
 
         {/* Pricing Section */}
         <section className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold mb-4">{t("pricing.title")}</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <div className="mb-16 text-center">
+            <h1 className="mb-4 text-4xl font-bold">{t("pricing.title")}</h1>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
               {t("pricing.subtitle")}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan, index) => (
               <Card
                 key={plan.id}
-                className={`relative ${index === 1 ? "border-primary shadow-lg scale-105" : ""}`}
+                className={`relative ${index === 1 ? "border-primary scale-105 shadow-lg" : ""}`}
               >
                 {index === 1 && (
                   <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -114,7 +129,9 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <span className="text-4xl font-bold">{plan.formatted_price}</span>
+                    <span className="text-4xl font-bold">
+                      {plan.formatted_price}
+                    </span>
                     <span className="text-muted-foreground ml-2">
                       {getIntervalLabel(plan.interval)}
                     </span>
@@ -122,7 +139,7 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
                   <ul className="space-y-3">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-primary" />
+                        <Check className="text-primary h-4 w-4" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
@@ -143,8 +160,8 @@ export default function Pricing({ plans, stripe_publishable_key, payment_mode }:
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-border py-8">
-          <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+        <footer className="border-border border-t py-8">
+          <div className="text-muted-foreground container mx-auto px-4 text-center text-sm">
             <p>{t("pricing.secure_payments")}</p>
           </div>
         </footer>
