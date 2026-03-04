@@ -1,16 +1,17 @@
 import { Head, Link } from "@inertiajs/react"
-import { Button } from "@/components/ui/button"
 import {
   ArrowLeft,
-  Terminal,
-  Key,
-  Server,
-  CreditCard,
   Bot,
-  Mail,
   Bug,
+  CreditCard,
+  Key,
+  Mail,
   Rocket,
+  Server,
+  Terminal,
 } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 
 const sections = [
   { id: "quick-start", label: "Quick Start", icon: Terminal },
@@ -401,7 +402,7 @@ OPENAI_API_KEY=your_openai_key`}
                   Rails Master Key
                 </h3>
                 <p className="mb-2">
-                  The master key is used to decrypt Rails credentials. It's
+                  The master key is used to decrypt Rails credentials. It&apos;s
                   stored in{" "}
                   <code className="bg-muted rounded px-2 py-1">
                     config/master.key

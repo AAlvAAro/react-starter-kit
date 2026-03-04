@@ -1,4 +1,5 @@
 import { LayoutDashboard } from "lucide-react"
+
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { t } from "@/lib/i18n"
 

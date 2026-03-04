@@ -1,22 +1,6 @@
 import { Head, Link, router } from "@inertiajs/react"
-import { Plus, Pencil, Trash2, Check, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Check, Pencil, Plus, Trash2, X } from "lucide-react"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +12,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import { t } from "@/lib/i18n"
 

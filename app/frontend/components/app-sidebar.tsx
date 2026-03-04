@@ -19,9 +19,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { t } from "@/lib/i18n"
 import { dashboardPath, settingsProfilePath } from "@/routes"
 import type { NavItem } from "@/types"
-import { t } from "@/lib/i18n"
 
 import AppLogo from "./app-logo"
 

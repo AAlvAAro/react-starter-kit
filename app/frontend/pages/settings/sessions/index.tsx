@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
+import { t } from "@/lib/i18n"
 import { sessionPath } from "@/routes"
 import type { Session } from "@/types"
-import { t } from "@/lib/i18n"
 
 interface SessionsProps {
   sessions: Session[]

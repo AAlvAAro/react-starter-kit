@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
-import { settingsPasswordPath } from "@/routes"
 import { t } from "@/lib/i18n"
+import { settingsPasswordPath } from "@/routes"
 export default function Password() {
   return (
     <DashboardLayout>

@@ -1,22 +1,23 @@
 import { Head, Link, usePage } from "@inertiajs/react"
-import { useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
 import {
-  Package,
-  Zap,
-  Shield,
+  ArrowRight,
+  Bot,
+  Bug,
+  Check,
   Code,
+  Cpu,
+  CreditCard,
   Github,
   Mail,
-  ArrowRight,
-  Check,
-  Bot,
-  CreditCard,
-  Send,
-  Bug,
   MessageSquare,
-  Cpu,
+  Package,
+  Send,
+  Shield,
+  Zap,
 } from "lucide-react"
+import { useEffect, useRef } from "react"
+
+import { Button } from "@/components/ui/button"
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null)
@@ -60,7 +61,7 @@ interface HomeProps {
 }
 
 export default function Home({ plans = [] }: HomeProps) {
-  const { auth } = usePage().props as any
+  const { auth } = usePage<{ auth: { user: { id: number } | null } }>().props
   const isLoggedIn = auth?.user != null
 
   const heroRef = useScrollReveal()

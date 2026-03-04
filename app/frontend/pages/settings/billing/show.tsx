@@ -1,7 +1,9 @@
 import { Head, router, usePage } from "@inertiajs/react"
-import { CreditCard, Calendar, DollarSign, AlertCircle } from "lucide-react"
+import { AlertCircle, Calendar, CreditCard, DollarSign } from "lucide-react"
 
 import HeadingSmall from "@/components/heading-small"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,8 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { t } from "@/lib/i18n"
@@ -38,7 +38,7 @@ interface BillingProps {
   subscription_status: string | null
   payments: Payment[]
   stripe_customer_id: string | null
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export default function Billing() {

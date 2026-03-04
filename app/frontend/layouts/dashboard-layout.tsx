@@ -1,18 +1,21 @@
-import { ReactNode, useState } from "react"
 import { Link, usePage } from "@inertiajs/react"
-import { t } from "@/lib/i18n"
 import {
-  Package,
-  LayoutDashboard,
-  Github,
-  FileText,
   ChevronDown,
-  Settings,
+  CreditCard,
+  FileText,
+  Github,
+  LayoutDashboard,
   LogOut,
   Menu,
+  Package,
+  Settings,
   X,
-  CreditCard,
 } from "lucide-react"
+import { useState } from "react"
+import type { ReactNode } from "react"
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,8 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { t } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 import type { SharedData } from "@/types"
 

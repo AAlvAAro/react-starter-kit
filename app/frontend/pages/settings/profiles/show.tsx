@@ -17,12 +17,14 @@ import {
 } from "@/components/ui/select"
 import { DashboardLayout } from "@/layouts/dashboard-layout"
 import SettingsLayout from "@/layouts/settings/layout"
-import { settingsProfilePath } from "@/routes"
 import { t } from "@/lib/i18n"
+import { settingsProfilePath } from "@/routes"
 
 export default function Profile() {
-  const { auth } = usePage().props
-  const [locale, setLocale] = useState((auth.user as any).locale || "es-MX")
+  const { auth } = usePage<{
+    auth: { user: { name: string; locale?: string } }
+  }>().props
+  const [locale, setLocale] = useState(auth.user.locale ?? "es-MX")
 
   return (
     <DashboardLayout>

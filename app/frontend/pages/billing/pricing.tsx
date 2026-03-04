@@ -1,5 +1,7 @@
-import { Head, Link, router } from "@inertiajs/react"
+import { Head, Link } from "@inertiajs/react"
 import { Check } from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -9,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { t } from "@/lib/i18n"
 
 interface Plan {
@@ -30,11 +31,7 @@ interface PricingProps {
   payment_mode: string
 }
 
-export default function Pricing({
-  plans,
-  stripe_publishable_key,
-  payment_mode,
-}: PricingProps) {
+export default function Pricing({ plans }: PricingProps) {
   const handleCheckout = (planId: number) => {
     // Create a form and submit it to trigger a full page navigation
     const form = document.createElement("form")

@@ -1,5 +1,4 @@
 import { Link, usePage } from "@inertiajs/react"
-import { t } from "@/lib/i18n"
 
 import {
   SidebarGroup,
@@ -8,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { t } from "@/lib/i18n"
 import type { NavItem } from "@/types"
 
 interface NavMainProps {
