@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react"
 import type { PropsWithChildren } from "react"
 
-import AppLogoIcon from "@/components/app-logo-icon"
 import { rootPath } from "@/routes"
 
 interface AuthLayoutProps {
@@ -24,8 +23,8 @@ export default function AuthSimpleLayout({
               href={rootPath()}
               className="flex flex-col items-center gap-2 font-medium"
             >
-              <div className="mb-1 flex size-14 items-center justify-center rounded-md">
-                <AppLogoIcon className="size-14 fill-current text-[var(--foreground)] dark:text-white" />
+              <div className="mb-1 flex items-center justify-center">
+                <img src="/icon.png" alt="Rails AI Kit" className="h-14" />
               </div>
               <span className="sr-only">{title}</span>
             </Link>

@@ -1,77 +1,81 @@
-```
-█████   ███   █ █     ████       ███   █    █   █ █ █████
-█   █  █   █  █ █    █          █   █  █    █  █  █   █
-█████  █████  █ █     ███       █████  █    ███   █   █
-█   █  █   █  █ █        █      █   █  █    █  █  █   █
-█   █  █   █  █ █████ ████      █   █  █    █   █ █   █
-```
+<div align="center">
 
-> *"I'm trying to free your mind, Neo. But I can only show you the door. You're the one that has to walk through it."*
-> — Morpheus
+<img src="public/logo.png" alt="Rails AI Kit" width="300" />
 
----
+### Build Modern Web Apps Faster
 
-**Wake up, developer...** The Matrix has you. Follow the white rabbit.
+A production-ready starter kit combining Ruby on Rails with React, TypeScript, and AI integrations.
 
-A modern full-stack starter kit for building **AI-powered applications** with Rails and React. Forked from [inertia-rails/react-starter-kit](https://github.com/inertia-rails/react-starter-kit).
+[![Ruby on Rails](https://img.shields.io/badge/Rails-8.1-red?style=flat-square&logo=rubyonrails)](https://rubyonrails.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+</div>
 
 ---
 
-## 💊 Choose Your Pill
+## ✨ Features
 
-| 🔴 Red Pill | 🔵 Blue Pill |
-|-------------|--------------|
-| Clone this repo | Stay in wonderland |
-| Build something real | Keep using boilerplate |
-| See how deep the rabbit hole goes | Believe whatever you want |
+### Core Stack
+- **Inertia.js** — Modern monolith SPA architecture
+- **Vite** — Lightning-fast builds and HMR
+- **React + TypeScript** — Type-safe UI development
+- **shadcn/ui** — Beautiful, accessible components
+- **TailwindCSS** — Utility-first styling
+- **Authentication Zero** — Auth out of the box
+- **Kamal** — Zero-downtime deployments
 
----
-
-## ⚡ What's Inside the Construct
-
-```
-SYSTEM LOADING...
-├── [Inertia Rails]      → Seamless SPA experience
-├── [Vite Rails]         → Lightning-fast builds
-├── [React + TypeScript] → The One framework
-├── [shadcn/ui]          → Beautiful components
-├── [Authentication]     → Based on Authentication Zero
-├── [Stripe]             → Payment integration
-├── [Kamal]              → Deploy anywhere
-└── [SSR Support]        → Optional server-side rendering
-```
+### AI & Integrations
+- **FastMCP** — Model Context Protocol for AI assistants
+- **ruby_llm** — Multi-provider LLM support (OpenAI, Anthropic, Gemini)
+- **Stripe** — Payment processing & subscriptions
+- **Postmark** — Transactional email delivery
+- **Sentry** — Error tracking and monitoring
 
 ---
 
-## 🖥️ Jack In
+## 🚀 Quick Start
 
 ```bash
-# There is no spoon... but there is a setup script
-$ bin/setup
+# Clone the repository
+git clone https://github.com/AAlvAAro/rails-ai-kit.git
+cd rails-ai-kit
 
-# The Matrix is loading...
-$ open http://localhost:3000
+# Install dependencies and setup database
+bin/setup
+
+# Start the development server
+bin/dev
+
+# Open http://localhost:3000
 ```
 
 ---
 
-## 🔮 Enabling SSR (Server-Side Rendering)
+## 📖 Documentation
 
-> *"You have to let it all go, Neo. Fear, doubt, and disbelief. Free your mind."*
+Visit `/docs` in your running application for detailed setup instructions including:
 
-### Step 1: Uncomment the hydration code
+- Environment variables configuration
+- Stripe setup and billing
+- AI integration (ruby_llm, FastMCP)
+- Email configuration (Postmark)
+- Deployment with Kamal
+- Server-side rendering (SSR)
 
-Open `app/frontend/entrypoints/inertia.ts`:
+---
+
+## ⚙️ Enabling SSR
+
+Open `app/frontend/entrypoints/inertia.ts` and uncomment:
 
 ```ts
-// Uncomment the following to enable SSR hydration:
 if (el.hasChildNodes()) {
   hydrateRoot(el, createElement(App, props))
   return
 }
 ```
-
-### Step 2: Configure deployment
 
 Open `config/deploy.yml` and uncomment:
 
@@ -93,37 +97,8 @@ builder:
   dockerfile: Dockerfile-ssr
 ```
 
-**You are The One.** Deploy with SSR support.
-
----
-
-## 🙏 Acknowledgments
-
-> *"I didn't say it would be easy, Neo. I just said it would be the truth."*
-
-This project is a fork of [inertia-rails/react-starter-kit](https://github.com/inertia-rails/react-starter-kit), originally created by [Evil Martians](https://evilmartians.com/).
-
-<a href="https://evilmartians.com/?utm_source=rails-ai-kit&utm_campaign=project_page">
-<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Built by Evil Martians" width="236" height="54">
-</a>
-
 ---
 
 ## 📜 License
 
-```
-THE MATRIX HAS YOU...
-
-This project is available as open source under the MIT License.
-The original inertia-rails/react-starter-kit is also MIT licensed.
-
-There is no spoon. There is only code.
-```
-
-[MIT License](https://opensource.org/licenses/MIT)
-
----
-
-```
- END OF LINE
-```
+[MIT License](https://opensource.org/licenses/MIT) — Forked from [inertia-rails/react-starter-kit](https://github.com/inertia-rails/react-starter-kit)
